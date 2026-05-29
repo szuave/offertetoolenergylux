@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* Energylux brand */
+  --color-brand-primary: #056d91;
+  --color-brand-primary-dark: #044d68;
+  --color-brand-primary-light: #2a8db3;
+  --color-brand-accent: #b4cb02;
+  --color-brand-accent-dark: #7a8a01;
+  --color-brand-accent-light: #d4e64a;
+
+  /* Editorial neutral palette — warm, near-black ink */
+  --color-ink: #0a0a0b;
+  --color-ink-soft: #1c1d20;
+  --color-ink-mid: #5a5d63;
+  --color-ink-muted: #9aa0a6;
+  --color-rule: #e3e3e0;
+  --color-rule-soft: #ececea;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f6f6f4;
+  --color-surface-deep: #efefe9;
+
+  /* Legacy aliases so components written with the previous scale keep
+     working. Each maps onto a token from the editorial palette above. */
+  --color-ink-50: #f6f6f4;
+  --color-ink-100: #ececea;
+  --color-ink-200: #e3e3e0;
+  --color-ink-300: #c9c9c4;
+  --color-ink-400: #9aa0a6;
+  --color-ink-500: #5a5d63;
+  --color-ink-700: #1c1d20;
+  --color-ink-900: #0a0a0b;
+  --color-surface-sunken: #f6f6f4;
+
+  /* Feedback colors — tuned to feel like part of the same palette */
+  --color-success: #1f7a4a;
+  --color-success-bg: #e9f3ec;
+  --color-warning: #a35f08;
+  --color-warning-bg: #fbf1df;
+  --color-danger: #b22323;
+  --color-danger-bg: #fbe9e9;
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", Consolas, monospace;
+
+  /* Sharper radii — Swiss feel, not SaaS pill */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    color-scheme: light;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-ink);
+    background: var(--color-surface-muted);
+    font-feature-settings: "ss01";
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  input, select, textarea {
+    font-family: inherit;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] { -moz-appearance: textfield; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .scrollbar-thin::-webkit-scrollbar { width: 8px; height: 8px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--color-rule);
+    border-radius: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: var(--color-ink-muted); }
+}
+
+@media print {
+  body { background: white; }
+  .no-print { display: none !important; }
+}
