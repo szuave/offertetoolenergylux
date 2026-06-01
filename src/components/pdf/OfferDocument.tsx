@@ -13,6 +13,19 @@ import type { QuoteState, Totals } from '@/types/quote'
 
 const PAD = 40
 
+const DETAIL_LABELS: Record<string, string> = {
+  merk: 'Merk',
+  ral: 'RAL',
+  dimensie: 'Dimensie',
+  'plaat-dimensie': 'Plaat-dimensie',
+  'dakrand-breedte': 'Dakrand-breedte',
+  'oversteek-combo': 'Dimensie-combo',
+}
+
+function detailLabel(key: string): string {
+  return DETAIL_LABELS[key] ?? key.charAt(0).toUpperCase() + key.slice(1)
+}
+
 const s = StyleSheet.create({
   page: {
     fontSize: 10,
@@ -197,7 +210,7 @@ function CoverPage({ quote, assets }: { quote: QuoteState; assets: PdfAssets }) 
         <Text style={s.coverKicker}>Offertevoorstel</Text>
         {fullName ? <Text style={s.coverName}>{fullName}</Text> : null}
         <Text style={s.coverMeta}>
-          {quote.meta.number} · {formatDate(quote.meta.issueDate)}
+          {[quote.meta.number, formatDate(quote.meta.issueDate)].filter(Boolean).join(' · ')}
         </Text>
       </View>
     </Page>
@@ -271,13 +284,21 @@ function TestimonialsPage({ assets }: { assets: PdfAssets }) {
 }
 
 function OffertePages({ quote, totals }: Props) {
-  const projectAddress = quote.customer.projectAddress.trim()
-  const factAddr = `${quote.customer.street}, ${quote.customer.postalCode} ${quote.customer.city}`.trim()
+  const cust = quote.customer
+  const fullName = `${cust.firstName} ${cust.lastName}`.trim()
+  const projectAddress = cust.projectAddress.trim()
+  // Adresregel enkel opbouwen uit ingevulde delen (geen losse komma bij leeg).
+  const streetPart = cust.street.trim()
+  const cityPart = `${cust.postalCode} ${cust.city}`.trim()
+  const factAddr = [streetPart, cityPart].filter(Boolean).join(', ')
 
   const infoRows: [string, string][] = [
-    ['Datum', formatDate(quote.meta.issueDate)],
-    ['Geldig tot', formatDate(quote.meta.validUntilDate)],
-    ['Dakoppervlakte', quote.meta.roofAreaM2 > 0 ? `${formatNumber(quote.meta.roofAreaM2)} m²` : '—'],
+    ['Datum', formatDate(quote.meta.issueDate) || '—'],
+    ['Geldig tot', formatDate(quote.meta.validUntilDate) || '—'],
+    // Dakoppervlakte enkel tonen bij dakwerken (niet relevant voor gevelwerken).
+    ...(quote.meta.roofAreaM2 > 0
+      ? ([['Dakoppervlakte', `${formatNumber(quote.meta.roofAreaM2)} m²`]] as [string, string][])
+      : []),
     ['Referentie', quote.meta.projectReference || '—'],
     ['BTW-tarief', `${Math.round(quote.vatRate * 100)}%`],
   ]
@@ -288,15 +309,13 @@ function OffertePages({ quote, totals }: Props) {
       <View style={s.sectionBar}>
         <Text style={s.sectionBarTitle}>Ons voorstel aan</Text>
       </View>
-      <Text style={s.custName}>
-        {quote.customer.firstName} {quote.customer.lastName}
-      </Text>
-      <Text style={s.custLine}>{factAddr}</Text>
+      {fullName ? <Text style={s.custName}>{fullName}</Text> : null}
+      {factAddr ? <Text style={s.custLine}>{factAddr}</Text> : null}
       {projectAddress && projectAddress !== factAddr ? (
         <Text style={s.custLine}>Werfadres: {projectAddress}</Text>
       ) : null}
-      {quote.customer.phone ? <Text style={s.custLine}>{quote.customer.phone}</Text> : null}
-      {quote.customer.email ? <Text style={s.custLine}>{quote.customer.email}</Text> : null}
+      {cust.phone ? <Text style={s.custLine}>{cust.phone}</Text> : null}
+      {cust.email ? <Text style={s.custLine}>{cust.email}</Text> : null}
 
       {/* Info-tabel */}
       <View style={s.infoTable}>
@@ -327,16 +346,25 @@ function OffertePages({ quote, totals }: Props) {
               <Text style={s.thQty}>Aantal</Text>
               <Text style={s.thUnit}>Eenheid</Text>
             </View>
-            {sub.items.map((line, i) => (
-              <View key={line.def.id} style={[s.row, ...(i % 2 === 1 ? [s.rowAlt] : [])]}>
-                <View style={s.cellLabel}>
-                  <Text>{line.def.label}</Text>
-                  {line.def.hint ? <Text style={s.cellHint}>{line.def.hint}</Text> : null}
+            {sub.items.map((line, i) => {
+              const details = quote.details[line.def.id]
+              const detailParts =
+                details && Object.entries(details)
+                  .filter(([, v]) => v && v.trim() !== '')
+                  .map(([k, v]) => `${detailLabel(k)}: ${v}`)
+              const detailText = detailParts && detailParts.length > 0 ? detailParts.join(' · ') : null
+              return (
+                <View key={line.def.id} style={[s.row, ...(i % 2 === 1 ? [s.rowAlt] : [])]}>
+                  <View style={s.cellLabel}>
+                    <Text>{line.def.label}</Text>
+                    {line.def.hint ? <Text style={s.cellHint}>{line.def.hint}</Text> : null}
+                    {detailText ? <Text style={s.cellHint}>{detailText}</Text> : null}
+                  </View>
+                  <Text style={s.cellQty}>{formatNumber(line.quantity)}</Text>
+                  <Text style={s.cellUnit}>{formatUnit(line.def.unit)}</Text>
                 </View>
-                <Text style={s.cellQty}>{formatNumber(line.quantity)}</Text>
-                <Text style={s.cellUnit}>{formatUnit(line.def.unit)}</Text>
-              </View>
-            ))}
+              )
+            })}
             <View style={s.subtotalBar}>
               <View style={s.subtotalRow}>
                 <Text style={s.subtotalLabel}>{sub.subcategoryLabel} — totaal</Text>

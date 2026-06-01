@@ -2,7 +2,6 @@ import { useQuoteStore } from '@/store/quote-store'
 import { Card, CardBody } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Field } from '@/components/ui/Field'
-import { parseLocaleNumber } from '@/lib/parse'
 
 export function ProjectMetaSection() {
   const meta = useQuoteStore((s) => s.meta)
@@ -10,22 +9,26 @@ export function ProjectMetaSection() {
 
   return (
     <Card>
-      <CardBody>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Field label="Dakoppervlakte" htmlFor="roofArea" required>
+      <CardBody className="space-y-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field label="Verkoper" htmlFor="salesperson" required>
             <Input
-              id="roofArea"
-              type="text"
-              inputMode="decimal"
-              value={meta.roofAreaM2 === 0 ? '' : String(meta.roofAreaM2).replace('.', ',')}
-              onChange={(e) => {
-                const parsed = parseLocaleNumber(e.target.value)
-                setMetaField('roofAreaM2', parsed === null ? 0 : Math.max(0, parsed))
-              }}
-              placeholder="Dakoppervlakte"
-              trailingAdornment="m²"
+              id="salesperson"
+              value={meta.salesperson}
+              onChange={(e) => setMetaField('salesperson', e.target.value)}
+              placeholder="Verkoper"
             />
           </Field>
+          <Field label="Project-referentie" htmlFor="projectRef">
+            <Input
+              id="projectRef"
+              value={meta.projectReference}
+              onChange={(e) => setMetaField('projectReference', e.target.value)}
+              placeholder="Project-referentie"
+            />
+          </Field>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Field label="Offertedatum" htmlFor="issueDate">
             <Input
               id="issueDate"

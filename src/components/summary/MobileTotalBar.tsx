@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { ArrowDown } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuoteStore, selectQuoteState } from '@/store/quote-store'
 import { calculateTotals } from '@/lib/calculator'
@@ -29,10 +28,9 @@ export function MobileTotalBar() {
         <button
           type="button"
           onClick={scrollToOverview}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-lg bg-brand-primary text-white text-sm font-semibold active:translate-y-px"
+          className="inline-flex items-center h-11 px-5 rounded-lg bg-brand-primary text-white text-sm font-semibold active:translate-y-px"
         >
           Naar overzicht
-          <ArrowDown size={16} />
         </button>
       </div>
     </div>

@@ -3,36 +3,56 @@ import { Search, X } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { pricingConfig } from '@/data/pricing'
 import { useQuoteStore } from '@/store/quote-store'
-import { isItemActive } from '@/lib/calculator'
+import { isItemActive, isSubcategoryActive } from '@/lib/calculator'
+import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { Card, CardBody } from '@/components/ui/Card'
 import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
 import { MultipleChoiceSection } from '@/components/configurator/MultipleChoiceSection'
-import { OptionalFlagsSection } from '@/components/configurator/OptionalFlagsSection'
 import { SearchResults } from '@/components/configurator/SearchResults'
+import { DakbekledingSelector } from '@/components/configurator/DakbekledingSelector'
 import { cn } from '@/lib/cn'
-import type { CategoryDef, LineItemDef } from '@/types/quote'
+import type { CategoryDef, FlagMap, LineItemDef } from '@/types/quote'
+
+// De keuze "Nieuwe dakbekleding" wordt afgehandeld door de eigen
+// DakbekledingSelector (cascading dropdown). De oude multipleChoice-stubs
+// uit de prijslijst-Excel verbergen we hier.
+const COVER_GROUP_ID = 'dakbekleding'
 
 export function ConfiguratorPanel() {
-  const [activeId, setActiveId] = useState(pricingConfig.categories[0]?.id ?? '')
-  const [query, setQuery] = useState('')
-  const { quantities, groupSelections, flags } = useQuoteStore(
+  const { quantities, groupSelections, flags, categoryScope } = useQuoteStore(
     useShallow((s) => ({
       quantities: s.quantities,
       groupSelections: s.groupSelections,
       flags: s.flags,
+      categoryScope: s.categoryScope,
     })),
   )
+
+  // Enkel de categorieën die de verkoper in stap 2 aangevinkt heeft.
+  const visibleCategories = useMemo(
+    () => pricingConfig.categories.filter((c) => categoryScope[c.id] === true),
+    [categoryScope],
+  )
+
+  const [activeId, setActiveId] = useState(visibleCategories[0]?.id ?? '')
+  const [query, setQuery] = useState('')
+
+  // Sync — als de gekozen tab nu buiten scope valt, terugvallen op de eerste.
+  if (
+    visibleCategories.length > 0 &&
+    !visibleCategories.some((c) => c.id === activeId)
+  ) {
+    setActiveId(visibleCategories[0]!.id)
+  }
 
   // Aantal actieve lijnposten per categorie — toont de verkoper waar al
   // iets geconfigureerd is, ook al staat die tab niet open.
   const countsByCategory = useMemo(() => {
     const counts: Record<string, number> = {}
-    for (const cat of pricingConfig.categories) {
+    for (const cat of visibleCategories) {
       let n = 0
       for (const sub of cat.subcategories) {
         for (const item of sub.items) {
-          // Tel enkel échte lijnen: actief én hoeveelheid > 0 (consistent met
-          // resolveLineItems, zodat de badge het aantal lijnen in het overzicht volgt).
           if (
             isItemActive(item, { quantities, groupSelections, flags }) &&
             (quantities[item.id] ?? 0) > 0
@@ -44,9 +64,19 @@ export function ConfiguratorPanel() {
       counts[cat.id] = n
     }
     return counts
-  }, [quantities, groupSelections, flags])
+  }, [visibleCategories, quantities, groupSelections, flags])
 
-  const active = pricingConfig.categories.find((c) => c.id === activeId) ?? pricingConfig.categories[0]
+  const active = visibleCategories.find((c) => c.id === activeId) ?? visibleCategories[0]
+
+  if (visibleCategories.length === 0) {
+    return (
+      <Card>
+        <CardBody className="text-center py-8 text-sm text-ink-mid">
+          Geen categorie aangevinkt in stap 2.
+        </CardBody>
+      </Card>
+    )
+  }
 
   function switchCategory(id: string) {
     setActiveId(id)
@@ -55,38 +85,40 @@ export function ConfiguratorPanel() {
 
   return (
     <div className="space-y-4">
-      {/* Categorie-tabs */}
-      <div className="flex flex-wrap gap-2">
-        {pricingConfig.categories.map((cat) => {
-          const isActive = cat.id === active?.id
-          const count = countsByCategory[cat.id] ?? 0
-          return (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => switchCategory(cat.id)}
-              className={cn(
-                'inline-flex items-center gap-2 px-4 h-10 rounded-lg border text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-brand-primary text-white border-brand-primary'
-                  : 'bg-surface text-ink border-rule hover:border-ink',
-              )}
-            >
-              {cat.label}
-              {count > 0 && (
-                <span
-                  className={cn(
-                    'inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full text-xs font-semibold',
-                    isActive ? 'bg-white/20 text-white' : 'bg-brand-primary/10 text-brand-primary',
-                  )}
-                >
-                  {count}
-                </span>
-              )}
-            </button>
-          )
-        })}
-      </div>
+      {/* Categorie-tabs — enkel zichtbaar als er meer dan één scope is. */}
+      {visibleCategories.length > 1 && (
+        <div className="flex flex-wrap gap-2">
+          {visibleCategories.map((cat) => {
+            const isActive = cat.id === active?.id
+            const count = countsByCategory[cat.id] ?? 0
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => switchCategory(cat.id)}
+                className={cn(
+                  'inline-flex items-center gap-2 px-4 h-10 rounded-lg border text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-brand-primary text-white border-brand-primary'
+                    : 'bg-surface text-ink border-rule hover:border-ink',
+                )}
+              >
+                {cat.label}
+                {count > 0 && (
+                  <span
+                    className={cn(
+                      'inline-flex items-center justify-center min-w-5 h-5 px-1 rounded-full text-xs font-semibold',
+                      isActive ? 'bg-white/20 text-white' : 'bg-brand-primary/10 text-brand-primary',
+                    )}
+                  >
+                    {count}
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
 
       {/* Zoekbalk */}
       <div className="relative">
@@ -120,81 +152,117 @@ export function ConfiguratorPanel() {
             </CardBody>
           </Card>
         ) : (
-          <CategoryConfigurator category={active} />
+          <CategoryConfigurator category={active} flags={flags} quantities={quantities} />
         ))}
     </div>
   )
 }
 
-function CategoryConfigurator({ category }: { category: CategoryDef }) {
-  // Optionele (Filteroptie) items aggregeren we over de HELE categorie, per flag.
-  // Zo verschijnt elke toggle exact één keer onderaan i.p.v. herhaald per
-  // subcategorie — dat voorkomt dat de pagina verspringt bij aanvinken.
-  const optionalByFlag = new Map<string, LineItemDef[]>()
-  for (const sub of category.subcategories) {
-    for (const item of sub.items) {
-      if (item.filter.kind === 'optional') {
-        const list = optionalByFlag.get(item.filter.flagId) ?? []
-        list.push(item)
-        optionalByFlag.set(item.filter.flagId, list)
+function CategoryConfigurator({
+  category,
+  flags,
+  quantities,
+}: {
+  category: CategoryDef
+  flags: FlagMap
+  quantities: Record<string, number>
+}) {
+  const showCoverSelector = category.id === 'hellend-dak'
+
+  // Per subcategorie filteren we wat zichtbaar is op basis van de filteropties
+  // uit stap 2 — items in Excel-volgorde, basis-items en flag-items door elkaar
+  // zoals ze in de Excel staan (Yasid's mail 4).
+  const renderedSubs = category.subcategories
+    .map((sub) => {
+      const subActive = isSubcategoryActive(sub.id, flags)
+
+      // Conform Yasid's eis: enkel items van aangeduide filters tonen.
+      // Basis-items ("always") verschijnen pas als er minstens één filter
+      // in deze rubriek aanstaat, of als de rubriek géén filters heeft
+      // (pure-basis zoals Gevelwerken — werkt op categorie-niveau alleen),
+      // of als verkoper er al een hoeveelheid voor invulde.
+      const subFlag = subcategoryFlag(sub.id)
+      const hasOptionalItems = sub.items.some((it) => it.filter.kind === 'optional')
+      const subHasActiveFilter =
+        (subFlag !== null && flags[subFlag] === true) ||
+        sub.items.some(
+          (it) => it.filter.kind === 'optional' && flags[it.filter.flagId],
+        ) ||
+        !hasOptionalItems
+
+      const visibleItems: LineItemDef[] = []
+      const multipleChoiceItems = new Map<string, LineItemDef[]>()
+
+      for (const item of sub.items) {
+        // Item met eigen filter-override (bv. gyproc-zolder) staat los van
+        // de subcategorie-filter.
+        const override = itemFlagOverride(item.id)
+        if (override) {
+          if (!flags[override]) continue
+        } else if (!subActive) {
+          continue
+        }
+
+        if (item.filter.kind === 'always') {
+          const hasQty = (quantities[item.id] ?? 0) > 0
+          if (!subHasActiveFilter && !hasQty && !override) continue
+          visibleItems.push(item)
+        } else if (item.filter.kind === 'optional') {
+          if (!flags[item.filter.flagId]) continue
+          visibleItems.push(item)
+        } else if (item.filter.kind === 'multipleChoice') {
+          if (item.filter.groupId === COVER_GROUP_ID) continue
+          // Multiplechoice-keuzes (bv. afval-afvoer) enkel als er een
+          // actief filter in deze rubriek zit — anders blijft de "verplichte"
+          // afvoerkeuze ook hangen bij iemand die alleen Velux doet.
+          if (!subHasActiveFilter) continue
+          const list = multipleChoiceItems.get(item.filter.groupId) ?? []
+          list.push(item)
+          multipleChoiceItems.set(item.filter.groupId, list)
+        }
       }
-    }
-  }
-  const optionalFlags = pricingConfig.optionalFlags
-    .filter((f) => optionalByFlag.has(f.id))
-    .map((flag) => ({ flag, items: optionalByFlag.get(flag.id) ?? [] }))
+
+      if (visibleItems.length === 0 && multipleChoiceItems.size === 0) return null
+
+      return { sub, visibleItems, multipleChoiceItems }
+    })
+    .filter((x): x is NonNullable<typeof x> => x !== null)
 
   return (
-    <Card>
-      <CardBody className="space-y-8">
-        {category.subcategories.map((sub) => {
-          const alwaysItems: LineItemDef[] = []
-          const multipleChoiceItems = new Map<string, LineItemDef[]>()
+    <div className="space-y-6">
+      {showCoverSelector && <DakbekledingSelector />}
 
-          for (const item of sub.items) {
-            if (item.filter.kind === 'always') {
-              alwaysItems.push(item)
-            } else if (item.filter.kind === 'multipleChoice') {
-              const list = multipleChoiceItems.get(item.filter.groupId) ?? []
-              list.push(item)
-              multipleChoiceItems.set(item.filter.groupId, list)
-            }
-          }
+      {renderedSubs.length === 0 ? (
+        <Card>
+          <CardBody className="text-center py-8 text-sm text-ink-mid">
+            Geen werken zichtbaar voor deze categorie.
+          </CardBody>
+        </Card>
+      ) : (
+        <Card>
+          <CardBody className="space-y-8">
+            {renderedSubs.map(({ sub, visibleItems, multipleChoiceItems }) => (
+              <section key={sub.id} className="space-y-6">
+                <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
+                  {sub.label}
+                </h3>
 
-          // Subcategorie zonder basis- of keuze-items overslaan (alles zit dan
-          // in de gedeelde opties-sectie onderaan).
-          if (alwaysItems.length === 0 && multipleChoiceItems.size === 0) return null
+                <AlwaysItemsList items={visibleItems} />
 
-          return (
-            <section key={sub.id} className="space-y-6">
-              <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
-                {sub.label}
-              </h3>
-
-              <AlwaysItemsList title="Basis" items={alwaysItems} />
-
-              {pricingConfig.multipleChoiceGroups
-                .filter((g) => multipleChoiceItems.has(g.id))
-                .map((group) => (
-                  <MultipleChoiceSection
-                    key={group.id}
-                    group={group}
-                    items={multipleChoiceItems.get(group.id) ?? []}
-                  />
-                ))}
-            </section>
-          )
-        })}
-
-        {optionalFlags.length > 0 && (
-          <section className="space-y-4">
-            <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
-              Bijkomende opties
-            </h3>
-            <OptionalFlagsSection flags={optionalFlags} />
-          </section>
-        )}
-      </CardBody>
-    </Card>
+                {pricingConfig.multipleChoiceGroups
+                  .filter((g) => g.id !== COVER_GROUP_ID && multipleChoiceItems.has(g.id))
+                  .map((group) => (
+                    <MultipleChoiceSection
+                      key={group.id}
+                      group={group}
+                      items={multipleChoiceItems.get(group.id) ?? []}
+                    />
+                  ))}
+              </section>
+            ))}
+          </CardBody>
+        </Card>
+      )}
+    </div>
   )
 }

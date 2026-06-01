@@ -10,9 +10,9 @@ import type { QuoteState } from '@/types/quote'
  */
 export const demoQuote: QuoteState = {
   meta: {
-    number: 'EN-2026-05-27-01',
-    issueDate: '2026-05-27',
-    validUntilDate: '2026-06-26',
+    number: 'EN-2026-05-29-01',
+    issueDate: '2026-05-29',
+    validUntilDate: '2026-06-28',
     salesperson: 'Tom Peeters',
     projectReference: 'JANSSENS-HD-2026',
     roofAreaM2: 120,
@@ -42,10 +42,14 @@ export const demoQuote: QuoteState = {
     'verwijderen-dakbekleding': 'verwijderen-asbest',
   },
   flags: {
+    'standaard-dakwerk': true,
     oversteken: true,
     houtconstructie: true,
     sidings: false,
   },
+  categoryScope: { 'hellend-dak': true },
+  cover: { variantId: null, areaM2: 0 },
+  details: {},
   discount: { enabled: true, percentage: 5, conditionDays: 7 },
   vatRate: 0.06,
   notes:

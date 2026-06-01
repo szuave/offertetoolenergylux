@@ -15,7 +15,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -25,7 +26,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -35,7 +37,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -45,7 +48,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -535,7 +539,8 @@
               "unit": "lm",
               "unitPrice": 70,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -595,7 +600,8 @@
               "unit": "lm",
               "unitPrice": 25,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -720,7 +726,8 @@
               "unit": "m2",
               "unitPrice": 25,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -964,7 +971,8 @@
               "unit": "lm",
               "unitPrice": 49,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -1033,7 +1041,8 @@
               "unit": "stuk",
               "unitPrice": 385,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "standaard-dakwerk"
               }
             },
             {
@@ -1656,16 +1665,36 @@
   ],
   "optionalFlags": [
     {
-      "id": "sidings",
-      "label": "Sidings"
+      "id": "standaard-dakwerk",
+      "label": "Standaard dakwerk renovatie"
+    },
+    {
+      "id": "sarking",
+      "label": "Sarking"
+    },
+    {
+      "id": "isolatie-warme-dakzijde",
+      "label": "Isolatie warme dakzijde"
+    },
+    {
+      "id": "dakkapel",
+      "label": "Dakkapel"
+    },
+    {
+      "id": "houtconstructie",
+      "label": "Houtconstructie"
     },
     {
       "id": "oversteken",
       "label": "Oversteken"
     },
     {
-      "id": "houtconstructie",
-      "label": "Houtconstructie"
+      "id": "schouw",
+      "label": "Schouw"
+    },
+    {
+      "id": "schouwconstructie",
+      "label": "Schouwconstructie"
     },
     {
       "id": "bakgoten",
@@ -1676,20 +1705,16 @@
       "label": "Hanggoten"
     },
     {
-      "id": "veluxen",
-      "label": "Velux / dakramen"
-    },
-    {
       "id": "bakgoten-en-hanggoten",
       "label": "Bakgoten + hanggoten"
     },
     {
-      "id": "schouw",
-      "label": "Schouw"
+      "id": "sidings",
+      "label": "Sidings gevelzijde"
     },
     {
-      "id": "dakkapel",
-      "label": "Dakkapel"
+      "id": "veluxen",
+      "label": "Velux"
     },
     {
       "id": "zonnepanelen",
@@ -1702,6 +1727,10 @@
     {
       "id": "dakpan-toebehoren",
       "label": "Dakpan-toebehoren"
+    },
+    {
+      "id": "gyproc-zolder",
+      "label": "Gyproc zolder en schildersklaar"
     }
   ]
 }

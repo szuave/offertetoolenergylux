@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { Check } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 type Props = {
@@ -47,11 +46,11 @@ export function RadioCard({
         className={cn(
           'mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border',
           checked
-            ? 'bg-brand-primary border-brand-primary text-white'
+            ? 'bg-brand-primary border-brand-primary'
             : 'border-ink-300 bg-white',
         )}
       >
-        {checked && <Check size={12} strokeWidth={3} />}
+        {checked && <span className="h-2 w-2 rounded-full bg-white" />}
       </span>
       <span className="flex-1 min-w-0">
         <span className="block text-sm font-medium text-ink-900">{title}</span>

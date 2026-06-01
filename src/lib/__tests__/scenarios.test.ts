@@ -21,6 +21,9 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
     quantities: {},
     groupSelections: {},
     flags: {},
+    categoryScope: {},
+    cover: { variantId: null, areaM2: 0 },
+    details: {},
     discount: { enabled: false, percentage: 5, conditionDays: 7 },
     vatRate: 0.06,
     notes: '',
@@ -94,6 +97,47 @@ describe('Scenario: wisselen tussen multipleChoice keuzes', () => {
     expect(totals.subtotalExVat).toBe(4500)
     expect(totals.resolvedItems).toHaveLength(1)
     expect(totals.resolvedItems[0]!.def.id).toBe('verwijderen-asbest')
+  })
+})
+
+describe('Scenario: dakbekleding-keuze (cover, cascading dropdown)', () => {
+  it('voegt een lijn toe met variant-prijs × oppervlakte', () => {
+    // Koramic Stormpan Pottelberg 44 Natuurrood: base €55 + 0 = €55/m²
+    const state = baseState({
+      cover: { variantId: 'koramic-dakpan-stormpan-pottelberg-44-natuurrood', areaM2: 100 },
+    })
+    const totals = calculateTotals(state)
+    expect(totals.subtotalExVat).toBe(5500)
+    expect(totals.resolvedItems).toHaveLength(1)
+    expect(totals.resolvedItems[0]!.def.id).toBe('cover:koramic-dakpan-stormpan-pottelberg-44-natuurrood')
+  })
+
+  it('past negatieve toevoeging toe (Rustiek = base − €2 = €53/m²)', () => {
+    const state = baseState({
+      cover: { variantId: 'koramic-dakpan-stormpan-pottelberg-44-rustiek', areaM2: 100 },
+    })
+    expect(calculateTotals(state).subtotalExVat).toBe(5300)
+  })
+
+  it('sandwich-variant zonder prijs telt niet mee in subtotaal', () => {
+    const state = baseState({
+      cover: { variantId: 'sandwich-ecopanelen-antraciet', areaM2: 100 },
+    })
+    const totals = calculateTotals(state)
+    expect(totals.subtotalExVat).toBe(0)
+    expect(totals.resolvedItems).toHaveLength(1)
+    expect(totals.resolvedItems[0]!.def.unitPrice).toBeNull()
+  })
+
+  it('geen cover zonder oppervlakte of zonder variant', () => {
+    expect(
+      calculateTotals(
+        baseState({ cover: { variantId: 'koramic-dakpan-stormpan-pottelberg-44-natuurrood', areaM2: 0 } }),
+      ).resolvedItems,
+    ).toHaveLength(0)
+    expect(
+      calculateTotals(baseState({ cover: { variantId: null, areaM2: 100 } })).resolvedItems,
+    ).toHaveLength(0)
   })
 })
 

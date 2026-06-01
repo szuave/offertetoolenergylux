@@ -31,6 +31,9 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
       'afvoeren-afval': 'afvoeren-werfpuin',
     },
     flags: {},
+    categoryScope: { 'hellend-dak': true },
+    cover: { variantId: null, areaM2: 0 },
+    details: {},
     discount: { enabled: false, percentage: 5, conditionDays: 7 },
     vatRate: 0.06,
     notes: '',
@@ -95,9 +98,9 @@ describe('buildChecklist — error gevallen', () => {
 })
 
 describe('buildChecklist — warnings', () => {
-  it('waarschuwt bij dakopp = 0', () => {
+  it('waarschuwt NIET bij ontbrekende dakoppervlakte (optioneel, enkel voor dakwerken)', () => {
     const items = buildChecklist(baseState({ meta: { ...baseState().meta, roofAreaM2: 0 } }))
-    expect(items.some((i) => i.id === 'meta-roof-area' && i.severity === 'warning')).toBe(true)
+    expect(items.some((i) => i.id === 'meta-roof-area')).toBe(false)
   })
 
   it('waarschuwt bij item met null-prijs en qty > 0', () => {
@@ -114,8 +117,8 @@ describe('countBySeverity', () => {
   it('telt errors en warnings correct', () => {
     const items = buildChecklist(
       baseState({
-        customer: { ...baseState().customer, firstName: '', lastName: '', email: 'x' },
-        meta: { ...baseState().meta, roofAreaM2: 0 },
+        // errors: naam + e-mail · warning: leeg telefoon + werfadres
+        customer: { ...baseState().customer, firstName: '', lastName: '', email: 'x', phone: '', projectAddress: '' },
       }),
     )
     const counts = countBySeverity(items)

@@ -3,10 +3,13 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { pricingConfig } from '@/data/pricing'
 import { addDaysIso, toIsoDate } from '@/lib/format'
 import type {
+  CoverChoice,
   Customer,
   DiscountConfig,
+  ItemDetails,
   QuoteMeta,
   QuoteState,
+  WizardStep,
 } from '@/types/quote'
 
 const STORAGE_KEY = 'energylux-offerte-v1'
@@ -92,10 +95,18 @@ function emptyQuote(): QuoteState {
     quantities: {},
     groupSelections: {},
     flags: {},
+    categoryScope: {},
+    cover: { variantId: null, areaM2: 0 },
+    details: {},
     discount: defaultDiscount(),
     vatRate: DEFAULT_VAT_RATE,
     notes: '',
   }
+}
+
+type UiState = {
+  /** Huidige stap in de wizard-flow. */
+  wizardStep: WizardStep
 }
 
 type QuoteActions = {
@@ -104,20 +115,27 @@ type QuoteActions = {
   setQuantity: (itemId: string, quantity: number) => void
   selectMultipleChoice: (groupId: string, itemId: string | null) => void
   toggleFlag: (flagId: string, value: boolean) => void
+  toggleCategoryScope: (categoryId: string, value: boolean) => void
+  setCover: (partial: Partial<CoverChoice>) => void
+  setItemDetail: (itemId: string, key: string, value: string) => void
   setDiscount: (partial: Partial<DiscountConfig>) => void
   setVatRate: (rate: number) => void
   setNotes: (value: string) => void
   resetQuote: () => void
   newQuote: () => void
   ensureNumber: () => void
+  setWizardStep: (step: WizardStep) => void
 }
 
-export type QuoteStore = QuoteState & QuoteActions
+export type QuoteStore = QuoteState & UiState & QuoteActions
+
+export const WIZARD_ORDER: WizardStep[] = ['customer', 'filter', 'works']
 
 export const useQuoteStore = create<QuoteStore>()(
   persist(
     (set) => ({
       ...emptyQuote(),
+      wizardStep: 'customer',
 
       setCustomerField: (field, value) =>
         set((state) => ({ customer: { ...state.customer, [field]: value } })),
@@ -167,6 +185,24 @@ export const useQuoteStore = create<QuoteStore>()(
       toggleFlag: (flagId, value) =>
         set((state) => ({ flags: { ...state.flags, [flagId]: value } })),
 
+      toggleCategoryScope: (categoryId, value) =>
+        set((state) => ({ categoryScope: { ...state.categoryScope, [categoryId]: value } })),
+
+      setCover: (partial) =>
+        set((state) => ({ cover: { ...state.cover, ...partial } })),
+
+      setItemDetail: (itemId, key, value) =>
+        set((state) => {
+          const current: ItemDetails = state.details[itemId] ?? {}
+          const next: ItemDetails = { ...current }
+          if (value === '') delete next[key]
+          else next[key] = value
+          const nextMap = { ...state.details }
+          if (Object.keys(next).length === 0) delete nextMap[itemId]
+          else nextMap[itemId] = next
+          return { details: nextMap }
+        }),
+
       setDiscount: (partial) =>
         set((state) => ({ discount: { ...state.discount, ...partial } })),
 
@@ -200,6 +236,8 @@ export const useQuoteStore = create<QuoteStore>()(
             ? state
             : { meta: { ...state.meta, number: generateQuoteNumber() } },
         ),
+
+      setWizardStep: (step) => set({ wizardStep: step }),
     }),
     {
       name: STORAGE_KEY,
@@ -211,9 +249,13 @@ export const useQuoteStore = create<QuoteStore>()(
         quantities: state.quantities,
         groupSelections: state.groupSelections,
         flags: state.flags,
+        categoryScope: state.categoryScope,
+        cover: state.cover,
+        details: state.details,
         discount: state.discount,
         vatRate: state.vatRate,
         notes: state.notes,
+        wizardStep: state.wizardStep,
       }),
     },
   ),
@@ -235,6 +277,9 @@ export const selectQuoteState = (s: QuoteStore): QuoteState => ({
   quantities: s.quantities,
   groupSelections: s.groupSelections,
   flags: s.flags,
+  categoryScope: s.categoryScope,
+  cover: s.cover,
+  details: s.details,
   discount: s.discount,
   vatRate: s.vatRate,
   notes: s.notes,

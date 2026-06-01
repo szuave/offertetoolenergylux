@@ -79,12 +79,36 @@ export type QuantityMap = Record<string, number>
 export type GroupSelections = Record<string, string | null>
 export type FlagMap = Record<string, boolean>
 
+/** Gekozen nieuwe dakbekleding (uit het cascading dropdown-systeem). */
+export type CoverChoice = {
+  variantId: string | null
+  areaM2: number
+}
+
+/**
+ * Vrije sub-opties per lijnitem (RAL-kleur, merk, dimensies, …) die op de PDF
+ * onder de lijn verschijnen. Bv. voor "Esthetische afwerking dakrand": merk
+ * Rockpanel, dimensie 30 cm. Beïnvloeden de prijs niet — informatief.
+ */
+export type ItemDetails = Record<string, string>
+export type DetailsMap = Record<string, ItemDetails>
+
+/** Welke top-level categorieën van toepassing zijn voor deze offerte. */
+export type ScopeMap = Record<string, boolean>
+
+export type WizardStep = 'filter' | 'customer' | 'works'
+
 export type QuoteState = {
   meta: QuoteMeta
   customer: Customer
   quantities: QuantityMap
   groupSelections: GroupSelections
   flags: FlagMap
+  /** Welke categorieën van toepassing zijn (uit de filteropties-intake). */
+  categoryScope: ScopeMap
+  cover: CoverChoice
+  /** Vrije sub-opties per item (merk, RAL, dimensie). */
+  details: DetailsMap
   discount: DiscountConfig
   vatRate: number
   notes: string

@@ -1,4 +1,3 @@
-import { FilePlus2, RotateCcw } from 'lucide-react'
 import { useQuoteStore } from '@/store/quote-store'
 import { Logo } from '@/components/layout/Logo'
 import { Button } from '@/components/ui/Button'
@@ -24,22 +23,10 @@ export function Header() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            leftIcon={<RotateCcw size={14} />}
-            onClick={handleReset}
-            title="Alle velden wissen"
-          >
+          <Button variant="ghost" size="sm" onClick={handleReset}>
             Wissen
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            leftIcon={<FilePlus2 size={14} />}
-            onClick={newQuote}
-            title="Nieuwe offerte starten — verkopernaam blijft behouden"
-          >
+          <Button variant="secondary" size="sm" onClick={newQuote}>
             Nieuwe offerte
           </Button>
         </div>

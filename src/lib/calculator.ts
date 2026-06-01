@@ -1,4 +1,6 @@
 import { pricingConfig } from '@/data/pricing'
+import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
+import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import type {
   CategoryDef,
   LineItemDef,
@@ -10,12 +12,19 @@ import type {
 } from '@/types/quote'
 
 /**
- * Bepaalt of een item meetelt in de berekening, gegeven de huidige filterstate.
+ * Bepaalt of een item zichtbaar/actief is voor de huidige filter-state.
+ * Voor sommige items geldt dat hun rij in de Excel een "Filteroptie"-kolom heeft
+ * die los staat van het basis-filtertype — die worden via `itemFlagOverride`
+ * extra geblokkeerd zolang die filter uit staat.
  */
 export function isItemActive(
   item: LineItemDef,
   state: Pick<QuoteState, 'groupSelections' | 'flags' | 'quantities'>,
 ): boolean {
+  // Cross-cutting filteroptie (bv. "gyproc-zolder") moet ook aan staan.
+  const overrideFlag = itemFlagOverride(item.id)
+  if (overrideFlag && !state.flags[overrideFlag]) return false
+
   switch (item.filter.kind) {
     case 'always':
       return (state.quantities[item.id] ?? 0) > 0
@@ -24,6 +33,20 @@ export function isItemActive(
     case 'optional':
       return Boolean(state.flags[item.filter.flagId])
   }
+}
+
+/**
+ * Bepaalt of een subcategorie als geheel zichtbaar is. Sommige subcategorieën
+ * (bv. "Isolatiewerken Sarking") hangen aan één filteroptie — als die uit
+ * staat verbergt de hele subcategorie, ongeacht zijn items.
+ */
+export function isSubcategoryActive(
+  subcategoryId: string,
+  flags: Record<string, boolean>,
+): boolean {
+  const flag = subcategoryFlag(subcategoryId)
+  if (!flag) return true
+  return Boolean(flags[flag])
 }
 
 /**
@@ -36,11 +59,46 @@ export function calculateLineTotal(item: LineItemDef, quantity: number): number 
   return round2(item.unitPrice * quantity)
 }
 
+// Virtuele categorie/subcategorie waaronder de dakbekleding-keuze (uit de
+// dropdown-selector) als lijn verschijnt. De oude "Nieuwe dakbekleding"
+// multipleChoice-groep in de catalogus wordt door de selector vervangen.
+const HELLEND_DAK_CAT: CategoryDef = {
+  id: 'hellend-dak',
+  label: 'Hellend dak',
+  subcategories: [],
+}
+const COVER_SUB: SubcategoryDef = {
+  id: 'nieuwe-dakbekleding',
+  label: 'Nieuwe dakbekleding',
+  items: [],
+}
+
+function resolveCoverLine(state: QuoteState): ResolvedLineItem | null {
+  const { variantId, areaM2 } = state.cover
+  if (!variantId || areaM2 <= 0) return null
+  const variant = findVariant(variantId)
+  if (!variant) return null
+  const label = `${CATEGORY_LABEL[variant.category]} — ${variant.brand} ${variant.type} (${variant.color})`
+  const def: LineItemDef = {
+    id: `cover:${variant.id}`,
+    label,
+    unit: 'm2',
+    unitPrice: variant.unitPrice,
+    filter: { kind: 'always' },
+  }
+  const lineTotal = calculateLineTotal(def, areaM2)
+  return { def, category: HELLEND_DAK_CAT, subcategory: COVER_SUB, quantity: areaM2, lineTotal }
+}
+
 export function resolveLineItems(state: QuoteState): ResolvedLineItem[] {
   const resolved: ResolvedLineItem[] = []
   for (const category of pricingConfig.categories) {
     for (const subcategory of category.subcategories) {
+      const subActive = isSubcategoryActive(subcategory.id, state.flags)
       for (const item of subcategory.items) {
+        // Items met eigen override (bv. gyproc-zolder) staan los van de
+        // subcategorie-filter. Andere items volgen de subcategorie.
+        if (!itemFlagOverride(item.id) && !subActive) continue
         if (!isItemActive(item, state)) continue
         const quantity = state.quantities[item.id] ?? 0
         if (quantity <= 0) continue
@@ -49,6 +107,8 @@ export function resolveLineItems(state: QuoteState): ResolvedLineItem[] {
       }
     }
   }
+  const cover = resolveCoverLine(state)
+  if (cover) resolved.push(cover)
   return resolved
 }
 

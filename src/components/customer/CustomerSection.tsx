@@ -5,9 +5,7 @@ import { Field } from '@/components/ui/Field'
 
 export function CustomerSection() {
   const customer = useQuoteStore((s) => s.customer)
-  const meta = useQuoteStore((s) => s.meta)
   const setCustomerField = useQuoteStore((s) => s.setCustomerField)
-  const setMetaField = useQuoteStore((s) => s.setMetaField)
 
   return (
     <Card>
@@ -96,25 +94,6 @@ export function CustomerSection() {
             placeholder="Werfadres"
           />
         </Field>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-rule">
-          <Field label="Verkoper" htmlFor="salesperson" required>
-            <Input
-              id="salesperson"
-              value={meta.salesperson}
-              onChange={(e) => setMetaField('salesperson', e.target.value)}
-              placeholder="Verkoper"
-            />
-          </Field>
-          <Field label="Project-referentie" htmlFor="projectRef">
-            <Input
-              id="projectRef"
-              value={meta.projectReference}
-              onChange={(e) => setMetaField('projectReference', e.target.value)}
-              placeholder="Project-referentie"
-            />
-          </Field>
-        </div>
       </CardBody>
     </Card>
   )

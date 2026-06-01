@@ -1,0 +1,425 @@
+{
+  "basePrice": 55,
+  "variants": [
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-natuurrood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Natuurrood",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-antraciet",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Antraciet",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-rustiek",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Rustiek",
+      "priceAdd": -2,
+      "unitPrice": 53
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-blauw-gesmoord",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Blauw gesmoord",
+      "priceAdd": 1,
+      "unitPrice": 56
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-leikleur-mat-geglazuur",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Leikleur mat geglazuurd",
+      "priceAdd": 5,
+      "unitPrice": 60
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-oud-latem-rood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Oud latem rood",
+      "priceAdd": 4,
+      "unitPrice": 59
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-zwart-geglazuurd",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Zwart geglazuurd",
+      "priceAdd": 15,
+      "unitPrice": 70
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-44-oud-latem-blauw-gesmoo",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 44",
+      "color": "Oud latem blauw gesmoord",
+      "priceAdd": 20,
+      "unitPrice": 75
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-993-natuurrood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 993",
+      "color": "Natuurrood",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-993-rustiek",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 993",
+      "color": "Rustiek",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "koramic-dakpan-stormpan-pottelberg-993-antraciet",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Stormpan Pottelberg 993",
+      "color": "Antraciet",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "koramic-dakpan-vario-18-mat-zwart-741",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Vario 18",
+      "color": "Mat zwart - 741",
+      "priceAdd": 1,
+      "unitPrice": 56
+    },
+    {
+      "id": "koramic-dakpan-vario-18-natuurrood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Vario 18",
+      "color": "Natuurrood",
+      "priceAdd": -3,
+      "unitPrice": 52
+    },
+    {
+      "id": "koramic-dakpan-koramic-actua-10-lt-antraciet-mat-703",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Koramic Actua 10 LT",
+      "color": "Antraciet Mat 703",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "koramic-dakpan-koramic-actua-10-lt-titaanzwart",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Koramic Actua 10 LT",
+      "color": "Titaanzwart",
+      "priceAdd": 10,
+      "unitPrice": 65
+    },
+    {
+      "id": "koramic-dakpan-koramic-actua-10-lt-titaangrijs",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Koramic Actua 10 LT",
+      "color": "Titaangrijs",
+      "priceAdd": 10,
+      "unitPrice": 65
+    },
+    {
+      "id": "koramic-dakpan-oud-latem-451-rood-600",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Oud latem 451",
+      "color": "Rood 600",
+      "priceAdd": 9,
+      "unitPrice": 64
+    },
+    {
+      "id": "koramic-dakpan-oud-latem-451-blauw-gesmoord-714",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Oud latem 451",
+      "color": "Blauw gesmoord 714",
+      "priceAdd": 23,
+      "unitPrice": 78
+    },
+    {
+      "id": "koramic-dakpan-oud-latem-451-rustiek-872",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Oud latem 451",
+      "color": "Rustiek 872",
+      "priceAdd": 9,
+      "unitPrice": 64
+    },
+    {
+      "id": "koramic-dakpan-oud-latem-451-vieilli-rood-878",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Oud latem 451",
+      "color": "Vieilli Rood 878",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "koramic-dakpan-datura-antraciet-mat-703",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Datura",
+      "color": "Antraciet Mat 703",
+      "priceAdd": 4,
+      "unitPrice": 59
+    },
+    {
+      "id": "koramic-dakpan-datura-mat-zwart-geglazuurd-744",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Datura",
+      "color": "Mat zwart geglazuurd 744",
+      "priceAdd": 15,
+      "unitPrice": 70
+    },
+    {
+      "id": "koramic-dakpan-datura-natuurrood-652",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Datura",
+      "color": "Natuurrood 652",
+      "priceAdd": 4,
+      "unitPrice": 59
+    },
+    {
+      "id": "koramic-dakpan-datura-rustiek-872",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Koramic dakpan",
+      "type": "Datura",
+      "color": "Rustiek 872",
+      "priceAdd": 4,
+      "unitPrice": 59
+    },
+    {
+      "id": "monier-postel-20-double-black",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Monier",
+      "type": "Postel 20",
+      "color": "Double Black",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "monier-postel-20-natuurrood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Monier",
+      "type": "Postel 20",
+      "color": "Natuurrood",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "monier-postel-20-rustiek",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Monier",
+      "type": "Postel 20",
+      "color": "Rustiek",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "edilians-hp-10-huguenot-kwartsgrijs",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Edilians",
+      "type": "HP 10 Huguenot",
+      "color": "Kwartsgrijs",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "edilians-hp-10-huguenot-rood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Edilians",
+      "type": "HP 10 Huguenot",
+      "color": "Rood",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "edilians-hp-10-huguenot-rustiek-gevlamd",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Edilians",
+      "type": "HP 10 Huguenot",
+      "color": "Rustiek gevlamd",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "edilians-hp-10-huguenot-argentique",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Edilians",
+      "type": "HP 10 Huguenot",
+      "color": "Argentique",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "edilians-hp-10-huguenot-leikleur",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Edilians",
+      "type": "HP 10 Huguenot",
+      "color": "Leikleur",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "terreal-cote-fleurie-pan-1-cfpv-leikleur",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Terreal",
+      "type": "Cote Fleurie pan 1 CFPV",
+      "color": "Leikleur",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "terreal-cote-fleurie-pan-1-cfpv-natuurrood",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Terreal",
+      "type": "Cote Fleurie pan 1 CFPV",
+      "color": "Natuurrood",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "terreal-cote-fleurie-pan-1-cfpv-rood-gevlamd",
+      "category": "dakpannen",
+      "group": null,
+      "brand": "Terreal",
+      "type": "Cote Fleurie pan 1 CFPV",
+      "color": "Rood gevlamd",
+      "priceAdd": 0,
+      "unitPrice": 55
+    },
+    {
+      "id": "lei-cedral-tecta-smooth-rechthoekig-40x24-cm-donkergrijs",
+      "category": "leien",
+      "group": "Vezelcementleien",
+      "brand": "Cedral Tecta Smooth",
+      "type": "Rechthoekig - 40x24 cm",
+      "color": "Donkergrijs",
+      "priceAdd": 65,
+      "unitPrice": 120
+    },
+    {
+      "id": "lei-cedral-tecta-texture-rechthoekig-60x32-cm-donkergrijs",
+      "category": "leien",
+      "group": "Vezelcementleien",
+      "brand": "Cedral Tecta Texture",
+      "type": "Rechthoekig - 60x32 cm",
+      "color": "Donkergrijs",
+      "priceAdd": 65,
+      "unitPrice": 120
+    },
+    {
+      "id": "lei-cupa-pizarra-cupa-4-dikte-4mm-40x22cm-blauw-zwart",
+      "category": "leien",
+      "group": "Natuurleien",
+      "brand": "Cupa Pizarra",
+      "type": "Cupa 4 - dikte 4mm - 40x22cm",
+      "color": "Blauw/Zwart",
+      "priceAdd": 120,
+      "unitPrice": 175
+    },
+    {
+      "id": "lei-samaca-primera-dikte-4mm-40x22cm-zwart",
+      "category": "leien",
+      "group": "Natuurleien",
+      "brand": "Samaca",
+      "type": "Primera - dikte 4mm - 40x22cm",
+      "color": "Zwart",
+      "priceAdd": 120,
+      "unitPrice": 175
+    },
+    {
+      "id": "sandwich-ecopanelen-antraciet",
+      "category": "sandwichpanelen",
+      "group": null,
+      "brand": "Ecopanelen",
+      "type": "—",
+      "color": "Antraciet",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "sandwich-joris-ide-10-cm-pir-antraciet",
+      "category": "sandwichpanelen",
+      "group": "JORIS IDE",
+      "brand": "JI Roof 1000",
+      "type": "10 CM PIR",
+      "color": "Antraciet",
+      "priceAdd": null,
+      "unitPrice": null
+    },
+    {
+      "id": "sandwich-joris-ide-permapan-10cm-pir-rood",
+      "category": "sandwichpanelen",
+      "group": "JORIS IDE PERMAPAN",
+      "brand": "JI PERMAN 1100 Grandem",
+      "type": "10CM PIR",
+      "color": "ROOD",
+      "priceAdd": null,
+      "unitPrice": null
+    }
+  ]
+}

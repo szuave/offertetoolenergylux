@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { Download, FileText, Loader2 } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { useQuoteStore, selectQuoteState } from '@/store/quote-store'
 import { calculateTotals } from '@/lib/calculator'
@@ -104,9 +103,6 @@ export function ExportActions({ blocked, errorCount, warningCount, checklist }: 
           size="lg"
           onClick={handleExport}
           disabled={blocked || isExporting}
-          leftIcon={
-            isExporting ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />
-          }
           className="w-full"
         >
           {isExporting ? 'Bezig…' : 'PDF downloaden'}
@@ -116,7 +112,6 @@ export function ExportActions({ blocked, errorCount, warningCount, checklist }: 
           size="md"
           onClick={handlePreview}
           disabled={blocked || isExporting}
-          leftIcon={<FileText size={14} />}
           className="w-full"
         >
           Voorbeeld in nieuw tabblad
