@@ -429,15 +429,6 @@
               "filter": {
                 "kind": "always"
               }
-            },
-            {
-              "id": "verwijderen-sidings-buur-om-isolatie-plat-dak-en",
-              "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig  te realiseren",
-              "unit": "lm",
-              "unitPrice": 35,
-              "filter": {
-                "kind": "always"
-              }
             }
           ]
         },
@@ -1124,7 +1115,8 @@
               "unit": "m2",
               "unitPrice": 25,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-sidings-isolatie"
               }
             },
             {
@@ -1133,7 +1125,8 @@
               "unit": "m2",
               "unitPrice": 140,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-sidings-isolatie"
               }
             },
             {
@@ -1142,7 +1135,8 @@
               "unit": "m2",
               "unitPrice": 55,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-sidings-isolatie"
               }
             },
             {
@@ -1151,7 +1145,8 @@
               "unit": "lm",
               "unitPrice": 23,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-dorpels-pleister"
               }
             },
             {
@@ -1161,7 +1156,8 @@
               "unitPrice": 34,
               "hint": "RAL-kleurcode vermelden",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-dorpels-pleister"
               }
             },
             {
@@ -1171,7 +1167,8 @@
               "unitPrice": 35,
               "hint": "RAL-kleurcode vermelden",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-dorpels-pleister"
               }
             },
             {
@@ -1182,7 +1179,8 @@
               "hint": "RAL-kleurcode vermelden",
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-ventilatie"
               }
             },
             {
@@ -1192,17 +1190,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "ventilatieroosters-2",
-              "label": "Ventilatieroosters",
-              "unit": "stuk",
-              "unitPrice": null,
-              "priceNote": "Prijs volgt",
-              "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-ventilatie"
               }
             },
             {
@@ -1213,7 +1202,8 @@
               "hint": "Sanitaire man dient deze te verlengen. Doen we niet.",
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "gevel-ventilatie"
               }
             }
           ]
@@ -1234,7 +1224,8 @@
               "unit": "m2",
               "unitPrice": 49,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-roofing"
               }
             },
             {
@@ -1243,7 +1234,8 @@
               "unit": "m2",
               "unitPrice": 49,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-epdm"
               }
             },
             {
@@ -1252,7 +1244,8 @@
               "unit": "m2",
               "unitPrice": 50,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             },
             {
@@ -1261,7 +1254,8 @@
               "unit": "m2",
               "unitPrice": 57,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1270,7 +1264,8 @@
               "unit": "stuk",
               "unitPrice": 312,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1279,7 +1274,8 @@
               "unit": "stuk",
               "unitPrice": 451,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1289,7 +1285,8 @@
               "unitPrice": 50,
               "hint": "(tot max 50m2)",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-standaard-afbraak"
               }
             },
             {
@@ -1298,7 +1295,8 @@
               "unit": "lm",
               "unitPrice": 35,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-sidings-buur"
               }
             },
             {
@@ -1307,7 +1305,8 @@
               "unit": "m2",
               "unitPrice": 50,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1316,7 +1315,8 @@
               "unit": "stuk",
               "unitPrice": 349,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lichtkoepel"
               }
             },
             {
@@ -1325,7 +1325,8 @@
               "unit": "stuk",
               "unitPrice": 495,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-schouw"
               }
             },
             {
@@ -1334,7 +1335,8 @@
               "unit": "stuk",
               "unitPrice": 949,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-schouw"
               }
             },
             {
@@ -1343,7 +1345,8 @@
               "unit": "stuk",
               "unitPrice": 949,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-schouw"
               }
             },
             {
@@ -1352,7 +1355,8 @@
               "unit": "stuk",
               "unitPrice": 223,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-airco"
               }
             },
             {
@@ -1361,7 +1365,8 @@
               "unit": "stuk",
               "unitPrice": 495,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1370,7 +1375,8 @@
               "unit": "stuk",
               "unitPrice": 412,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-houtconstructie"
               }
             },
             {
@@ -1380,7 +1386,8 @@
               "unitPrice": 65,
               "hint": "ISOLATIE PLAT DAK zie sarking hellend dak",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
               }
             },
             {
@@ -1389,7 +1396,8 @@
               "unit": "lm",
               "unitPrice": 55,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-dakrand-afwerking"
               }
             },
             {
@@ -1398,7 +1406,8 @@
               "unit": "lm",
               "unitPrice": 90,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-dakrand-afwerking"
               }
             },
             {
@@ -1407,7 +1416,8 @@
               "unit": "stuk",
               "unitPrice": 327,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lichtkoepel"
               }
             },
             {
@@ -1416,7 +1426,8 @@
               "unit": "m2",
               "unitPrice": 25,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-roofing"
               }
             },
             {
@@ -1425,7 +1436,8 @@
               "unit": "m2",
               "unitPrice": 110,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-roofing"
               }
             },
             {
@@ -1434,7 +1446,8 @@
               "unit": "m2",
               "unitPrice": 143,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-epdm"
               }
             },
             {
@@ -1444,7 +1457,8 @@
               "unitPrice": null,
               "priceNote": "Prijs volgt",
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lichtkoepel"
               }
             },
             {
@@ -1453,7 +1467,8 @@
               "unit": "stuk",
               "unitPrice": 449,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lichtkoepel"
               }
             },
             {
@@ -1462,7 +1477,8 @@
               "unit": "stuk",
               "unitPrice": 749,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lichtkoepel"
               }
             },
             {
@@ -1471,7 +1487,8 @@
               "unit": "lm",
               "unitPrice": 35,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-dakrand-afwerking"
               }
             },
             {
@@ -1480,7 +1497,8 @@
               "unit": "lm",
               "unitPrice": 45,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             },
             {
@@ -1489,7 +1507,8 @@
               "unit": "lm",
               "unitPrice": 385,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-schouw"
               }
             },
             {
@@ -1498,7 +1517,8 @@
               "unit": "stuk",
               "unitPrice": 295,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-epdm"
               }
             },
             {
@@ -1507,7 +1527,8 @@
               "unit": "stuk",
               "unitPrice": 267,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-roofing"
               }
             },
             {
@@ -1516,7 +1537,8 @@
               "unit": "lm",
               "unitPrice": 26,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             },
             {
@@ -1525,7 +1547,8 @@
               "unit": "stuk",
               "unitPrice": 239,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             },
             {
@@ -1534,85 +1557,18 @@
               "unit": "stuk",
               "unitPrice": 317,
               "filter": {
-                "kind": "always"
-              }
-            }
-          ]
-        },
-        {
-          "id": "lood-en-zinkwerken",
-          "label": "Lood - En Zinkwerken",
-          "items": [
-            {
-              "id": "leveren-en-plaatsen-aludakrand-2",
-              "label": "Leveren en plaatsen aludakrand",
-              "unit": "stuk",
-              "unitPrice": 35,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "leveren-en-plaatsen-zinken-slab-2",
-              "label": "Leveren en plaatsen zinken slab",
-              "unit": "stuk",
-              "unitPrice": 45,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "loodafwerking-schouw-2",
-              "label": "Loodafwerking schouw",
-              "unit": "lm",
-              "unitPrice": 385,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "leveren-en-plaatsen-epdm-tapgat-2",
-              "label": "Leveren en plaatsen EPDM-tapgat",
-              "unit": "stuk",
-              "unitPrice": 295,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "leveren-en-plaatsen-roofing-tapgat-2",
-              "label": "Leveren en plaatsen roofing-tapgat",
-              "unit": "stuk",
-              "unitPrice": 267,
-              "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             },
             {
               "id": "leveren-en-plaatsen-afvoerbuis-2",
-              "label": "Leveren en plaatsen afvoerbuis",
+              "label": "Leveren en plaatsen afvoerbuis (zware uitvoering)",
               "unit": "lm",
               "unitPrice": 57,
               "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "leveren-en-plaatsen-verluchtingspaddestoel-2",
-              "label": "Leveren en plaatsen verluchtingspaddestoel",
-              "unit": "stuk",
-              "unitPrice": 239,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "plaatsen-dakdoorvoer-gasketel-plat-dak-2",
-              "label": "Plaatsen dakdoorvoer gasketel plat dak",
-              "unit": "stuk",
-              "unitPrice": 317,
-              "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "plat-dak-lood-zink"
               }
             }
           ]
@@ -1731,6 +1687,62 @@
     {
       "id": "gyproc-zolder",
       "label": "Gyproc zolder en schildersklaar"
+    },
+    {
+      "id": "plat-dak-standaard-afbraak",
+      "label": "Standaard afbraak plat dak"
+    },
+    {
+      "id": "plat-dak-houtconstructie",
+      "label": "Houtconstructie plat dak"
+    },
+    {
+      "id": "plat-dak-isolatie",
+      "label": "Isolatie plat dak"
+    },
+    {
+      "id": "plat-dak-roofing",
+      "label": "Dakdichting roofing"
+    },
+    {
+      "id": "plat-dak-epdm",
+      "label": "Dakdichting EPDM"
+    },
+    {
+      "id": "plat-dak-lichtkoepel",
+      "label": "Lichtkoepel"
+    },
+    {
+      "id": "plat-dak-schouw",
+      "label": "Schouw plat dak"
+    },
+    {
+      "id": "plat-dak-dakrand-afwerking",
+      "label": "Dakrand-afwerking"
+    },
+    {
+      "id": "plat-dak-lood-zink",
+      "label": "Lood- en zinkwerken plat dak"
+    },
+    {
+      "id": "plat-dak-airco",
+      "label": "Airco"
+    },
+    {
+      "id": "plat-dak-sidings-buur",
+      "label": "Sidings buur (plat dak)"
+    },
+    {
+      "id": "gevel-sidings-isolatie",
+      "label": "Sidings + gevelisolatie"
+    },
+    {
+      "id": "gevel-dorpels-pleister",
+      "label": "Dorpels & pleister"
+    },
+    {
+      "id": "gevel-ventilatie",
+      "label": "Ventilatie & sanitair"
     }
   ]
 }

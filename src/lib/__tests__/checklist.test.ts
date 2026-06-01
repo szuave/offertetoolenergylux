@@ -48,10 +48,9 @@ describe('buildChecklist — happy path', () => {
     expect(errors).toEqual([])
   })
 
-  it('genereert wel een waarschuwing voor leeg werfadres (verschilt van factuur)', () => {
+  it('leeg werfadres is OK — geldt dan als gelijk aan factuuradres', () => {
     const items = buildChecklist(baseState({ customer: { ...baseState().customer, projectAddress: '' } }))
-    const warnings = items.filter((i) => i.severity === 'warning')
-    expect(warnings.some((i) => i.id === 'project-address')).toBe(true)
+    expect(items.some((i) => i.id === 'project-address')).toBe(false)
   })
 })
 

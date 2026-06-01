@@ -89,7 +89,6 @@ export function FilterStep() {
               .filter((cat) => categoryScope[cat.id])
               .map((cat) => {
                 const catFlags = flagsByCategory[cat.id] ?? []
-                if (catFlags.length === 0) return null
                 return (
                   <div key={cat.id} className="space-y-3 pt-2 border-t border-rule">
                     <div className="flex items-center gap-2">
@@ -97,17 +96,24 @@ export function FilterStep() {
                         Filters bij {cat.label}
                       </h3>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {catFlags.map((flag) => (
-                        <CheckboxTile
-                          key={flag.id}
-                          label={flag.label}
-                          description={flag.description}
-                          checked={flags[flag.id] === true}
-                          onChange={(v) => toggleFlag(flag.id, v)}
-                        />
-                      ))}
-                    </div>
+                    {catFlags.length === 0 ? (
+                      <p className="text-xs text-ink-mid italic">
+                        Geen sub-filters voor {cat.label} — alle werken in deze
+                        categorie verschijnen automatisch in stap 3.
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                        {catFlags.map((flag) => (
+                          <CheckboxTile
+                            key={flag.id}
+                            label={flag.label}
+                            description={flag.description}
+                            checked={flags[flag.id] === true}
+                            onChange={(v) => toggleFlag(flag.id, v)}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )
               })

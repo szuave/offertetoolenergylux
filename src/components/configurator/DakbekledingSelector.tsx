@@ -374,7 +374,7 @@ function SelectedPhoto({ variant }: { variant: DakbekledingVariant }) {
 
       {zoom && (
         <div
-          className="fixed inset-0 z-50 bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10"
+          className="fixed inset-0 z-50 bg-black flex items-center justify-center p-4 sm:p-10 animate-overlay-in"
           role="dialog"
           aria-modal="true"
           onClick={() => setZoom(false)}
@@ -385,7 +385,7 @@ function SelectedPhoto({ variant }: { variant: DakbekledingVariant }) {
               e.stopPropagation()
               setZoom(false)
             }}
-            className="absolute top-4 right-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white text-xl hover:bg-white/20"
+            className="absolute top-4 right-4 inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-white text-xl hover:bg-white/20 animate-close-fade"
             aria-label="Sluiten"
           >
             ×
@@ -397,9 +397,9 @@ function SelectedPhoto({ variant }: { variant: DakbekledingVariant }) {
             <img
               src={photo}
               alt={`${variant.brand} ${variant.type} — ${variant.color}`}
-              className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
+              className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl animate-photo-iris will-change-transform"
             />
-            <figcaption className="mt-3 text-white text-sm text-center">
+            <figcaption className="mt-3 text-white text-sm text-center animate-caption-rise">
               <span className="font-semibold">{variant.brand}</span>
               <span className="text-white/70"> · {variant.type} · {variant.color}</span>
             </figcaption>

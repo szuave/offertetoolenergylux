@@ -66,15 +66,6 @@ export function buildChecklist(state: QuoteState): ChecklistItem[] {
       step: 'customer',
     })
   }
-  if (!isNonEmpty(state.customer.projectAddress)) {
-    items.push({
-      id: 'project-address',
-      severity: 'warning',
-      message: 'Geen werfadres',
-      scope: 'customer',
-      step: 'customer',
-    })
-  }
   if (!isNonEmpty(state.meta.salesperson)) {
     items.push({
       id: 'meta-salesperson',
