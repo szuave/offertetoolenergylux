@@ -28,6 +28,17 @@ export type TextField = {
 }
 
 /**
+ * RAL-kleurpicker — autocomplete-input met dropdown van alle RAL Classic
+ * kleuren (213). Verkoper typt code of naam, kleur-swatch verschijnt
+ * naast elke suggestie. Klikken vult in.
+ */
+export type RalField = {
+  kind: 'ral'
+  key: string
+  label: string
+}
+
+/**
  * Veld waarvan de mogelijke opties afhangen van de waarde van een ander veld.
  * Wordt gebruikt voor de oversteken-dimensies: pas zinvolle combo's tonen
  * zodra de dakrand-breedte gekozen is.
@@ -40,7 +51,7 @@ export type ConditionalSelectField = {
   optionsByValue: Readonly<Record<string, readonly string[]>>
 }
 
-export type DetailField = SelectField | TextField | ConditionalSelectField
+export type DetailField = SelectField | TextField | RalField | ConditionalSelectField
 
 const ESTHETISCHE_AFWERKING_FIELDS: readonly DetailField[] = [
   {
@@ -49,12 +60,7 @@ const ESTHETISCHE_AFWERKING_FIELDS: readonly DetailField[] = [
     label: 'Merk',
     options: ['Rockpanel', 'Trespa', 'Volkern', 'Padouk'],
   },
-  {
-    kind: 'text',
-    key: 'ral',
-    label: 'RAL-kleur',
-    placeholder: 'bv. RAL 7016',
-  },
+  { kind: 'ral', key: 'ral', label: 'RAL-kleur' },
   {
     kind: 'select',
     key: 'plaat-dimensie',
@@ -99,12 +105,7 @@ const BAKGOTEN_FIELDS: readonly DetailField[] = [
     label: 'Merk',
     options: ['Rockpanel', 'Trespa', 'Volkern', 'Padouk', 'Zink', 'Aluminium'],
   },
-  {
-    kind: 'text',
-    key: 'ral',
-    label: 'RAL-kleur',
-    placeholder: 'bv. RAL 7016',
-  },
+  { kind: 'ral', key: 'ral', label: 'RAL-kleur' },
   {
     kind: 'select',
     key: 'bakgoot-breedte',
@@ -121,12 +122,7 @@ const BAKGOTEN_FIELDS: readonly DetailField[] = [
 ]
 
 const RAL_ONLY_FIELDS: readonly DetailField[] = [
-  {
-    kind: 'text',
-    key: 'ral',
-    label: 'RAL-kleur',
-    placeholder: 'bv. RAL 7016',
-  },
+  { kind: 'ral', key: 'ral', label: 'RAL-kleur' },
 ]
 
 /**

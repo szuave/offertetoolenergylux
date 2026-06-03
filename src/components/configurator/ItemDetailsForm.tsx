@@ -1,5 +1,6 @@
 import { useQuoteStore } from '@/store/quote-store'
 import { getDetailFields, type DetailField } from '@/data/item-details'
+import { RalPicker } from '@/components/ui/RalPicker'
 import { cn } from '@/lib/cn'
 
 /**
@@ -56,6 +57,21 @@ function Field({
           placeholder={field.placeholder}
           onChange={(e) => onChange(field.key, e.target.value)}
           className="w-full h-9 rounded-md border border-rule bg-surface px-2 text-sm text-ink placeholder:text-ink-muted"
+        />
+      </div>
+    )
+  }
+
+  if (field.kind === 'ral') {
+    return (
+      <div className="space-y-1">
+        <label htmlFor={id} className="text-xs text-ink-mid">
+          {field.label}
+        </label>
+        <RalPicker
+          id={id}
+          value={value}
+          onChange={(v) => onChange(field.key, v)}
         />
       </div>
     )
