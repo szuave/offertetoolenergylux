@@ -3,7 +3,15 @@ import { Search, X } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { pricingConfig } from '@/data/pricing'
 import { useQuoteStore } from '@/store/quote-store'
-import { isFlagActive, isItemActive, isSubcategoryActive } from '@/lib/calculator'
+import {
+  isDakpanChosen,
+  isDakpanOfLeienChosen,
+  isFlagActive,
+  isItemActive,
+  isSubcategoryActive,
+  ITEMS_ALLEEN_BIJ_DAKPAN,
+  ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN,
+} from '@/lib/calculator'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { Card, CardBody } from '@/components/ui/Card'
 import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
@@ -19,12 +27,13 @@ import type { CategoryDef, FlagMap, LineItemDef } from '@/types/quote'
 const COVER_GROUP_ID = 'dakbekleding'
 
 export function ConfiguratorPanel() {
-  const { quantities, groupSelections, flags, categoryScope } = useQuoteStore(
+  const { quantities, groupSelections, flags, categoryScope, cover } = useQuoteStore(
     useShallow((s) => ({
       quantities: s.quantities,
       groupSelections: s.groupSelections,
       flags: s.flags,
       categoryScope: s.categoryScope,
+      cover: s.cover,
     })),
   )
 
@@ -54,7 +63,7 @@ export function ConfiguratorPanel() {
       for (const sub of cat.subcategories) {
         for (const item of sub.items) {
           if (
-            isItemActive(item, { quantities, groupSelections, flags }) &&
+            isItemActive(item, { quantities, groupSelections, flags, cover }) &&
             (quantities[item.id] ?? 0) > 0
           ) {
             n++
@@ -152,7 +161,12 @@ export function ConfiguratorPanel() {
             </CardBody>
           </Card>
         ) : (
-          <CategoryConfigurator category={active} flags={flags} quantities={quantities} />
+          <CategoryConfigurator
+            category={active}
+            flags={flags}
+            quantities={quantities}
+            cover={cover}
+          />
         ))}
     </div>
   )
@@ -162,12 +176,16 @@ function CategoryConfigurator({
   category,
   flags,
   quantities,
+  cover,
 }: {
   category: CategoryDef
   flags: FlagMap
   quantities: Record<string, number>
+  cover: { variantId: string | null; areaM2: number }
 }) {
   const showCoverSelector = category.id === 'hellend-dak'
+  const dakpanGekozen = isDakpanChosen({ cover })
+  const dakpanOfLeienGekozen = isDakpanOfLeienChosen({ cover })
 
   // Per subcategorie filteren we wat zichtbaar is op basis van de filteropties
   // uit stap 2 — items in Excel-volgorde, basis-items en flag-items door elkaar
@@ -203,11 +221,27 @@ function CategoryConfigurator({
           continue
         }
 
+        // Yasid Excel: Onderdak alleen tonen bij dakpan/leien-keuze;
+        // Nokpan/Begin-eindvorst/Gevelpan/Noordbomen alleen bij dakpan-keuze.
+        if (ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN.has(item.id) && !dakpanOfLeienGekozen) {
+          continue
+        }
+        if (ITEMS_ALLEEN_BIJ_DAKPAN.has(item.id) && !dakpanGekozen) {
+          continue
+        }
+
         if (item.filter.kind === 'always') {
           const hasQty = (quantities[item.id] ?? 0) > 0
           if (!subHasActiveFilter && !hasQty && !override) continue
           visibleItems.push(item)
         } else if (item.filter.kind === 'optional') {
+          // Dakpan-toebehoren wordt automatisch geactiveerd door de
+          // dakpan-keuze, niet door een aparte filter-toggle.
+          if (item.filter.flagId === 'dakpan-toebehoren') {
+            if (!dakpanGekozen) continue
+            visibleItems.push(item)
+            continue
+          }
           if (!isFlagActive(item.filter.flagId, flags)) continue
           visibleItems.push(item)
         } else if (item.filter.kind === 'multipleChoice') {

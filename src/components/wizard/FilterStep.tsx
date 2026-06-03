@@ -11,9 +11,12 @@ import type { OptionalFlagDef } from '@/types/quote'
 /**
  * Filters die we niet aan de verkoper tonen in stap 2.
  * - "bakgoten-en-hanggoten": Yasid wil bakgoten en hanggoten apart laten kiezen
- *   (zie mail v2). Items met deze tag verschijnen zodra één van beide aan staat.
+ *   (mail v2). Items met deze tag verschijnen zodra één van beide aan staat.
+ * - "dakpan-toebehoren": items verschijnen automatisch zodra de verkoper
+ *   een dakpan-variant in de DakbekledingSelector kiest (Yasid Excel:
+ *   "altijd bij keuze dakpan").
  */
-const HIDDEN_FLAGS = new Set(['bakgoten-en-hanggoten'])
+const HIDDEN_FLAGS = new Set(['bakgoten-en-hanggoten', 'dakpan-toebehoren'])
 
 /**
  * Stap 2 — Filter opties.

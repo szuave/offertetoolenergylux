@@ -129,6 +129,41 @@ const RAL_ONLY_FIELDS: readonly DetailField[] = [
   },
 ]
 
+/**
+ * Yasid Excel rij 3-6: "Stelling info altijd vermelden — carport,
+ * struiken, rommel, te smalle doorgang, …". Verkoper vult een vrij
+ * tekstveld in.
+ */
+const STELLING_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'text',
+    key: 'info',
+    label: 'Werf-info bij stelling',
+    placeholder: 'carport, struiken, rommel, te smalle doorgang, …',
+  },
+]
+
+/**
+ * Yasid Excel rij 156: "Leveren nieuwe koepel — Offerte opvragen en
+ * exacte productcode vermelden op offerte. Klantenprijs = leveranciers-
+ * prijs vermeerderd met 20 %". Verkoper vult productcode + lev-prijs in,
+ * calculator zet er +20 % op.
+ */
+const KOEPEL_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'text',
+    key: 'productcode',
+    label: 'Productcode koepel',
+    placeholder: 'exacte code van leverancier',
+  },
+  {
+    kind: 'text',
+    key: 'leveranciersprijs',
+    label: 'Leveranciersprijs (excl. BTW)',
+    placeholder: 'bv. 450 — wordt +20% verkoopprijs',
+  },
+]
+
 /** Item-ID → fields. Items zonder entry hebben geen sub-opties. */
 export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
   // Esthetische afwerkingen — Yasid wil hier merk + RAL + plaat-dimensie.
@@ -162,6 +197,15 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
   'granietpleister': RAL_ONLY_FIELDS,
   'aludorpels': RAL_ONLY_FIELDS,
   'leveren-en-plaatsen-aludorpels': RAL_ONLY_FIELDS,
+
+  // Stelling-items — vrije tekst voor werf-info.
+  'stelling-valbeveiliging-voorgevel': STELLING_FIELDS,
+  'stelling-valbeveiliging-achtergevel': STELLING_FIELDS,
+  'stelling-valbeveiliging-zijkant-links': STELLING_FIELDS,
+  'stelling-valbeveiliging-zijkant-rechts': STELLING_FIELDS,
+
+  // Lichtkoepel — leveranciersprijs + 20 % marge.
+  'leveren-nieuwe-koepel': KOEPEL_FIELDS,
 }
 
 export function getDetailFields(itemId: string): readonly DetailField[] | null {

@@ -35,15 +35,15 @@ describe('Demo-offerte (fixtures.demoQuote)', () => {
   it('berekent het demo-scenario consistent', () => {
     const totals = calculateTotals(demoQuote)
     // Stellingen 1*12 + 1*12 + 28*12 = 360
-    // toxisch: 1*649=649 → min €800 (Yasid v2 supplement) = 800
+    // toxisch: auto-berekend = 120 m² × €8 = 960 (boven minimum €800)
     // asbestleien 120*30=3600 + oversteken 18*21=378
-    //   + nokbalk 12*130=1560 + gording 8*130=1040 = 7738
-    expect(totals.subtotalExVat).toBe(7738)
-    expect(totals.discountAmount).toBe(386.9)
-    expect(totals.totalExVat).toBe(7351.1)
-    expect(totals.vatAmount).toBeCloseTo(441.07, 2)
-    expect(totals.totalIncVat).toBeCloseTo(7792.17, 2)
-    expect(totals.pricePerM2).toBeCloseTo(64.93, 2)
+    //   + nokbalk 12*130=1560 + gording 8*130=1040 = 7898
+    expect(totals.subtotalExVat).toBe(7898)
+    expect(totals.discountAmount).toBe(394.9)
+    expect(totals.totalExVat).toBe(7503.1)
+    expect(totals.vatAmount).toBeCloseTo(450.19, 2)
+    expect(totals.totalIncVat).toBeCloseTo(7953.29, 2)
+    expect(totals.pricePerM2).toBeCloseTo(66.28, 2)
   })
 
   it('toont stellingen als lijn met prijs €12/m²', () => {

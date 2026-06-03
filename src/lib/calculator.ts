@@ -25,6 +25,66 @@ export function isFlagActive(flagId: string, flags: Record<string, boolean>): bo
 }
 
 /**
+ * Yasid Excel: "Onderdak — altijd voorstellen als dakpan OF leien wordt
+ * gekozen". Idem voor "Nokpan/Begin-eindvorst/Gevelpan/Noordbomen — altijd
+ * bij keuze dakpan". Check op basis van de DakbekledingSelector-keuze.
+ */
+export function isDakpanChosen(state: Pick<QuoteState, 'cover'>): boolean {
+  if (!state.cover.variantId) return false
+  const v = findVariant(state.cover.variantId)
+  return v?.category === 'dakpannen'
+}
+
+export function isDakpanOfLeienChosen(state: Pick<QuoteState, 'cover'>): boolean {
+  if (!state.cover.variantId) return false
+  const v = findVariant(state.cover.variantId)
+  return v?.category === 'dakpannen' || v?.category === 'leien'
+}
+
+/**
+ * Item-IDs die conditioneel zichtbaar zijn op basis van de dakbekleding-
+ * keuze (NIET via flag). Yasid Excel rij 83-88.
+ */
+export const ITEMS_ALLEEN_BIJ_DAKPAN = new Set([
+  'nokpan',
+  'begin-en-eindvorst',
+  'gevelpan',
+  'noordbomen',
+])
+export const ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN = new Set(['onderdak'])
+
+/**
+ * Som van verwijderde dakbekleding-m² (multipleChoice "Verwijderen
+ * dakbekleding"). Gebruikt voor de container-counter en de m²-prijs
+ * van toxisch afval.
+ */
+const REMOVAL_ITEM_IDS = [
+  'verwijderen-dakpannen',
+  'verwijderen-asbestleien',
+  'verwijderen-asbestonderdak',
+  'verwijderen-sandwichpanelen',
+  'verwijderen-singles',
+]
+function removedDakbekledingM2(state: QuoteState): number {
+  // Alleen het item dat in de multipleChoice "verwijderen-dakbekleding" is
+  // gekozen telt (anders dubbel rekenen bij wisselen).
+  const chosen = state.groupSelections['verwijderen-dakbekleding']
+  if (!chosen) return 0
+  if (!REMOVAL_ITEM_IDS.includes(chosen)) return 0
+  return state.quantities[chosen] ?? 0
+}
+
+/**
+ * Yasid Excel rij 7: "Afvoeren werfpuin = €650 voor 1 container tem 90m²,
+ * vanaf dan aantal 2 tellen" → aantal containers = ceil(removed_m² / 90).
+ */
+export function containerCount(state: QuoteState): number {
+  const m2 = removedDakbekledingM2(state)
+  if (m2 <= 0) return 0
+  return Math.ceil(m2 / 90)
+}
+
+/**
  * Bepaalt of een item zichtbaar/actief is voor de huidige filter-state.
  * Voor sommige items geldt dat hun rij in de Excel een "Filteroptie"-kolom heeft
  * die los staat van het basis-filtertype — die worden via `itemFlagOverride`
@@ -32,11 +92,20 @@ export function isFlagActive(flagId: string, flags: Record<string, boolean>): bo
  */
 export function isItemActive(
   item: LineItemDef,
-  state: Pick<QuoteState, 'groupSelections' | 'flags' | 'quantities'>,
+  state: Pick<QuoteState, 'groupSelections' | 'flags' | 'quantities' | 'cover'>,
 ): boolean {
   // Cross-cutting filteroptie (bv. "gyproc-zolder") moet ook aan staan.
   const overrideFlag = itemFlagOverride(item.id)
   if (overrideFlag && !state.flags[overrideFlag]) return false
+
+  // Yasid Excel: Onderdak alleen actief bij dakpan/leien-keuze;
+  // Nokpan/Begin-eindvorst/Gevelpan/Noordbomen alleen bij dakpan-keuze.
+  if (ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN.has(item.id) && !isDakpanOfLeienChosen(state)) {
+    return false
+  }
+  if (ITEMS_ALLEEN_BIJ_DAKPAN.has(item.id) && !isDakpanChosen(state)) {
+    return false
+  }
 
   switch (item.filter.kind) {
     case 'always':
@@ -108,6 +177,44 @@ function resolveCoverLine(state: QuoteState): ResolvedLineItem | null {
   return { def, category: HELLEND_DAK_CAT, subcategory: COVER_SUB, quantity: areaM2, lineTotal }
 }
 
+/**
+ * Yasid Excel rij 7/8: speciale prijs-regels voor de twee afvoer-items
+ * die overrulen de Excel-prijs.
+ */
+const CONTAINER_PRICE = 650
+const TOXISCH_PER_M2 = 8
+const TOXISCH_MINIMUM = 800
+
+function resolveSpecialLine(
+  item: LineItemDef,
+  state: QuoteState,
+): { quantity: number; lineTotal: number } | null {
+  if (item.id === 'afvoeren-werfpuin') {
+    const count = containerCount(state)
+    if (count <= 0) return null
+    return { quantity: count, lineTotal: round2(count * CONTAINER_PRICE) }
+  }
+  if (item.id === 'afvoeren-werfpuin-toxisch-afval') {
+    const m2 = removedDakbekledingM2(state)
+    if (m2 <= 0) return null
+    const raw = m2 * TOXISCH_PER_M2
+    return { quantity: m2, lineTotal: round2(Math.max(raw, TOXISCH_MINIMUM)) }
+  }
+  // Yasid Excel rij 156: koepel klantprijs = leveranciersprijs * 1.20.
+  // Verkoper vult leveranciersprijs in via item-details, qty is aantal koepels.
+  if (item.id === 'leveren-nieuwe-koepel') {
+    const qty = state.quantities[item.id] ?? 0
+    if (qty <= 0) return null
+    const details = state.details[item.id] ?? {}
+    const lev = Number(String(details['leveranciersprijs'] ?? '').replace(',', '.'))
+    if (!Number.isFinite(lev) || lev <= 0) {
+      return { quantity: qty, lineTotal: 0 }
+    }
+    return { quantity: qty, lineTotal: round2(qty * lev * 1.2) }
+  }
+  return null
+}
+
 export function resolveLineItems(state: QuoteState): ResolvedLineItem[] {
   const resolved: ResolvedLineItem[] = []
   for (const category of pricingConfig.categories) {
@@ -118,6 +225,21 @@ export function resolveLineItems(state: QuoteState): ResolvedLineItem[] {
         // subcategorie-filter. Andere items volgen de subcategorie.
         if (!itemFlagOverride(item.id) && !subActive) continue
         if (!isItemActive(item, state)) continue
+
+        // Speciale prijs-regels (container counter, toxisch €8/m²) overrulen
+        // de standaard qty × unitPrice berekening.
+        const special = resolveSpecialLine(item, state)
+        if (special) {
+          resolved.push({
+            def: item,
+            category,
+            subcategory,
+            quantity: special.quantity,
+            lineTotal: special.lineTotal,
+          })
+          continue
+        }
+
         const quantity = state.quantities[item.id] ?? 0
         if (quantity <= 0) continue
         const lineTotal = calculateLineTotal(item, quantity)
