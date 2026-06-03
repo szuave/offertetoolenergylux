@@ -177,11 +177,18 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
     ...OVERSTEKEN_FIELDS,
   ],
 
-  // Oversteken — conditionele dimensie-combo (mail v2: combos a/b/c/d).
+  // Oversteken — afbraak-items hebben enkel dimensies nodig.
   'verwijderen-oversteken': OVERSTEKEN_FIELDS,
   'strippen-oversteken': OVERSTEKEN_FIELDS,
-  'nieuwe-oversteken-timmeren-toekomstige-gevelisol': OVERSTEKEN_FIELDS,
-  'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding': OVERSTEKEN_FIELDS,
+  // Nieuwe oversteken: Yasid mail v2 vereist "merk, kleur EN dimensies".
+  'nieuwe-oversteken-timmeren-toekomstige-gevelisol': [
+    ...ESTHETISCHE_AFWERKING_FIELDS,
+    ...OVERSTEKEN_FIELDS,
+  ],
+  'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding': [
+    ...ESTHETISCHE_AFWERKING_FIELDS,
+    ...OVERSTEKEN_FIELDS,
+  ],
 
   // Bakgoten — merk + RAL + breedte + combo (mail v2).
   'verwijderen-bakgoten': BAKGOTEN_FIELDS,
@@ -206,6 +213,16 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
 
   // Lichtkoepel — leveranciersprijs + 20 % marge.
   'leveren-nieuwe-koepel': KOEPEL_FIELDS,
+
+  // Minerale wol — Yasid Excel rij 53: "Keuze 6cm, 16cm, 22cm".
+  'minerale-wol': [
+    {
+      kind: 'select',
+      key: 'dikte',
+      label: 'Dikte minerale wol',
+      options: ['6 cm', '16 cm', '22 cm'],
+    },
+  ],
 }
 
 export function getDetailFields(itemId: string): readonly DetailField[] | null {
