@@ -1,9 +1,14 @@
 /* eslint-disable no-console */
 /**
  * Voegt aan catalog.json toe wat NIET expliciet in Excel staat maar wel
- * uit Yasid's mails komt:
- *  - Roofing/EPDM als filters bij plat-dak (mail v2: "moet keuzen zijn")
- *  - Minimum-prijzen op specifieke items
+ * uit Yasid's mails komt of voor de UX nodig is:
+ *
+ *  - Plat-dak sub-filters (Yasid mail v2: "standaard weg" — alle andere
+ *    filters mogen blijven; user-feedback bevestigt dit). Yasid noemt
+ *    expliciet roofing/EPDM als "moeten keuzen zijn".
+ *  - Gevelwerken sub-filters voor 10-items rubriek (UX-keuze, niet
+ *    expliciet uitgesloten in Yasid's mail).
+ *  - Minimum-prijzen op specifieke items.
  *
  * Run na elke parse-pricing-v2.mjs.
  */
@@ -12,49 +17,117 @@ import fs from 'fs'
 const path = './src/data/catalog.json'
 const catalog = JSON.parse(fs.readFileSync(path, 'utf8'))
 
-/* ---------- 1. Roofing/EPDM filters bij plat-dak ---------- */
-const ROOFING_ITEMS = [
-  'leveren-plaatsen-onderlaag-roofing',
-  'leveren-en-plaatsen-toplaag-roofing',
-  'leveren-en-plaatsen-roofing-tapgat',
-]
-const EPDM_ITEMS = [
-  'leveren-en-plaatsen-epdm',
-  'leveren-en-plaatsen-epdm-tapgat',
+/* ---------- 1. Plat-dak sub-filters ---------- */
+const PLAT_DAK_FLAGS = [
+  { id: 'plat-dak-houtconstructie', label: 'Houtconstructie plat dak' },
+  { id: 'plat-dak-isolatie',        label: 'Isolatie plat dak' },
+  { id: 'roofing',                  label: 'Dakdichting roofing' },
+  { id: 'epdm',                     label: 'Dakdichting EPDM' },
+  { id: 'plat-dak-lichtkoepel',     label: 'Lichtkoepel' },
+  { id: 'plat-dak-schouw',          label: 'Schouw plat dak' },
+  { id: 'plat-dak-dakrand',         label: 'Dakrand-afwerking' },
+  { id: 'plat-dak-lood-zink',       label: 'Lood- en zinkwerken plat dak' },
+  { id: 'plat-dak-airco',           label: 'Airco' },
+  { id: 'plat-dak-sidings-buur',    label: 'Sidings buur (plat dak)' },
 ]
 
+const PLAT_DAK_ITEM_MAP = {
+  // Roofing-tracé
+  'verwijderen-bestaande-roofing': 'roofing',
+  'leveren-plaatsen-onderlaag-roofing': 'roofing',
+  'leveren-en-plaatsen-toplaag-roofing': 'roofing',
+  'leveren-en-plaatsen-roofing-tapgat': 'roofing',
+  // EPDM-tracé
+  'verwijderen-bestaande-epdm-dakdichting': 'epdm',
+  'leveren-en-plaatsen-epdm': 'epdm',
+  'leveren-en-plaatsen-epdm-tapgat': 'epdm',
+  // Houtconstructie
+  'verwijderen-osb-plat-dak': 'plat-dak-houtconstructie',
+  'verwijderen-kepers-plat-dak': 'plat-dak-houtconstructie',
+  'verwijderen-gording-plat-dak': 'plat-dak-houtconstructie',
+  'verwijderen-houtconstructie-integraal': 'plat-dak-houtconstructie',
+  'leveren-en-plaatsen-gordingen-plat-dak': 'plat-dak-houtconstructie',
+  'leveren-en-plaatsen-osb-plat-dak': 'plat-dak-houtconstructie',
+  // Isolatie
+  'isolatiewerken': 'plat-dak-isolatie',
+  // Lichtkoepel
+  'bestaande-koepel-verwijderen-voor-vernieuwing': 'plat-dak-lichtkoepel',
+  'ophoging-koepel': 'plat-dak-lichtkoepel',
+  'leveren-nieuwe-koepel': 'plat-dak-lichtkoepel',
+  'plaatsen-nieuwe-koepel-tem-90-cm': 'plat-dak-lichtkoepel',
+  'plaatsen-nieuwe-koepel-90cm': 'plat-dak-lichtkoepel',
+  // Schouw plat dak
+  'schouw-verwijderen-max-1m': 'plat-dak-schouw',
+  'schouw-verwijderen-max-2m': 'plat-dak-schouw',
+  'asbestschouw-verwijderen': 'plat-dak-schouw',
+  'loodafwerking-schouw': 'plat-dak-schouw',
+  // Dakrand
+  'leveren-en-plaatsen-sls-hout-ophoging-dakrand': 'plat-dak-dakrand',
+  'esthetische-afwerking-dakrand': 'plat-dak-dakrand',
+  'leveren-en-plaatsen-aludakrand': 'plat-dak-dakrand',
+  // Lood-zink (resterende plat-dak lood-zink items)
+  'verwijderen-bestaande-zinken-dakdichting': 'plat-dak-lood-zink',
+  'leveren-en-plaatsen-zinken-slab': 'plat-dak-lood-zink',
+  'leveren-en-plaatsen-afvoerbuis': 'plat-dak-lood-zink',
+  'leveren-en-plaatsen-verluchtingspaddestoel': 'plat-dak-lood-zink',
+  'plaatsen-dakdoorvoer-gasketel-plat-dak': 'plat-dak-lood-zink',
+  // Airco
+  'demonteren-airco-buiten-unit': 'plat-dak-airco',
+  // Sidings buur
+  'verwijderen-sidings-buur-om-isolatie-plat-dak-en-2': 'plat-dak-sidings-buur',
+  // 'Verwijderen en afvoeren kiezelsteen' blijft basis — geen logische filter
+}
+
+/* ---------- 2. Gevelwerken sub-filters ---------- */
+const GEVEL_FLAGS = [
+  { id: 'gevel-sidings-isolatie', label: 'Sidings + gevelisolatie' },
+  { id: 'gevel-dorpels-pleister', label: 'Dorpels & pleister' },
+  { id: 'gevel-ventilatie',       label: 'Ventilatie & sanitair' },
+]
+
+const GEVEL_ITEM_MAP = {
+  'verwijderen-sidings-gevel': 'gevel-sidings-isolatie',
+  'gevelisolatie-eps': 'gevel-sidings-isolatie',
+  'gevelafwerking-crepi-siliconenharspleister': 'gevel-sidings-isolatie',
+  'leveren-en-plaatsen-aludorpels': 'gevel-dorpels-pleister',
+  'granietpleister': 'gevel-dorpels-pleister',
+  'blauwe-steen': 'gevel-dorpels-pleister',
+  'aludorpels': 'gevel-dorpels-pleister',
+  'ventilatieroosters': 'gevel-ventilatie',
+  'waterkraan-in-muur-aanwezig-moet-verlengd-worden': 'gevel-ventilatie',
+  'aluminium-profiel-op-maat-voor-de-raampartijen-g': 'gevel-ventilatie',
+}
+
+/* ---------- Toepassen ---------- */
 let retagged = 0
 for (const cat of catalog.categories) {
   for (const sub of cat.subcategories) {
     for (const it of sub.items) {
-      if (ROOFING_ITEMS.includes(it.id)) {
-        it.filter = { kind: 'optional', flagId: 'roofing' }
+      const platFlag = PLAT_DAK_ITEM_MAP[it.id]
+      const gevelFlag = GEVEL_ITEM_MAP[it.id]
+      if (platFlag) {
+        it.filter = { kind: 'optional', flagId: platFlag }
         retagged++
-      } else if (EPDM_ITEMS.includes(it.id)) {
-        it.filter = { kind: 'optional', flagId: 'epdm' }
+      } else if (gevelFlag) {
+        it.filter = { kind: 'optional', flagId: gevelFlag }
         retagged++
       }
     }
   }
 }
 
-// Voeg flags toe aan optionalFlags (na isolatiewerken-binnenkant maar voor
-// dakpan-toebehoren — logische plek voor plat-dak filters).
-const flagDefs = [
-  { id: 'roofing', label: 'Dakdichting roofing' },
-  { id: 'epdm', label: 'Dakdichting EPDM' },
-]
-for (const def of flagDefs) {
+// Flags toevoegen (in volgorde) zodat ze in stap 2 onderaan bij Plat Dak
+// en Gevelwerken verschijnen.
+const allFlags = [...PLAT_DAK_FLAGS, ...GEVEL_FLAGS]
+for (const def of allFlags) {
   if (!catalog.optionalFlags.find((f) => f.id === def.id)) {
     catalog.optionalFlags.push(def)
   }
 }
 
-/* ---------- 2. Minimum-prijzen ---------- */
+/* ---------- Minimum-prijzen ---------- */
 const MINIMUMS = {
   'verwijderen-en-afvoeren-kiezelsteen-op-plat-dak': 1500,
-  // Yasid mail v2: toxisch afval = €8/m² met minimum €800. Excel-prijs is
-  // €649/stuk; we behouden de Excel-prijs en zetten de minimum als veiligheid.
   'afvoeren-werfpuin-toxisch-afval': 800,
 }
 
@@ -71,6 +144,6 @@ for (const cat of catalog.categories) {
 }
 
 fs.writeFileSync(path, JSON.stringify(catalog, null, 2) + '\n', 'utf8')
-console.log(`✓ ${retagged} items omgetagd naar roofing/epdm`)
-console.log(`✓ ${minSet} items hebben nu een minimum-prijs`)
-console.log(`✓ Flags toegevoegd: ${flagDefs.map((f) => f.id).join(', ')}`)
+console.log(`✓ ${retagged} items omgetagd naar plat-dak/gevel filters`)
+console.log(`✓ ${minSet} items hebben een minimum-prijs`)
+console.log(`✓ ${allFlags.length} flags toegevoegd: ${allFlags.map((f) => f.id).join(', ')}`)
