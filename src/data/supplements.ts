@@ -26,6 +26,14 @@ export type SupplementDef = {
 
 export const SUPPLEMENTS: readonly SupplementDef[] = [
   {
+    id: 'hellend-dak-moeilijke-werf',
+    label: 'Moeilijke werf hellend dak',
+    description:
+      'Werf moeilijk bereikbaar, container niet mogelijk, of container/materiaal +5 lm van werf. Geeft +7 % op hellend-dak werken met een minimum van €4319.',
+    categoryId: 'hellend-dak',
+    rule: { kind: 'percentageOfCategory', categoryId: 'hellend-dak', percentage: 7, minimum: 4319 },
+  },
+  {
     id: 'plat-dak-moeilijke-werf',
     label: 'Moeilijke werf plat dak',
     description:

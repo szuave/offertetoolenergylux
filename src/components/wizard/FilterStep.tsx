@@ -8,8 +8,6 @@ import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { cn } from '@/lib/cn'
 import type { OptionalFlagDef } from '@/types/quote'
 
-const CATEGORY_ORDER = ['hellend-dak', 'plat-dak', 'gevelwerken'] as const
-
 /**
  * Filters die we niet aan de verkoper tonen in stap 2.
  * - "bakgoten-en-hanggoten": Yasid wil bakgoten en hanggoten apart laten kiezen
@@ -57,9 +55,10 @@ export function FilterStep() {
     return map
   }, [])
 
-  const orderedCategories = CATEGORY_ORDER.map((id) =>
-    pricingConfig.categories.find((c) => c.id === id),
-  ).filter((c): c is NonNullable<typeof c> => c !== undefined)
+  // Yasid mail v2: "Deze chronologie in excel volgen" — gebruik de Excel-
+  // volgorde uit de catalog (hellend dak → gevelwerken → plat dak) i.p.v.
+  // een hardcoded UI-volgorde.
+  const orderedCategories = pricingConfig.categories
 
   return (
     <section className="space-y-4">
