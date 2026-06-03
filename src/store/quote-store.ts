@@ -98,6 +98,7 @@ function emptyQuote(): QuoteState {
     categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
     details: {},
+    supplements: {},
     discount: defaultDiscount(),
     vatRate: DEFAULT_VAT_RATE,
     notes: '',
@@ -118,6 +119,7 @@ type QuoteActions = {
   toggleCategoryScope: (categoryId: string, value: boolean) => void
   setCover: (partial: Partial<CoverChoice>) => void
   setItemDetail: (itemId: string, key: string, value: string) => void
+  toggleSupplement: (id: string, value: boolean) => void
   setDiscount: (partial: Partial<DiscountConfig>) => void
   setVatRate: (rate: number) => void
   setNotes: (value: string) => void
@@ -203,6 +205,9 @@ export const useQuoteStore = create<QuoteStore>()(
           return { details: nextMap }
         }),
 
+      toggleSupplement: (id, value) =>
+        set((state) => ({ supplements: { ...state.supplements, [id]: value } })),
+
       setDiscount: (partial) =>
         set((state) => ({ discount: { ...state.discount, ...partial } })),
 
@@ -252,6 +257,7 @@ export const useQuoteStore = create<QuoteStore>()(
         categoryScope: state.categoryScope,
         cover: state.cover,
         details: state.details,
+        supplements: state.supplements,
         discount: state.discount,
         vatRate: state.vatRate,
         notes: state.notes,
@@ -280,6 +286,7 @@ export const selectQuoteState = (s: QuoteStore): QuoteState => ({
   categoryScope: s.categoryScope,
   cover: s.cover,
   details: s.details,
+  supplements: s.supplements,
   discount: s.discount,
   vatRate: s.vatRate,
   notes: s.notes,

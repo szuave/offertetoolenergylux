@@ -32,17 +32,16 @@ export const demoQuote: QuoteState = {
     'stelling-valbeveiliging-achtergevel': 1,
     'stelling-valbeveiliging-zijkant-links': 28,
     'afvoeren-werfpuin-toxisch-afval': 1,
-    'verwijderen-asbest': 120,
+    'verwijderen-asbestleien': 120,
     'verwijderen-oversteken': 18,
     'verwijderen-nokbalk': 12,
     'verwijderen-gording': 8,
   },
   groupSelections: {
     'afvoeren-afval': 'afvoeren-werfpuin-toxisch-afval',
-    'verwijderen-dakbekleding': 'verwijderen-asbest',
+    'verwijderen-dakbekleding': 'verwijderen-asbestleien',
   },
   flags: {
-    'standaard-dakwerk': true,
     oversteken: true,
     houtconstructie: true,
     sidings: false,
@@ -50,6 +49,7 @@ export const demoQuote: QuoteState = {
   categoryScope: { 'hellend-dak': true },
   cover: { variantId: null, areaM2: 0 },
   details: {},
+  supplements: {},
   discount: { enabled: true, percentage: 5, conditionDays: 7 },
   vatRate: 0.06,
   notes:

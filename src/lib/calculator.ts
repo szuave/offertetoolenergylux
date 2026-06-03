@@ -1,7 +1,9 @@
 import { pricingConfig } from '@/data/pricing'
 import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
+import { SUPPLEMENTS } from '@/data/supplements'
 import type {
+  AppliedSupplement,
   CategoryDef,
   LineItemDef,
   QuoteState,
@@ -10,6 +12,17 @@ import type {
   SubtotalBreakdown,
   Totals,
 } from '@/types/quote'
+
+/**
+ * Yasid's mail v2: filter "bakgoten en hanggoten" moet apart — items met die
+ * tag verschijnen voortaan zodra één van beide aanstaat.
+ */
+export function isFlagActive(flagId: string, flags: Record<string, boolean>): boolean {
+  if (flagId === 'bakgoten-en-hanggoten') {
+    return Boolean(flags['bakgoten']) || Boolean(flags['hanggoten'])
+  }
+  return Boolean(flags[flagId])
+}
 
 /**
  * Bepaalt of een item zichtbaar/actief is voor de huidige filter-state.
@@ -31,7 +44,7 @@ export function isItemActive(
     case 'multipleChoice':
       return state.groupSelections[item.filter.groupId] === item.id
     case 'optional':
-      return Boolean(state.flags[item.filter.flagId])
+      return isFlagActive(item.filter.flagId, state.flags)
   }
 }
 
@@ -52,11 +65,16 @@ export function isSubcategoryActive(
 /**
  * Berekent het lijnbedrag voor één item. Items zonder prijs (null) tellen niet
  * mee in het totaal — die staan in de offerte als "prijs op aanvraag".
+ * Houdt rekening met `minimumPrice`: als qty × unitPrice lager uitkomt dan
+ * het minimum, geldt het minimum (Yasid mail v2: kiezelsteen min €1500,
+ * toxisch min €800).
  */
 export function calculateLineTotal(item: LineItemDef, quantity: number): number {
   if (item.unitPrice === null) return 0
   if (quantity <= 0) return 0
-  return round2(item.unitPrice * quantity)
+  const raw = item.unitPrice * quantity
+  const total = item.minimumPrice !== undefined ? Math.max(raw, item.minimumPrice) : raw
+  return round2(total)
 }
 
 // Virtuele categorie/subcategorie waaronder de dakbekleding-keuze (uit de
@@ -134,10 +152,51 @@ export function groupSubtotals(resolved: ResolvedLineItem[]): SubtotalBreakdown[
   return [...map.values()]
 }
 
+function applySupplements(
+  state: QuoteState,
+  subtotals: SubtotalBreakdown[],
+): AppliedSupplement[] {
+  const applied: AppliedSupplement[] = []
+  const sums = new Map<string, number>()
+  for (const s of subtotals) {
+    sums.set(s.categoryId, (sums.get(s.categoryId) ?? 0) + s.amount)
+  }
+  for (const sup of SUPPLEMENTS) {
+    if (!state.supplements?.[sup.id]) continue
+    const base = sums.get(sup.rule.categoryId) ?? 0
+    if (base <= 0) continue
+    let amount = 0
+    if (sup.rule.kind === 'percentageOfCategory') {
+      amount = Math.max((base * sup.rule.percentage) / 100, sup.rule.minimum)
+    } else if (sup.rule.kind === 'perM2OfCategory') {
+      // Som van m²-items in deze categorie als basis voor de perM2-supplement.
+      let totalM2 = 0
+      for (const s of subtotals) {
+        if (s.categoryId !== sup.rule.categoryId) continue
+        for (const line of s.items) {
+          if (line.def.unit === 'm2') totalM2 += line.quantity
+        }
+      }
+      amount = totalM2 * sup.rule.amountPerM2
+    }
+    if (amount > 0) {
+      applied.push({ id: sup.id, label: sup.label, amount: round2(amount) })
+    }
+  }
+  return applied
+}
+
 export function calculateTotals(state: QuoteState): Totals {
   const resolved = resolveLineItems(state)
   const subtotals = groupSubtotals(resolved)
-  const subtotalExVat = round2(resolved.reduce((sum, l) => sum + l.lineTotal, 0))
+  const itemsSubtotal = round2(resolved.reduce((sum, l) => sum + l.lineTotal, 0))
+
+  const appliedSupplements = applySupplements(state, subtotals)
+  const supplementsTotal = round2(
+    appliedSupplements.reduce((sum, s) => sum + s.amount, 0),
+  )
+
+  const subtotalExVat = round2(itemsSubtotal + supplementsTotal)
 
   const discountAmount = state.discount.enabled
     ? round2((subtotalExVat * state.discount.percentage) / 100)
@@ -154,6 +213,8 @@ export function calculateTotals(state: QuoteState): Totals {
     resolvedItems: resolved,
     subtotals,
     subtotalExVat,
+    appliedSupplements,
+    supplementsTotal,
     discountAmount,
     totalExVat,
     vatAmount,

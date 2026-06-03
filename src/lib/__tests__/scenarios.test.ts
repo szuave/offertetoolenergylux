@@ -34,25 +34,26 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
 describe('Demo-offerte (fixtures.demoQuote)', () => {
   it('berekent het demo-scenario consistent', () => {
     const totals = calculateTotals(demoQuote)
-    // Stellingen staan op "prijs volgt" (null) → tellen niet mee.
-    // toxisch 649 + asbest 120*45=5400 + oversteken 18*21=378
-    //   + nokbalk 12*130=1560 + gording 8*130=1040 = 9027
-    expect(totals.subtotalExVat).toBe(9027)
-    expect(totals.discountAmount).toBe(451.35)
-    expect(totals.totalExVat).toBe(8575.65)
-    expect(totals.vatAmount).toBeCloseTo(514.54, 2)
-    expect(totals.totalIncVat).toBeCloseTo(9090.19, 2)
-    expect(totals.pricePerM2).toBeCloseTo(75.75, 2)
+    // Stellingen 1*12 + 1*12 + 28*12 = 360
+    // toxisch: 1*649=649 → min €800 (Yasid v2 supplement) = 800
+    // asbestleien 120*30=3600 + oversteken 18*21=378
+    //   + nokbalk 12*130=1560 + gording 8*130=1040 = 7738
+    expect(totals.subtotalExVat).toBe(7738)
+    expect(totals.discountAmount).toBe(386.9)
+    expect(totals.totalExVat).toBe(7351.1)
+    expect(totals.vatAmount).toBeCloseTo(441.07, 2)
+    expect(totals.totalIncVat).toBeCloseTo(7792.17, 2)
+    expect(totals.pricePerM2).toBeCloseTo(64.93, 2)
   })
 
-  it('toont stellingen als lijn maar telt ze niet (prijs volgt)', () => {
+  it('toont stellingen als lijn met prijs €12/m²', () => {
     const totals = calculateTotals(demoQuote)
     const stelling = totals.resolvedItems.find((r) =>
       r.def.id.startsWith('stelling-valbeveiliging'),
     )
     expect(stelling).toBeDefined()
-    expect(stelling!.def.unitPrice).toBeNull()
-    expect(stelling!.lineTotal).toBe(0)
+    expect(stelling!.def.unitPrice).toBe(12)
+    expect(stelling!.lineTotal).toBeGreaterThan(0)
   })
 })
 
@@ -71,10 +72,11 @@ describe('Scenario: 21% BTW (nieuwbouw)', () => {
 })
 
 describe('Scenario: items met prijs-volgt (null)', () => {
-  it('telt sandwichpanelen niet mee in het totaal maar toont de lijn', () => {
+  it('telt items zonder prijs niet mee in het totaal', () => {
+    // strippen-oversteken heeft prijs €null in nieuwe Excel
     const state = baseState({
-      quantities: { 'verwijderen-sandwichpanelen': 100 },
-      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-sandwichpanelen' },
+      quantities: { 'strippen-oversteken': 10 },
+      flags: { houtconstructie: true },
     })
     const totals = calculateTotals(state)
     expect(totals.subtotalExVat).toBe(0)
@@ -88,15 +90,15 @@ describe('Scenario: wisselen tussen multipleChoice keuzes', () => {
     const state = baseState({
       quantities: {
         'verwijderen-dakpannen': 100,
-        'verwijderen-asbest': 100,
+        'verwijderen-asbestleien': 100,
       },
-      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbest' },
+      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbestleien' },
     })
     const totals = calculateTotals(state)
-    // alleen asbest telt mee: 100 * 45 = 4500
-    expect(totals.subtotalExVat).toBe(4500)
+    // alleen asbestleien telt mee: 100 * 30 = 3000
+    expect(totals.subtotalExVat).toBe(3000)
     expect(totals.resolvedItems).toHaveLength(1)
-    expect(totals.resolvedItems[0]!.def.id).toBe('verwijderen-asbest')
+    expect(totals.resolvedItems[0]!.def.id).toBe('verwijderen-asbestleien')
   })
 })
 
@@ -228,7 +230,7 @@ describe('Data-integriteit van pricingConfig (gegenereerd uit Excel)', () => {
     for (const cat of pricingConfig.categories) {
       for (const sub of cat.subcategories) {
         for (const item of sub.items) {
-          expect(['stuk', 'm2', 'lm']).toContain(item.unit)
+          expect(['stuk', 'm2', 'lm', 'jaNee']).toContain(item.unit)
           if (item.unitPrice === null) {
             expect(item.priceNote ?? 'Prijs volgt').toBeTruthy()
           } else {

@@ -38,7 +38,7 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
 
 // Stabiele items met vaste prijs uit de catalogus
 const dakpannen = getItemDef('verwijderen-dakpannen')!.item // m2 @ 40, choice
-const asbest = getItemDef('verwijderen-asbest')!.item // m2 @ 45, choice
+const asbest = getItemDef('verwijderen-asbestleien')!.item // m2 @ 30, choice
 const oversteken = getItemDef('verwijderen-oversteken')!.item // lm @ 21, optional/oversteken
 
 describe('calculateLineTotal', () => {
@@ -67,7 +67,7 @@ describe('isItemActive', () => {
     expect(isItemActive(dakpannen, selected)).toBe(true)
 
     const otherChoice = baseState({
-      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbest' },
+      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbestleien' },
     })
     expect(isItemActive(dakpannen, otherChoice)).toBe(false)
   })
@@ -102,9 +102,9 @@ describe('calculateTotals', () => {
   it('telt een multipleChoice keuze enkel mee bij hoeveelheid > 0', () => {
     const state = baseState({
       quantities: { [asbest.id]: 1 },
-      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbest' },
+      groupSelections: { 'verwijderen-dakbekleding': 'verwijderen-asbestleien' },
     })
-    expect(calculateTotals(state).subtotalExVat).toBe(45)
+    expect(calculateTotals(state).subtotalExVat).toBe(30)
   })
 
   it('past 5% korting toe als enabled', () => {

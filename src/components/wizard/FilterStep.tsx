@@ -11,6 +11,13 @@ import type { OptionalFlagDef } from '@/types/quote'
 const CATEGORY_ORDER = ['hellend-dak', 'plat-dak', 'gevelwerken'] as const
 
 /**
+ * Filters die we niet aan de verkoper tonen in stap 2.
+ * - "bakgoten-en-hanggoten": Yasid wil bakgoten en hanggoten apart laten kiezen
+ *   (zie mail v2). Items met deze tag verschijnen zodra één van beide aan staat.
+ */
+const HIDDEN_FLAGS = new Set(['bakgoten-en-hanggoten'])
+
+/**
  * Stap 2 — Filter opties.
  *
  * Bovenaan: het type werken (categorie). Daaronder verschijnen, per gekozen
@@ -43,7 +50,9 @@ export function FilterStep() {
           if (override) ids.add(override)
         }
       }
-      map[cat.id] = pricingConfig.optionalFlags.filter((f) => ids.has(f.id))
+      map[cat.id] = pricingConfig.optionalFlags.filter(
+        (f) => ids.has(f.id) && !HIDDEN_FLAGS.has(f.id),
+      )
     }
     return map
   }, [])

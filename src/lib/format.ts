@@ -34,6 +34,8 @@ export function formatUnit(unit: Unit): string {
       return 'm²'
     case 'lm':
       return 'lm'
+    case 'jaNee':
+      return 'ja/nee'
   }
 }
 

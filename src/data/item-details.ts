@@ -63,23 +63,69 @@ const ESTHETISCHE_AFWERKING_FIELDS: readonly DetailField[] = [
   },
 ]
 
+/**
+ * Yasid (mail v2): "Bakgoten, oversteken dienen naast lopende meter, merk,
+ * kleur ook dimensies te vermelden". De combo's lopen volgens dezelfde regel
+ * voor beide: eerste breedte (a=30, b=40, c=50, d=60) en de tweede breedte
+ * is gelijk of groter.
+ */
+const DIMENSIE_COMBO_PER_BREEDTE: Readonly<Record<string, readonly string[]>> = {
+  '30 cm': ['30-30', '30-40', '30-50', '30-60'],
+  '40 cm': ['40-40', '40-50', '40-60'],
+  '50 cm': ['50-50', '50-60'],
+  '60 cm': ['60-60'],
+}
+
 const OVERSTEKEN_FIELDS: readonly DetailField[] = [
   {
     kind: 'select',
     key: 'dakrand-breedte',
     label: 'Dakrand-breedte',
-    options: ['40 cm', '50 cm', '60 cm'],
+    options: ['30 cm', '40 cm', '50 cm', '60 cm'],
   },
   {
     kind: 'conditional-select',
     key: 'oversteek-combo',
     label: 'Dimensie-combo',
     dependsOn: 'dakrand-breedte',
-    optionsByValue: {
-      '40 cm': ['30-30', '30-40'],
-      '50 cm': ['30-30', '30-40', '30-50'],
-      '60 cm': ['30-30', '30-40', '30-50', '30-60'],
-    },
+    optionsByValue: DIMENSIE_COMBO_PER_BREEDTE,
+  },
+]
+
+const BAKGOTEN_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'select',
+    key: 'merk',
+    label: 'Merk',
+    options: ['Rockpanel', 'Trespa', 'Volkern', 'Padouk', 'Zink', 'Aluminium'],
+  },
+  {
+    kind: 'text',
+    key: 'ral',
+    label: 'RAL-kleur',
+    placeholder: 'bv. RAL 7016',
+  },
+  {
+    kind: 'select',
+    key: 'bakgoot-breedte',
+    label: 'Bakgoot-breedte',
+    options: ['30 cm', '40 cm', '50 cm', '60 cm'],
+  },
+  {
+    kind: 'conditional-select',
+    key: 'bakgoot-combo',
+    label: 'Dimensie-combo',
+    dependsOn: 'bakgoot-breedte',
+    optionsByValue: DIMENSIE_COMBO_PER_BREEDTE,
+  },
+]
+
+const RAL_ONLY_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'text',
+    key: 'ral',
+    label: 'RAL-kleur',
+    placeholder: 'bv. RAL 7016',
   },
 ]
 
@@ -96,10 +142,26 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
     ...OVERSTEKEN_FIELDS,
   ],
 
-  // Oversteken — conditionele dimensie-combo afhankelijk van dakrand-breedte.
+  // Oversteken — conditionele dimensie-combo (mail v2: combos a/b/c/d).
   'verwijderen-oversteken': OVERSTEKEN_FIELDS,
   'strippen-oversteken': OVERSTEKEN_FIELDS,
-  'nieuwe-oversteken-timmeren': OVERSTEKEN_FIELDS,
+  'nieuwe-oversteken-timmeren-toekomstige-gevelisol': OVERSTEKEN_FIELDS,
+  'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding': OVERSTEKEN_FIELDS,
+
+  // Bakgoten — merk + RAL + breedte + combo (mail v2).
+  'verwijderen-bakgoten': BAKGOTEN_FIELDS,
+  'strippen-bakgoten': BAKGOTEN_FIELDS,
+  'strippen-binnenbekleding-bakgoot': BAKGOTEN_FIELDS,
+  'buitenbekleding-bakgoot': BAKGOTEN_FIELDS,
+  'nieuwe-bakgoot-timmeren': BAKGOTEN_FIELDS,
+  'zinken-binnenbekleding-bakgoot': BAKGOTEN_FIELDS,
+  'epdm-dichting-bakgoot': BAKGOTEN_FIELDS,
+
+  // Gevelwerken — RAL-kleurcode is verplicht.
+  'gevelafwerking-crepi-siliconenharspleister': RAL_ONLY_FIELDS,
+  'granietpleister': RAL_ONLY_FIELDS,
+  'aludorpels': RAL_ONLY_FIELDS,
+  'leveren-en-plaatsen-aludorpels': RAL_ONLY_FIELDS,
 }
 
 export function getDetailFields(itemId: string): readonly DetailField[] | null {

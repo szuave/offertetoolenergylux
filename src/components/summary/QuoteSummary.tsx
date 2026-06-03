@@ -39,6 +39,17 @@ export function QuoteSummary() {
         <SubtotalsList subtotals={totals.subtotals} />
 
         <div className="space-y-2 border-t border-ink-100 pt-4">
+          {totals.appliedSupplements.length > 0 && (
+            <>
+              {totals.appliedSupplements.map((s) => (
+                <Row
+                  key={s.id}
+                  label={`Supplement: ${s.label}`}
+                  value={`+ ${formatEuro(s.amount)}`}
+                />
+              ))}
+            </>
+          )}
           <Row label="Subtotaal" value={formatEuro(totals.subtotalExVat)} />
           {totals.discountAmount > 0 && (
             <Row

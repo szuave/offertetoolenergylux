@@ -1,4 +1,4 @@
-export type Unit = 'stuk' | 'm2' | 'lm'
+export type Unit = 'stuk' | 'm2' | 'lm' | 'jaNee'
 
 export type FilterRule =
   | { kind: 'always' }
@@ -14,6 +14,12 @@ export type LineItemDef = {
   /** Tekst bij items zonder vaste prijs: "Prijs volgt" of "Op regie". */
   priceNote?: string
   filter: FilterRule
+  /**
+   * Minimum-prijs voor dit item. Als qty × unitPrice lager uitkomt dan dit
+   * bedrag, wordt dit minimum als lijntotaal gebruikt. Bv. "Verwijderen
+   * kiezelsteen" minimum €1500.
+   */
+  minimumPrice?: number
 }
 
 export type SubcategoryDef = {
@@ -21,6 +27,8 @@ export type SubcategoryDef = {
   label: string
   description?: string
   items: LineItemDef[]
+  /** Filter-flag die de hele rubriek aan/uit zet (uit Excel header-rij). */
+  subcategoryFlag?: string
 }
 
 export type CategoryDef = {
@@ -98,6 +106,13 @@ export type ScopeMap = Record<string, boolean>
 
 export type WizardStep = 'filter' | 'customer' | 'works'
 
+/**
+ * Werf-supplementen (checklist-vragen uit Yasid's mail v2):
+ *  - Plat dak werf moeilijk bereikbaar/hoogte/container etc → +7% met min €3000
+ *  - Gevel veel hoekjes/electriciteit/sanitair → +€20/m² gevel-werken
+ */
+export type SupplementMap = Record<string, boolean>
+
 export type QuoteState = {
   meta: QuoteMeta
   customer: Customer
@@ -109,6 +124,8 @@ export type QuoteState = {
   cover: CoverChoice
   /** Vrije sub-opties per item (merk, RAL, dimensie). */
   details: DetailsMap
+  /** Werf-supplementen die de subtotaal modifiëren (Yasid mail v2). */
+  supplements: SupplementMap
   discount: DiscountConfig
   vatRate: number
   notes: string
@@ -131,10 +148,20 @@ export type SubtotalBreakdown = {
   items: ResolvedLineItem[]
 }
 
+export type AppliedSupplement = {
+  id: string
+  label: string
+  amount: number
+}
+
 export type Totals = {
   resolvedItems: ResolvedLineItem[]
   subtotals: SubtotalBreakdown[]
   subtotalExVat: number
+  /** Toegepaste werf-supplementen, in volgorde. */
+  appliedSupplements: AppliedSupplement[]
+  /** Som van alle supplementen. */
+  supplementsTotal: number
   discountAmount: number
   totalExVat: number
   vatAmount: number

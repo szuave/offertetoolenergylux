@@ -103,9 +103,10 @@ describe('buildChecklist — warnings', () => {
   })
 
   it('waarschuwt bij item met null-prijs en qty > 0', () => {
+    // strippen-oversteken heeft prijs €null in de nieuwe Excel
     const items = buildChecklist(
       baseState({
-        quantities: { ...baseState().quantities, 'verwijderen-sandwichpanelen': 50 },
+        quantities: { ...baseState().quantities, 'strippen-oversteken': 10 },
       }),
     )
     expect(items.some((i) => i.id === 'noprice' && i.severity === 'warning')).toBe(true)

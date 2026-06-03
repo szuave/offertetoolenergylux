@@ -3,7 +3,7 @@ import { Search, X } from 'lucide-react'
 import { useShallow } from 'zustand/react/shallow'
 import { pricingConfig } from '@/data/pricing'
 import { useQuoteStore } from '@/store/quote-store'
-import { isItemActive, isSubcategoryActive } from '@/lib/calculator'
+import { isFlagActive, isItemActive, isSubcategoryActive } from '@/lib/calculator'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { Card, CardBody } from '@/components/ui/Card'
 import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
@@ -186,7 +186,7 @@ function CategoryConfigurator({
       const subHasActiveFilter =
         (subFlag !== null && flags[subFlag] === true) ||
         sub.items.some(
-          (it) => it.filter.kind === 'optional' && flags[it.filter.flagId],
+          (it) => it.filter.kind === 'optional' && isFlagActive(it.filter.flagId, flags),
         ) ||
         !hasOptionalItems
 
@@ -208,7 +208,7 @@ function CategoryConfigurator({
           if (!subHasActiveFilter && !hasQty && !override) continue
           visibleItems.push(item)
         } else if (item.filter.kind === 'optional') {
-          if (!flags[item.filter.flagId]) continue
+          if (!isFlagActive(item.filter.flagId, flags)) continue
           visibleItems.push(item)
         } else if (item.filter.kind === 'multipleChoice') {
           if (item.filter.groupId === COVER_GROUP_ID) continue

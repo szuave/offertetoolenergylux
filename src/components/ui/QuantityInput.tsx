@@ -28,6 +28,42 @@ export function QuantityInput({
   className,
   id,
 }: Props) {
+  // ja/nee-items renderen als toggle in plaats van numerieke spinner.
+  if (unit === 'jaNee') {
+    const active = value > 0
+    return (
+      <button
+        type="button"
+        id={id}
+        disabled={disabled}
+        onClick={() => onChange(active ? 0 : 1)}
+        aria-pressed={active}
+        className={cn(
+          'inline-flex h-10 items-center gap-2 px-3 rounded-lg border text-sm font-medium transition-colors',
+          active
+            ? 'border-brand-primary bg-brand-primary text-white'
+            : 'border-ink-200 bg-white text-ink-700 hover:border-ink-400',
+          disabled && 'opacity-50 cursor-not-allowed',
+          className,
+        )}
+      >
+        <span
+          className={cn(
+            'inline-flex w-4 h-4 items-center justify-center rounded-full border',
+            active ? 'border-white bg-white text-brand-primary' : 'border-ink-300 bg-transparent',
+          )}
+        >
+          {active && (
+            <svg viewBox="0 0 12 12" className="w-3 h-3" fill="currentColor" aria-hidden="true">
+              <path d="M10 3.5L5 8.5L2.5 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          )}
+        </span>
+        {active ? 'Ja' : 'Nee'}
+      </button>
+    )
+  }
+
   const effectiveStep = step ?? (unit === 'stuk' ? 1 : 0.5)
 
   // Tijdens het typen tonen we de ruwe tekst (`draft`) zodat een half ingetypte
