@@ -24,6 +24,7 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
     categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
     details: {},
+    supplements: {},
     discount: { enabled: false, percentage: 5, conditionDays: 7 },
     vatRate: 0.06,
     notes: '',
