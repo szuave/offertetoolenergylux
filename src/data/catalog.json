@@ -183,12 +183,11 @@
               "id": "strippen-oversteken",
               "label": "Strippen oversteken",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "houtconstructie"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "verwijderen-bakgoten",
@@ -204,78 +203,71 @@
               "id": "strippen-bakgoten",
               "label": "Strippen bakgoten",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "bakgoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "strippen-binnenbekleding-bakgoot",
               "label": "Strippen binnenbekleding bakgoot",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "bakgoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "demonteren-hanggoten-voor-hergebruik",
               "label": "Demonteren hanggoten voor hergebruik",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "hanggoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "demonteren-velux",
               "label": "Demonteren Velux",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "verwijderen-hanggoten-voor-vernieuwing",
               "label": "Verwijderen hanggoten voor vernieuwing",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "hanggoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "verwijderen-afvoerbuizen",
               "label": "Verwijderen afvoerbuizen",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "bakgoten-en-hanggoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "verwijderen-veluxen",
               "label": "Verwijderen veluxen",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "verwijderen-schouwconstructie-max-1-m",
@@ -591,12 +583,11 @@
               "id": "esthetische-afwerking-oversteken",
               "label": "Esthetische afwerking oversteken",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "oversteken"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "panlatten-op-panafstand-hechten-op-het-onderdak",
@@ -796,34 +787,31 @@
               "id": "kunststofleien-cedral",
               "label": "Kunststofleien CEDRAL",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "multipleChoice",
                 "groupId": "dakbekleding"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "ecopanelen-antraciet",
               "label": "Ecopanelen - antraciet",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "multipleChoice",
                 "groupId": "dakbekleding"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "perma-dakpan-joris-ide",
               "label": "Perma dakpan Joris Ide",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "multipleChoice",
                 "groupId": "dakbekleding"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "dakdichting-dakkapel-epdm",
@@ -839,12 +827,11 @@
               "id": "dakdichting-dakkapel-dakpan",
               "label": "Dakdichting dakkapel dakpan",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "dakkapel"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "dakdichting-dakkapel-roofing",
@@ -860,45 +847,41 @@
               "id": "veluxen-nieuw",
               "label": "Veluxen nieuw",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "velux-verduisterend-rolgordijn-manueel",
               "label": "Velux - Verduisterend rolgordijn (manueel)",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "velux-rolluiken-op-zonne-energie",
               "label": "Velux - Rolluiken op zonne-energie",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "veluxen-muggengaas",
               "label": "Veluxen muggengaas",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "velux-hergebruik",
@@ -934,23 +917,21 @@
               "id": "estetische-afwerking-schouw",
               "label": "Estetische afwerking schouw",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "schouw"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "metselwerk-schouw-2",
               "label": "Metselwerk schouw",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "schouw"
-              },
-              "priceNote": "Prijs volgt"
+              }
             }
           ]
         },
@@ -1072,12 +1053,11 @@
               "id": "dakdoorvoer",
               "label": "Dakdoorvoer",
               "unit": "lm",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "hanggoten"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "leveren-en-plaatsen-zinken-hanggoot",
@@ -1198,35 +1178,32 @@
               "id": "ventilatieroosters",
               "label": "Ventilatieroosters",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "gevel-ventilatie"
               },
-              "hint": "Checklist ventilatieroosters, waterkraan in muur aanwezig, moet verlengd worden door sanitaire man, electriciteitsbak tegen de gevel, electriciteitskabel in muur, veel hoekjes en kantjes en niet eenvoudige gevels = 20 euro per m2 erbij als deze optie wordt aangevinkt",
-              "priceNote": "Prijs volgt"
+              "hint": "Checklist ventilatieroosters, waterkraan in muur aanwezig, moet verlengd worden door sanitaire man, electriciteitsbak tegen de gevel, electriciteitskabel in muur, veel hoekjes en kantjes en niet eenvoudige gevels = 20 euro per m2 erbij als deze optie wordt aangevinkt"
             },
             {
               "id": "waterkraan-in-muur-aanwezig-moet-verlengd-worden",
               "label": "Waterkraan in muur aanwezig: moet verlengd worden door sanitaire man van klant",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "gevel-ventilatie"
-              },
-              "priceNote": "Prijs volgt"
+              }
             },
             {
               "id": "aluminium-profiel-op-maat-voor-de-raampartijen-g",
               "label": "Aluminium profiel op maat voor de raampartijen - gevelisolatie voorbij raam",
               "unit": "m2",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "gevel-ventilatie"
-              },
-              "priceNote": "Prijs volgt"
+              }
             }
           ]
         }
@@ -1476,13 +1453,12 @@
               "id": "leveren-nieuwe-koepel",
               "label": "Leveren  nieuwe koepel",
               "unit": "stuk",
-              "unitPrice": null,
+              "unitPrice": 1,
               "filter": {
                 "kind": "optional",
                 "flagId": "plat-dak-lichtkoepel"
               },
-              "hint": "Offerte opvragen en exacte productcode vermelden op offerte . Klantenprijs is gelijk aan leveranciersprijs vermeerdert met 20%",
-              "priceNote": "Prijs volgt"
+              "hint": "Offerte opvragen en exacte productcode vermelden op offerte . Klantenprijs is gelijk aan leveranciersprijs vermeerdert met 20%"
             },
             {
               "id": "plaatsen-nieuwe-koepel-tem-90-cm",

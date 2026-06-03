@@ -57,20 +57,24 @@ function normUnit(raw) {
   return null
 }
 
+/**
+ * Yasid gebruikt €1 of een lege cel als placeholder voor prijzen die nog
+ * komen. User-keuze: behoud die als ECHTE €1 in plaats van "Prijs volgt",
+ * zodat ze meerekenen in de offerte tot Yasid de echte prijzen levert.
+ */
 function parsePrice(raw) {
   if (typeof raw === 'number') {
-    if (raw === 1) return { mode: 'pending' }
     return { mode: 'fixed', value: raw }
   }
   const s = String(raw || '').trim()
-  if (s === '') return { mode: 'pending' }
+  if (s === '') return { mode: 'fixed', value: 1 }
   if (/regie/i.test(s)) return { mode: 'regie' }
   const m = s.replace(/[^0-9,.]/g, '').replace(/\./g, '').replace(',', '.')
   const n = Number(m)
   if (Number.isFinite(n) && n > 0) {
-    return n === 1 ? { mode: 'pending' } : { mode: 'fixed', value: n }
+    return { mode: 'fixed', value: n }
   }
-  return { mode: 'pending' }
+  return { mode: 'fixed', value: 1 }
 }
 
 /**

@@ -72,11 +72,11 @@ describe('Scenario: 21% BTW (nieuwbouw)', () => {
 })
 
 describe('Scenario: items met prijs-volgt (null)', () => {
-  it('telt items zonder prijs niet mee in het totaal', () => {
-    // strippen-oversteken heeft prijs €null in nieuwe Excel
+  it('telt items met "Op regie" niet mee in het totaal', () => {
+    // metselwerk-schouw heeft prijs "Op regie" → unitPrice === null
     const state = baseState({
-      quantities: { 'strippen-oversteken': 10 },
-      flags: { houtconstructie: true },
+      quantities: { 'metselwerk-schouw': 10 },
+      flags: { schouw: true },
     })
     const totals = calculateTotals(state)
     expect(totals.subtotalExVat).toBe(0)

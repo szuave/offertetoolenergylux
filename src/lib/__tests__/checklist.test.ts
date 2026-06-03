@@ -103,10 +103,10 @@ describe('buildChecklist — warnings', () => {
   })
 
   it('waarschuwt bij item met null-prijs en qty > 0', () => {
-    // strippen-oversteken heeft prijs €null in de nieuwe Excel
+    // metselwerk-schouw heeft prijs "Op regie" → unitPrice null
     const items = buildChecklist(
       baseState({
-        quantities: { ...baseState().quantities, 'strippen-oversteken': 10 },
+        quantities: { ...baseState().quantities, 'metselwerk-schouw': 10 },
       }),
     )
     expect(items.some((i) => i.id === 'noprice' && i.severity === 'warning')).toBe(true)
