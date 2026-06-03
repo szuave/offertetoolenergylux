@@ -64,6 +64,14 @@ export function PricePerM2Indicator({ pricePerM2 }: Props) {
       </div>
     )
   }
+  if (pricePerM2 <= 0) {
+    return (
+      <div className="flex items-baseline justify-between gap-2 py-1">
+        <span className="text-xs uppercase tracking-wider text-ink-muted">Prijs / m²</span>
+        <span className="text-xs text-ink-muted">Nog geen werken</span>
+      </div>
+    )
+  }
   const cls = classify(pricePerM2)
   return (
     <div className="space-y-1.5 py-1">
