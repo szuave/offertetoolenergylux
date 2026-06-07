@@ -152,6 +152,44 @@ const BAKGOTEN_BEKLEDING_FIELDS: readonly DetailField[] = [
   },
 ]
 
+/**
+ * Daryl 4 juni: voor zinken hanggoot, afvoerbuizen en afvoerbuis plat dak
+ * moet de verkoper extra info kunnen invullen — Materiaal / Vorm / Kleur
+ * (zink, koper, …) / aantal / vrij tekstveld.
+ */
+const HANGGOOT_AFVOER_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'select',
+    key: 'materiaal',
+    label: 'Materiaal',
+    options: ['Zink', 'PVC'],
+  },
+  {
+    kind: 'select',
+    key: 'vorm',
+    label: 'Vorm',
+    options: ['Rond', 'Vierkant'],
+  },
+  {
+    kind: 'select',
+    key: 'kleur',
+    label: 'Kleur',
+    options: ['Natuurzink', 'Kwartsgrijs', 'Antrazink', 'Koper'],
+  },
+  {
+    kind: 'text',
+    key: 'aantal',
+    label: 'Aantal',
+    placeholder: 'bv. 4',
+  },
+  {
+    kind: 'text',
+    key: 'extra',
+    label: 'Extra info',
+    placeholder: 'optionele toelichting',
+  },
+]
+
 /** Voor nieuwe-bakgoot-timmeren: geen merk/RAL — Daryl wil die weg. */
 const BAKGOTEN_NIEUW_FIELDS: readonly DetailField[] = [
   {
@@ -211,8 +249,8 @@ const KOEPEL_FIELDS: readonly DetailField[] = [
 /** Item-ID → fields. Items zonder entry hebben geen sub-opties. */
 export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
   // Esthetische afwerkingen — Yasid wil hier merk + RAL + plaat-dimensie.
+  // (Hellende-dakrand-zijkant heeft een extra ja/nee toggle — zie verderop.)
   'esthetische-afwerking-dakrand': ESTHETISCHE_AFWERKING_FIELDS,
-  'esthetische-afwerking-hellende-dakrand-zijkant-m': ESTHETISCHE_AFWERKING_FIELDS,
   'esthetische-afwerking-hanggoot': ESTHETISCHE_AFWERKING_FIELDS,
   'esthetische-afwerking-zijkant-dakkapel': ESTHETISCHE_AFWERKING_FIELDS,
   'esthetische-afwerking-voorzijde-dakkapel': ESTHETISCHE_AFWERKING_FIELDS,
@@ -264,6 +302,91 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
       options: ['6 cm', '16 cm', '22 cm'],
     },
   ],
+
+  // Daryl 4 juni: Dakdoorvoer met opties Sanitair / Gasketel.
+  'dakdoorvoer': [
+    {
+      kind: 'select',
+      key: 'type',
+      label: 'Type dakdoorvoer',
+      options: ['Sanitair', 'Gasketel'],
+    },
+  ],
+
+  // Daryl 4 juni: "Estetische afwerking schouw: tekstveld voorzien".
+  'estetische-afwerking-schouw': [
+    {
+      kind: 'text',
+      key: 'beschrijving',
+      label: 'Beschrijving',
+      placeholder: 'extra info, materiaal, afwerking, …',
+    },
+  ],
+
+  // Daryl 4 juni: Verholen goten = "altijd voorstellen maar wel de keuze.
+  // Laten voor blanco of laten voorgaan door vraag ja of nee".
+  'verholen-goten': [
+    {
+      kind: 'select',
+      key: 'gewenst',
+      label: 'Verholen goten gewenst?',
+      options: ['Ja', 'Nee'],
+    },
+  ],
+
+  // Daryl 4 juni: Esthetische afwerking hellende dakrand-zijkant = ja/nee
+  // toggle bovenop bestaande merk/RAL/plaat-dim.
+  'esthetische-afwerking-hellende-dakrand-zijkant-m': [
+    {
+      kind: 'select',
+      key: 'gewenst',
+      label: 'Esthetische afwerking gewenst?',
+      options: ['Ja', 'Nee'],
+    },
+    ...ESTHETISCHE_AFWERKING_FIELDS,
+  ],
+
+  // Daryl 4 juni: 3 nieuwe schouw-items met regie-prijs + materiaal apart.
+  'voegwerk-schouw': [
+    {
+      kind: 'text',
+      key: 'materiaal-prijs',
+      label: 'Materiaal-prijs (excl. BTW)',
+      placeholder: 'bv. 250',
+    },
+  ],
+  'verhogen-schouw': [
+    {
+      kind: 'text',
+      key: 'materiaal-prijs',
+      label: 'Materiaal-prijs (excl. BTW)',
+      placeholder: 'bv. 250',
+    },
+  ],
+  'restoratie-schouw': [
+    {
+      kind: 'text',
+      key: 'materiaal-prijs',
+      label: 'Materiaal-prijs (excl. BTW)',
+      placeholder: 'bv. 250',
+    },
+  ],
+
+  // Daryl 4 juni: Verwijderen dekstenen = terugplaatsen of vernieuwen.
+  'verwijderen-dekstenen': [
+    {
+      kind: 'select',
+      key: 'afwerking',
+      label: 'Afwerking dekstenen',
+      options: ['Terugplaatsen', 'Vernieuwen'],
+    },
+  ],
+
+  // Daryl 4 juni: hanggoot + afvoerbuizen krijgen materiaal/vorm/kleur/
+  // aantal/extra info sub-opties.
+  'leveren-en-plaatsen-zinken-hanggoot': HANGGOOT_AFVOER_FIELDS,
+  'afvoerbuizen': HANGGOOT_AFVOER_FIELDS,
+  'leveren-en-plaatsen-afvoerbuis': HANGGOOT_AFVOER_FIELDS,
 }
 
 export function getDetailFields(itemId: string): readonly DetailField[] | null {

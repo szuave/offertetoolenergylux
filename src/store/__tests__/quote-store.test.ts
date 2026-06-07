@@ -24,9 +24,11 @@ describe('quote-store — selectMultipleChoice', () => {
     )
   })
 
-  it('zet standaard hoeveelheid 1 voor een stuk-keuze', () => {
-    useQuoteStore.getState().selectMultipleChoice('afvoeren-afval', 'afvoeren-werfpuin')
-    expect(useQuoteStore.getState().quantities['afvoeren-werfpuin']).toBe(1)
+  it('selecteert keuze in een multipleChoice-groep correct', () => {
+    useQuoteStore.getState().selectMultipleChoice('verwijderen-dakbekleding', 'verwijderen-dakpannen')
+    expect(useQuoteStore.getState().groupSelections['verwijderen-dakbekleding']).toBe(
+      'verwijderen-dakpannen',
+    )
   })
 })
 

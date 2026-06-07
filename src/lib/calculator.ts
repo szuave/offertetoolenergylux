@@ -189,12 +189,17 @@ function resolveSpecialLine(
   item: LineItemDef,
   state: QuoteState,
 ): { quantity: number; lineTotal: number } | null {
+  // Daryl 4 juni: afvoeren werfpuin + toxisch zijn nu ja/nee toggles
+  // (apart, niet meer multiplechoice). Pas berekenen als verkoper "ja"
+  // heeft aangevinkt (quantity > 0).
   if (item.id === 'afvoeren-werfpuin') {
+    if ((state.quantities[item.id] ?? 0) <= 0) return null
     const count = containerCount(state)
     if (count <= 0) return null
     return { quantity: count, lineTotal: round2(count * CONTAINER_PRICE) }
   }
   if (item.id === 'afvoeren-werfpuin-toxisch-afval') {
+    if ((state.quantities[item.id] ?? 0) <= 0) return null
     const m2 = removedDakbekledingM2(state)
     if (m2 <= 0) return null
     const raw = m2 * TOXISCH_PER_M2

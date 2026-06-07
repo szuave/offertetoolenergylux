@@ -155,6 +155,28 @@ for (const cat of catalog.categories) {
   }
 }
 
+/* ---------- Daryl 4 juni: Afvoeren werfpuin + toxisch zijn voortaan
+   2 APARTE ja/nee toggles (geen multiplechoice meer). Beide kunnen
+   tegelijk aan staan. Aantal/lijntotaal wordt auto-berekend via
+   resolveSpecialLine in de calculator (containerCount × €650 voor
+   werfpuin, removed-m² × €8 min €800 voor toxisch). */
+for (const cat of catalog.categories) {
+  for (const sub of cat.subcategories) {
+    for (const it of sub.items) {
+      if (it.id === 'afvoeren-werfpuin' || it.id === 'afvoeren-werfpuin-toxisch-afval') {
+        it.filter = { kind: 'always' }
+        it.unit = 'jaNee'
+        // Prijs blijft 1 als placeholder; calculator gebruikt zijn eigen
+        // formule via resolveSpecialLine.
+      }
+    }
+  }
+}
+// Multipleсhoice group "afvoeren-afval" weghalen — niet meer relevant.
+catalog.multipleChoiceGroups = catalog.multipleChoiceGroups.filter(
+  (g) => g.id !== 'afvoeren-afval',
+)
+
 /* ---------- Daryl 4 juni: item-overrides ---------- */
 const OVERRIDES = {
   // Stelling-items: Daryl wil dat de hint over "Altijd en tektsveld voorzien"
@@ -218,8 +240,63 @@ for (const cat of catalog.categories) {
   }
 }
 
+/* ---------- Daryl 4 juni: nieuwe items ---------- */
+function findSub(catId, subId) {
+  const cat = catalog.categories.find((c) => c.id === catId)
+  return cat?.subcategories.find((s) => s.id === subId)
+}
+function addItemAfter(sub, anchorId, newItem) {
+  if (!sub) return false
+  if (sub.items.find((it) => it.id === newItem.id)) return false
+  const idx = sub.items.findIndex((it) => it.id === anchorId)
+  if (idx < 0) sub.items.push(newItem)
+  else sub.items.splice(idx + 1, 0, newItem)
+  return true
+}
+
+const SCHOUW_REGIE_HINT = 'Prijs in regie 65€/pp exclusief materiaal'
+
+// 3 nieuwe schouw-items in dakdichtingswerken van hellend dak, na het
+// bestaande "Metselwerk schouw" (id metselwerk-schouw-2).
+const newSchouwItems = [
+  { id: 'voegwerk-schouw', label: 'Voegwerk schouw', unit: 'm2', unitPrice: null,
+    priceNote: 'Op regie', hint: SCHOUW_REGIE_HINT,
+    filter: { kind: 'optional', flagId: 'schouw' } },
+  { id: 'verhogen-schouw', label: 'Verhogen schouw', unit: 'm2', unitPrice: null,
+    priceNote: 'Op regie', hint: SCHOUW_REGIE_HINT,
+    filter: { kind: 'optional', flagId: 'schouw' } },
+  { id: 'restoratie-schouw', label: 'Restoratie schouw', unit: 'm2', unitPrice: null,
+    priceNote: 'Op regie', hint: SCHOUW_REGIE_HINT,
+    filter: { kind: 'optional', flagId: 'schouw' } },
+]
+const dakdichtSub = findSub('hellend-dak', 'dakdichtingswerken')
+let newCount = 0
+for (const it of newSchouwItems) {
+  if (addItemAfter(dakdichtSub, 'metselwerk-schouw-2', it)) newCount++
+}
+
+// Verwijderen dekstenen — bij plat dak / plat-dak rubriek, altijd zichtbaar
+// (Daryl: "VERWIJDEREN DEKSTENEN MET OPTIES: TERUGPLAATSEN OF VERNIEUWEN
+//  + LOPENDE METER").
+const dekstenen = {
+  id: 'verwijderen-dekstenen',
+  label: 'Verwijderen dekstenen',
+  unit: 'lm',
+  unitPrice: 1,
+  filter: { kind: 'always' },
+}
+const platDakSub = findSub('plat-dak', 'plat-dak')
+if (platDakSub && !platDakSub.items.find((it) => it.id === 'verwijderen-dekstenen')) {
+  // Achteraan in werfinstallatie-deel van plat-dak rubriek
+  const anchorIdx = platDakSub.items.findIndex((it) => it.id === 'verwijderen-en-afvoeren-kiezelsteen-op-plat-dak')
+  if (anchorIdx >= 0) platDakSub.items.splice(anchorIdx + 1, 0, dekstenen)
+  else platDakSub.items.push(dekstenen)
+  newCount++
+}
+
 fs.writeFileSync(path, JSON.stringify(catalog, null, 2) + '\n', 'utf8')
 console.log(`✓ ${retagged} items omgetagd naar plat-dak/gevel filters`)
 console.log(`✓ ${minSet} items hebben een minimum-prijs`)
 console.log(`✓ ${overridden} items met Daryl-overrides (label/unit/hint)`)
+console.log(`✓ ${newCount} nieuwe items toegevoegd`)
 console.log(`✓ ${allFlags.length} flags toegevoegd: ${allFlags.map((f) => f.id).join(', ')}`)

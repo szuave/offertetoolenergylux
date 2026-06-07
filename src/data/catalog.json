@@ -47,21 +47,19 @@
             {
               "id": "afvoeren-werfpuin",
               "label": "Afvoeren werfpuin",
-              "unit": "stuk",
+              "unit": "jaNee",
               "unitPrice": 490,
               "filter": {
-                "kind": "multipleChoice",
-                "groupId": "afvoeren-afval"
+                "kind": "always"
               }
             },
             {
               "id": "afvoeren-werfpuin-toxisch-afval",
               "label": "Afvoeren werfpuin + toxisch afval",
-              "unit": "stuk",
+              "unit": "jaNee",
               "unitPrice": 649,
               "filter": {
-                "kind": "multipleChoice",
-                "groupId": "afvoeren-afval"
+                "kind": "always"
               },
               "minimumPrice": 800
             },
@@ -930,6 +928,42 @@
                 "kind": "optional",
                 "flagId": "schouw"
               }
+            },
+            {
+              "id": "restoratie-schouw",
+              "label": "Restoratie schouw",
+              "unit": "m2",
+              "unitPrice": null,
+              "priceNote": "Op regie",
+              "hint": "Prijs in regie 65€/pp exclusief materiaal",
+              "filter": {
+                "kind": "optional",
+                "flagId": "schouw"
+              }
+            },
+            {
+              "id": "verhogen-schouw",
+              "label": "Verhogen schouw",
+              "unit": "m2",
+              "unitPrice": null,
+              "priceNote": "Op regie",
+              "hint": "Prijs in regie 65€/pp exclusief materiaal",
+              "filter": {
+                "kind": "optional",
+                "flagId": "schouw"
+              }
+            },
+            {
+              "id": "voegwerk-schouw",
+              "label": "Voegwerk schouw",
+              "unit": "m2",
+              "unitPrice": null,
+              "priceNote": "Op regie",
+              "hint": "Prijs in regie 65€/pp exclusief materiaal",
+              "filter": {
+                "kind": "optional",
+                "flagId": "schouw"
+              }
             }
           ]
         },
@@ -1284,6 +1318,15 @@
               "minimumPrice": 1500
             },
             {
+              "id": "verwijderen-dekstenen",
+              "label": "Verwijderen dekstenen",
+              "unit": "lm",
+              "unitPrice": 1,
+              "filter": {
+                "kind": "always"
+              }
+            },
+            {
               "id": "verwijderen-sidings-buur-om-isolatie-plat-dak-en-2",
               "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig  te realiseren",
               "unit": "lm",
@@ -1567,15 +1610,6 @@
     }
   ],
   "multipleChoiceGroups": [
-    {
-      "id": "afvoeren-afval",
-      "label": "Afvoeren werfpuin",
-      "itemIds": [
-        "afvoeren-werfpuin",
-        "afvoeren-werfpuin-toxisch-afval"
-      ],
-      "required": false
-    },
     {
       "id": "verwijderen-dakbekleding",
       "label": "Verwijderen dakbekleding",
