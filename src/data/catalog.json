@@ -1244,8 +1244,8 @@
       "label": "Plat Dak",
       "subcategories": [
         {
-          "id": "plat-dak",
-          "label": "Plat Dak",
+          "id": "werfinstallatie",
+          "label": "Werfinstallatie / Afbraak",
           "items": [
             {
               "id": "verwijderen-bestaande-roofing",
@@ -1253,8 +1253,7 @@
               "unit": "m2",
               "unitPrice": 49,
               "filter": {
-                "kind": "optional",
-                "flagId": "roofing"
+                "kind": "always"
               }
             },
             {
@@ -1263,8 +1262,7 @@
               "unit": "m2",
               "unitPrice": 49,
               "filter": {
-                "kind": "optional",
-                "flagId": "epdm"
+                "kind": "always"
               }
             },
             {
@@ -1395,7 +1393,80 @@
                 "kind": "optional",
                 "flagId": "plat-dak-airco"
               }
+            }
+          ]
+        },
+        {
+          "id": "isolatiewerken",
+          "label": "Isolatiewerken",
+          "items": [
+            {
+              "id": "isolatiewerken",
+              "label": "ISOLATIEWERKEN",
+              "unit": "m2",
+              "unitPrice": 65,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              },
+              "hint": "ISOLATIE PLAT DAK zie sarking hellend dak"
             },
+            {
+              "id": "plat-dak-dampscherm",
+              "label": "Dampscherm",
+              "unit": "m2",
+              "unitPrice": 7,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              }
+            },
+            {
+              "id": "plat-dak-pir-10cm",
+              "label": "PIR 10 cm",
+              "unit": "m2",
+              "unitPrice": 55,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              }
+            },
+            {
+              "id": "plat-dak-pir-12cm",
+              "label": "PIR 12 cm",
+              "unit": "m2",
+              "unitPrice": 56,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              }
+            },
+            {
+              "id": "plat-dak-pir-14cm",
+              "label": "PIR 14 cm",
+              "unit": "m2",
+              "unitPrice": 63,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              }
+            },
+            {
+              "id": "plat-dak-minerale-wol",
+              "label": "Minerale wol",
+              "unit": "m2",
+              "unitPrice": 15,
+              "filter": {
+                "kind": "optional",
+                "flagId": "plat-dak-isolatie"
+              }
+            }
+          ]
+        },
+        {
+          "id": "ambachtelijk-timmerwerk",
+          "label": "Ambachtelijk Timmerwerk",
+          "items": [
             {
               "id": "leveren-en-plaatsen-gordingen-plat-dak",
               "label": "Leveren en plaatsen gordingen-plat dak",
@@ -1417,24 +1488,12 @@
               }
             },
             {
-              "id": "isolatiewerken",
-              "label": "ISOLATIEWERKEN",
-              "unit": "m2",
-              "unitPrice": 65,
-              "filter": {
-                "kind": "optional",
-                "flagId": "plat-dak-isolatie"
-              },
-              "hint": "ISOLATIE PLAT DAK zie sarking hellend dak"
-            },
-            {
               "id": "leveren-en-plaatsen-sls-hout-ophoging-dakrand",
               "label": "Leveren en plaatsen SLS-hout ophoging dakrand",
               "unit": "lm",
               "unitPrice": 55,
               "filter": {
-                "kind": "optional",
-                "flagId": "plat-dak-dakrand"
+                "kind": "always"
               }
             },
             {
@@ -1443,10 +1502,15 @@
               "unit": "lm",
               "unitPrice": 90,
               "filter": {
-                "kind": "optional",
-                "flagId": "plat-dak-dakrand"
+                "kind": "always"
               }
-            },
+            }
+          ]
+        },
+        {
+          "id": "dakdichtingswerken",
+          "label": "Dakdichtingswerken",
+          "items": [
             {
               "id": "ophoging-koepel",
               "label": "Ophoging koepel",

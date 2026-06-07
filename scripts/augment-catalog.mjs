@@ -177,6 +177,26 @@ catalog.multipleChoiceGroups = catalog.multipleChoiceGroups.filter(
   (g) => g.id !== 'afvoeren-afval',
 )
 
+/* ---------- Daryl 4 juni: items die ALTIJD zichtbaar moeten zijn bij
+   plat dak (filter weg → always). */
+const PLAT_DAK_ALTIJD = new Set([
+  'verwijderen-bestaande-roofing',
+  'verwijderen-bestaande-epdm-dakdichting',
+  'verwijderen-en-afvoeren-kiezelsteen-op-plat-dak',
+  'leveren-en-plaatsen-sls-hout-ophoging-dakrand',
+  'esthetische-afwerking-dakrand',
+])
+for (const cat of catalog.categories) {
+  if (cat.id !== 'plat-dak') continue
+  for (const sub of cat.subcategories) {
+    for (const it of sub.items) {
+      if (PLAT_DAK_ALTIJD.has(it.id)) {
+        it.filter = { kind: 'always' }
+      }
+    }
+  }
+}
+
 /* ---------- Daryl 4 juni: item-overrides ---------- */
 const OVERRIDES = {
   // Stelling-items: Daryl wil dat de hint over "Altijd en tektsveld voorzien"
