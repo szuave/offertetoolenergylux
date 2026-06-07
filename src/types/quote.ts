@@ -107,11 +107,19 @@ export type ScopeMap = Record<string, boolean>
 export type WizardStep = 'filter' | 'customer' | 'works'
 
 /**
- * Werf-supplementen (checklist-vragen uit Yasid's mail v2):
- *  - Plat dak werf moeilijk bereikbaar/hoogte/container etc → +7% met min €3000
- *  - Gevel veel hoekjes/electriciteit/sanitair → +€20/m² gevel-werken
+ * Werf-supplementen (DEPRECATED in 4 juni: vervangen door ChecklistAnswers
+ * met meerdere checklists). Behouden voor backward-compat van persisted
+ * state — wordt niet meer gebruikt door de calculator.
  */
 export type SupplementMap = Record<string, boolean>
+
+/** Per checklist-id → per item-id → antwoord (checked + optionele input). */
+export type ChecklistItemAnswer = {
+  checked?: boolean
+  amount?: number
+  text?: string
+}
+export type ChecklistAnswers = Record<string, Record<string, ChecklistItemAnswer>>
 
 export type QuoteState = {
   meta: QuoteMeta
@@ -124,8 +132,10 @@ export type QuoteState = {
   cover: CoverChoice
   /** Vrije sub-opties per item (merk, RAL, dimensie). */
   details: DetailsMap
-  /** Werf-supplementen die de subtotaal modifiëren (Yasid mail v2). */
+  /** Werf-supplementen — DEPRECATED, vervangen door checklistAnswers. */
   supplements: SupplementMap
+  /** Antwoorden op de 4 prijschecklists (Daryl 4 juni). */
+  checklistAnswers: ChecklistAnswers
   discount: DiscountConfig
   vatRate: number
   notes: string
@@ -158,10 +168,12 @@ export type Totals = {
   resolvedItems: ResolvedLineItem[]
   subtotals: SubtotalBreakdown[]
   subtotalExVat: number
-  /** Toegepaste werf-supplementen, in volgorde. */
+  /** Toegepaste checklist-supplementen (kosten BTW excl.), in volgorde. */
   appliedSupplements: AppliedSupplement[]
   /** Som van alle supplementen. */
   supplementsTotal: number
+  /** EIND-checklist: +20% op subtotal+items, getoond als losse regel. */
+  eindChecklistAmount: number
   discountAmount: number
   totalExVat: number
   vatAmount: number

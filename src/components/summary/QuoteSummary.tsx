@@ -50,6 +50,12 @@ export function QuoteSummary() {
               ))}
             </>
           )}
+          {totals.eindChecklistAmount > 0 && (
+            <Row
+              label="Werf-omstandigheden (+20 %)"
+              value={`+ ${formatEuro(totals.eindChecklistAmount)}`}
+            />
+          )}
           <Row label="Subtotaal" value={formatEuro(totals.subtotalExVat)} />
           {totals.discountAmount > 0 && (
             <Row

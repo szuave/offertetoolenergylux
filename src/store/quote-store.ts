@@ -99,6 +99,7 @@ function emptyQuote(): QuoteState {
     cover: { variantId: null, areaM2: 0 },
     details: {},
     supplements: {},
+    checklistAnswers: {},
     discount: defaultDiscount(),
     vatRate: DEFAULT_VAT_RATE,
     notes: '',
@@ -120,6 +121,11 @@ type QuoteActions = {
   setCover: (partial: Partial<CoverChoice>) => void
   setItemDetail: (itemId: string, key: string, value: string) => void
   toggleSupplement: (id: string, value: boolean) => void
+  setChecklistAnswer: (
+    checklistId: string,
+    itemId: string,
+    answer: { checked?: boolean; amount?: number; text?: string },
+  ) => void
   setDiscount: (partial: Partial<DiscountConfig>) => void
   setVatRate: (rate: number) => void
   setNotes: (value: string) => void
@@ -208,6 +214,25 @@ export const useQuoteStore = create<QuoteStore>()(
       toggleSupplement: (id, value) =>
         set((state) => ({ supplements: { ...state.supplements, [id]: value } })),
 
+      setChecklistAnswer: (checklistId, itemId, answer) =>
+        set((state) => {
+          const current = state.checklistAnswers ?? {}
+          const checklist = current[checklistId] ?? {}
+          const prev = checklist[itemId] ?? {}
+          const next = { ...prev, ...answer }
+          // Verwijder een lege answer-entry om de state schoon te houden.
+          const isEmpty =
+            (next.checked === undefined || next.checked === false) &&
+            (next.amount === undefined || next.amount === 0) &&
+            (next.text === undefined || next.text === '')
+          const nextChecklist = { ...checklist }
+          if (isEmpty) delete nextChecklist[itemId]
+          else nextChecklist[itemId] = next
+          return {
+            checklistAnswers: { ...current, [checklistId]: nextChecklist },
+          }
+        }),
+
       setDiscount: (partial) =>
         set((state) => ({ discount: { ...state.discount, ...partial } })),
 
@@ -258,6 +283,7 @@ export const useQuoteStore = create<QuoteStore>()(
         cover: state.cover,
         details: state.details,
         supplements: state.supplements,
+        checklistAnswers: state.checklistAnswers,
         discount: state.discount,
         vatRate: state.vatRate,
         notes: state.notes,
@@ -287,6 +313,7 @@ export const selectQuoteState = (s: QuoteStore): QuoteState => ({
   cover: s.cover,
   details: s.details,
   supplements: s.supplements,
+  checklistAnswers: s.checklistAnswers,
   discount: s.discount,
   vatRate: s.vatRate,
   notes: s.notes,

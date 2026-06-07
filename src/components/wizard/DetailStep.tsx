@@ -1,7 +1,7 @@
+import { ChecklistsPanel } from '@/components/configurator/ChecklistsPanel'
 import { ConfiguratorPanel } from '@/components/configurator/ConfiguratorPanel'
 import { NotesSection } from '@/components/configurator/NotesSection'
 import { RoofAreaField } from '@/components/configurator/RoofAreaField'
-import { WerfSupplementen } from '@/components/configurator/WerfSupplementen'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 
 /** Stap 3 — Detail: dakbekleding-dropdown, werken invullen, sub-opties, notitie. */
@@ -16,7 +16,7 @@ export function DetailStep() {
 
       <section className="space-y-4">
         <SectionHeading title="Werf-checklist" />
-        <WerfSupplementen />
+        <ChecklistsPanel />
       </section>
 
       <section className="space-y-4">

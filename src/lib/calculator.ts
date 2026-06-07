@@ -1,7 +1,7 @@
 import { pricingConfig } from '@/data/pricing'
 import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
-import { SUPPLEMENTS } from '@/data/supplements'
+import { CHECKLISTS } from '@/data/checklists'
 import type {
   AppliedSupplement,
   CategoryDef,
@@ -276,38 +276,61 @@ export function groupSubtotals(resolved: ResolvedLineItem[]): SubtotalBreakdown[
   return [...map.values()]
 }
 
-function applySupplements(
+/**
+ * Pas Daryl's 4 checklists toe (4 juni). Levert losse supplement-regels
+ * en de EIND-checklist (+20%) apart op.
+ */
+function applyChecklists(
   state: QuoteState,
-  subtotals: SubtotalBreakdown[],
-): AppliedSupplement[] {
+  itemsSubtotal: number,
+  resolved: ResolvedLineItem[],
+): { applied: AppliedSupplement[]; eindAmount: number } {
   const applied: AppliedSupplement[] = []
-  const sums = new Map<string, number>()
-  for (const s of subtotals) {
-    sums.set(s.categoryId, (sums.get(s.categoryId) ?? 0) + s.amount)
-  }
-  for (const sup of SUPPLEMENTS) {
-    if (!state.supplements?.[sup.id]) continue
-    const base = sums.get(sup.rule.categoryId) ?? 0
-    if (base <= 0) continue
-    let amount = 0
-    if (sup.rule.kind === 'percentageOfCategory') {
-      amount = Math.max((base * sup.rule.percentage) / 100, sup.rule.minimum)
-    } else if (sup.rule.kind === 'perM2OfCategory') {
-      // Som van m²-items in deze categorie als basis voor de perM2-supplement.
-      let totalM2 = 0
-      for (const s of subtotals) {
-        if (s.categoryId !== sup.rule.categoryId) continue
-        for (const line of s.items) {
-          if (line.def.unit === 'm2') totalM2 += line.quantity
-        }
+  let eindAmount = 0
+  const answers = state.checklistAnswers ?? {}
+
+  for (const checklist of CHECKLISTS) {
+    const checklistAnswers = answers[checklist.id] ?? {}
+
+    // EIND-checklist: +20% bij minstens 1 aanvink op het hele items-subtotal.
+    if (checklist.groupRule?.kind === 'percentageOfSubtotal') {
+      const anyChecked = checklist.items.some((it) => checklistAnswers[it.id]?.checked === true)
+      if (anyChecked) {
+        eindAmount = round2((itemsSubtotal * checklist.groupRule.percentage) / 100)
       }
-      amount = totalM2 * sup.rule.amountPerM2
+      continue // EIND-checklist heeft geen per-item rules
     }
-    if (amount > 0) {
-      applied.push({ id: sup.id, label: sup.label, amount: round2(amount) })
+
+    // Per-item regels
+    for (const item of checklist.items) {
+      const answer = checklistAnswers[item.id]
+      if (!answer?.checked) continue
+      if (!item.rule) continue
+
+      let amount = 0
+      let label = `${checklist.label}: ${item.label}`
+      if (item.rule.kind === 'fixed') {
+        amount = item.rule.amount
+      } else if (item.rule.kind === 'perAmount') {
+        const qty = answer.amount ?? 0
+        amount = qty * item.rule.pricePerUnit
+        if (qty > 0) label += ` (${qty}× €${item.rule.pricePerUnit})`
+      } else if (item.rule.kind === 'percentageOfBasePrice') {
+        // Basis = som van qty × unitPrice voor de gespecificeerde items
+        let base = 0
+        for (const line of resolved) {
+          if (item.rule.itemIds.includes(line.def.id)) base += line.lineTotal
+        }
+        amount = (base * item.rule.percentage) / 100
+        if (base > 0) label += ` (+${item.rule.percentage}%)`
+      }
+      if (amount > 0) {
+        applied.push({ id: `${checklist.id}:${item.id}`, label, amount: round2(amount) })
+      }
     }
   }
-  return applied
+
+  return { applied, eindAmount }
 }
 
 export function calculateTotals(state: QuoteState): Totals {
@@ -315,12 +338,14 @@ export function calculateTotals(state: QuoteState): Totals {
   const subtotals = groupSubtotals(resolved)
   const itemsSubtotal = round2(resolved.reduce((sum, l) => sum + l.lineTotal, 0))
 
-  const appliedSupplements = applySupplements(state, subtotals)
+  // Daryl 4 juni: 4 checklists toepassen.
+  const { applied: appliedSupplements, eindAmount: eindChecklistAmount } =
+    applyChecklists(state, itemsSubtotal, resolved)
   const supplementsTotal = round2(
     appliedSupplements.reduce((sum, s) => sum + s.amount, 0),
   )
 
-  const subtotalExVat = round2(itemsSubtotal + supplementsTotal)
+  const subtotalExVat = round2(itemsSubtotal + supplementsTotal + eindChecklistAmount)
 
   const discountAmount = state.discount.enabled
     ? round2((subtotalExVat * state.discount.percentage) / 100)
@@ -339,6 +364,7 @@ export function calculateTotals(state: QuoteState): Totals {
     subtotalExVat,
     appliedSupplements,
     supplementsTotal,
+    eindChecklistAmount,
     discountAmount,
     totalExVat,
     vatAmount,

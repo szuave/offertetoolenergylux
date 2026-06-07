@@ -50,6 +50,7 @@ export const demoQuote: QuoteState = {
   cover: { variantId: null, areaM2: 0 },
   details: {},
   supplements: {},
+  checklistAnswers: {},
   discount: { enabled: true, percentage: 5, conditionDays: 7 },
   vatRate: 0.06,
   notes:
