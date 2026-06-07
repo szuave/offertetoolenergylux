@@ -197,6 +197,20 @@ for (const cat of catalog.categories) {
   }
 }
 
+/* ---------- Daryl 4 juni: bij hellend dak ALTIJD zichtbaar (Nokpan/
+   Gevelpan/Noordbomen) — verschijnen los van dakpan-toebehoren filter. */
+const HELLEND_DAK_ALTIJD = new Set(['nokpan', 'gevelpan', 'noordbomen'])
+for (const cat of catalog.categories) {
+  if (cat.id !== 'hellend-dak') continue
+  for (const sub of cat.subcategories) {
+    for (const it of sub.items) {
+      if (HELLEND_DAK_ALTIJD.has(it.id)) {
+        it.filter = { kind: 'always' }
+      }
+    }
+  }
+}
+
 /* ---------- Daryl 4 juni: item-overrides ---------- */
 const OVERRIDES = {
   // Stelling-items: Daryl wil dat de hint over "Altijd en tektsveld voorzien"

@@ -42,16 +42,13 @@ export function isDakpanOfLeienChosen(state: Pick<QuoteState, 'cover'>): boolean
 }
 
 /**
- * Item-IDs die conditioneel zichtbaar zijn op basis van de dakbekleding-
- * keuze (NIET via flag). Yasid Excel rij 83-88.
+ * Daryl 4 juni overrult Yasid Excel rij 83-88: Onderdak / Nokpan /
+ * Gevelpan / Noordbomen moeten ALTIJD zichtbaar zijn bij hellend dak
+ * (zie src/data/always-visible.ts). Begin-en-eindvorst was niet expliciet
+ * vermeld door Daryl en blijft conditioneel op dakpan-keuze.
  */
-export const ITEMS_ALLEEN_BIJ_DAKPAN = new Set([
-  'nokpan',
-  'begin-en-eindvorst',
-  'gevelpan',
-  'noordbomen',
-])
-export const ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN = new Set(['onderdak'])
+export const ITEMS_ALLEEN_BIJ_DAKPAN = new Set(['begin-en-eindvorst'])
+export const ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN = new Set<string>()
 
 /**
  * Som van verwijderde dakbekleding-m² (multipleChoice "Verwijderen

@@ -12,6 +12,7 @@ import {
   ITEMS_ALLEEN_BIJ_DAKPAN,
   ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN,
 } from '@/lib/calculator'
+import { isGroupAlwaysVisible, isItemAlwaysVisible } from '@/data/always-visible'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { Card, CardBody } from '@/components/ui/Card'
 import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
@@ -212,29 +213,39 @@ function CategoryConfigurator({
       const multipleChoiceItems = new Map<string, LineItemDef[]>()
 
       for (const item of sub.items) {
+        // Daryl 4 juni: bepaalde items moeten ALTIJD zichtbaar zijn binnen
+        // de scope — onafhankelijk van filters of dakbekleding-keuze.
+        const isAlwaysVisible = isItemAlwaysVisible(item.id, category.id)
+
         // Item met eigen filter-override (bv. gyproc-zolder) staat los van
         // de subcategorie-filter.
         const override = itemFlagOverride(item.id)
-        if (override) {
-          if (!flags[override]) continue
-        } else if (!subActive) {
-          continue
-        }
+        if (!isAlwaysVisible) {
+          if (override) {
+            if (!flags[override]) continue
+          } else if (!subActive) {
+            continue
+          }
 
-        // Yasid Excel: Onderdak alleen tonen bij dakpan/leien-keuze;
-        // Nokpan/Begin-eindvorst/Gevelpan/Noordbomen alleen bij dakpan-keuze.
-        if (ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN.has(item.id) && !dakpanOfLeienGekozen) {
-          continue
-        }
-        if (ITEMS_ALLEEN_BIJ_DAKPAN.has(item.id) && !dakpanGekozen) {
-          continue
+          // Yasid Excel: Onderdak alleen tonen bij dakpan/leien-keuze;
+          // (geldt niet als het item in ALWAYS_VISIBLE_ITEMS staat).
+          if (ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN.has(item.id) && !dakpanOfLeienGekozen) {
+            continue
+          }
+          if (ITEMS_ALLEEN_BIJ_DAKPAN.has(item.id) && !dakpanGekozen) {
+            continue
+          }
         }
 
         if (item.filter.kind === 'always') {
           const hasQty = (quantities[item.id] ?? 0) > 0
-          if (!subHasActiveFilter && !hasQty && !override) continue
+          if (!isAlwaysVisible && !subHasActiveFilter && !hasQty && !override) continue
           visibleItems.push(item)
         } else if (item.filter.kind === 'optional') {
+          if (isAlwaysVisible) {
+            visibleItems.push(item)
+            continue
+          }
           // Dakpan-toebehoren wordt automatisch geactiveerd door de
           // dakpan-keuze, niet door een aparte filter-toggle.
           if (item.filter.flagId === 'dakpan-toebehoren') {
@@ -246,10 +257,14 @@ function CategoryConfigurator({
           visibleItems.push(item)
         } else if (item.filter.kind === 'multipleChoice') {
           if (item.filter.groupId === COVER_GROUP_ID) continue
-          // Multiplechoice-keuzes (bv. afval-afvoer) enkel als er een
-          // actief filter in deze rubriek zit — anders blijft de "verplichte"
-          // afvoerkeuze ook hangen bij iemand die alleen Velux doet.
-          if (!subHasActiveFilter) continue
+          // Daryl 4 juni: bepaalde multipleChoice groepen (verwijderen-
+          // dakbekleding, loodafwerking) zijn altijd zichtbaar bij hellend
+          // dak — ook zonder filter aan.
+          const groupAlwaysVisible = isGroupAlwaysVisible(
+            item.filter.groupId,
+            category.id,
+          )
+          if (!groupAlwaysVisible && !subHasActiveFilter) continue
           const list = multipleChoiceItems.get(item.filter.groupId) ?? []
           list.push(item)
           multipleChoiceItems.set(item.filter.groupId, list)
