@@ -9,6 +9,8 @@ import { countMissingDetails, getDetailFields } from '@/data/item-details'
 
 type Props = {
   items: LineItemDef[]
+  /** Optioneel: extra React-node weergeven NA het item met deze id. */
+  insertAfter?: { itemId: string; node: React.ReactNode }
 }
 
 const AUTO_PRICE_ITEMS = new Set([
@@ -16,7 +18,7 @@ const AUTO_PRICE_ITEMS = new Set([
   'afvoeren-werfpuin-toxisch-afval',
 ])
 
-export function AlwaysItemsList({ items }: Props) {
+export function AlwaysItemsList({ items, insertAfter }: Props) {
   const state = useQuoteStore(useShallow(selectQuoteState))
   const setQuantity = useQuoteStore((s) => s.setQuantity)
   const { quantities, details } = state
@@ -106,6 +108,9 @@ export function AlwaysItemsList({ items }: Props) {
               </div>
             </div>
             {hasDetails && qty > 0 && <ItemDetailsForm itemId={item.id} />}
+            {insertAfter && insertAfter.itemId === item.id && (
+              <div className="mt-3">{insertAfter.node}</div>
+            )}
           </li>
         )
       })}

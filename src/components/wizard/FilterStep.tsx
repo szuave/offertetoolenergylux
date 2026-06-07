@@ -15,8 +15,10 @@ import type { OptionalFlagDef } from '@/types/quote'
  * - "dakpan-toebehoren": items verschijnen automatisch zodra de verkoper
  *   een dakpan-variant in de DakbekledingSelector kiest (Yasid Excel:
  *   "altijd bij keuze dakpan").
+ * - "roofing" / "epdm": Daryl 4 juni — geen filter meer; verschijnt als
+ *   radio-keuze in de Dakdichtingswerken-rubriek van plat dak.
  */
-const HIDDEN_FLAGS = new Set(['bakgoten-en-hanggoten', 'dakpan-toebehoren'])
+const HIDDEN_FLAGS = new Set(['bakgoten-en-hanggoten', 'dakpan-toebehoren', 'roofing', 'epdm'])
 
 /**
  * Stap 2 — Filter opties.

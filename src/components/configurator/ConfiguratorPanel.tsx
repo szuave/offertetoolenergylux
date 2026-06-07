@@ -19,6 +19,7 @@ import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
 import { MultipleChoiceSection } from '@/components/configurator/MultipleChoiceSection'
 import { SearchResults } from '@/components/configurator/SearchResults'
 import { DakbekledingSelector } from '@/components/configurator/DakbekledingSelector'
+import { DakdichtingKeuze } from '@/components/configurator/DakdichtingKeuze'
 import { cn } from '@/lib/cn'
 import type { CategoryDef, FlagMap, LineItemDef } from '@/types/quote'
 
@@ -279,8 +280,6 @@ function CategoryConfigurator({
 
   return (
     <div className="space-y-6">
-      {showCoverSelector && <DakbekledingSelector />}
-
       {renderedSubs.length === 0 ? (
         <Card>
           <CardBody className="text-center py-8 text-sm text-ink-mid">
@@ -290,25 +289,45 @@ function CategoryConfigurator({
       ) : (
         <Card>
           <CardBody className="space-y-8">
-            {renderedSubs.map(({ sub, visibleItems, multipleChoiceItems }) => (
-              <section key={sub.id} className="space-y-6">
-                <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
-                  {sub.label}
-                </h3>
+            {renderedSubs.map(({ sub, visibleItems, multipleChoiceItems }) => {
+              // Daryl 4 juni: DakbekledingSelector moet TUSSEN Onderdak en
+              // Nokpan komen in de Dakdichtingswerken-rubriek (en niet meer
+              // bovenaan).
+              const isDakdichtHellend =
+                showCoverSelector && sub.id === 'dakdichtingswerken'
+              // Daryl 4 juni: bij plat dak dakdichtingswerken — Roofing/EPDM
+              // keuze i.p.v. filters.
+              const isDakdichtPlat =
+                category.id === 'plat-dak' && sub.id === 'dakdichtingswerken'
+              return (
+                <section key={sub.id} className="space-y-6">
+                  <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
+                    {sub.label}
+                  </h3>
 
-                <AlwaysItemsList items={visibleItems} />
+                  {isDakdichtPlat && <DakdichtingKeuze />}
 
-                {pricingConfig.multipleChoiceGroups
-                  .filter((g) => g.id !== COVER_GROUP_ID && multipleChoiceItems.has(g.id))
-                  .map((group) => (
-                    <MultipleChoiceSection
-                      key={group.id}
-                      group={group}
-                      items={multipleChoiceItems.get(group.id) ?? []}
-                    />
-                  ))}
-              </section>
-            ))}
+                  <AlwaysItemsList
+                    items={visibleItems}
+                    insertAfter={
+                      isDakdichtHellend
+                        ? { itemId: 'onderdak', node: <DakbekledingSelector /> }
+                        : undefined
+                    }
+                  />
+
+                  {pricingConfig.multipleChoiceGroups
+                    .filter((g) => g.id !== COVER_GROUP_ID && multipleChoiceItems.has(g.id))
+                    .map((group) => (
+                      <MultipleChoiceSection
+                        key={group.id}
+                        group={group}
+                        items={multipleChoiceItems.get(group.id) ?? []}
+                      />
+                    ))}
+                </section>
+              )
+            })}
           </CardBody>
         </Card>
       )}
