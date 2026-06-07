@@ -1,10 +1,15 @@
 import { useShallow } from 'zustand/react/shallow'
 import { useQuoteStore } from '@/store/quote-store'
 import { CHECKLISTS, type ChecklistDef } from '@/data/checklists'
+import type { ChecklistItemAnswer } from '@/types/quote'
 import { Card, CardBody } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { parseLocaleNumber } from '@/lib/parse'
 import { cn } from '@/lib/cn'
+
+// Stabiele leeg-object referentie zodat de useQuoteStore-selector geen
+// nieuw {} per render aanmaakt (zou React error #185 triggeren).
+const EMPTY_ANSWERS: Readonly<Record<string, ChecklistItemAnswer>> = Object.freeze({})
 
 /**
  * Daryl 4 juni: 4 prijschecklists die op verschillende plaatsen in de
@@ -37,7 +42,9 @@ export function ChecklistsPanel() {
 }
 
 function ChecklistCard({ checklist }: { checklist: ChecklistDef }) {
-  const answers = useQuoteStore((s) => s.checklistAnswers?.[checklist.id] ?? {})
+  const answers = useQuoteStore(
+    (s) => s.checklistAnswers?.[checklist.id] ?? EMPTY_ANSWERS,
+  )
   const setAnswer = useQuoteStore((s) => s.setChecklistAnswer)
 
   return (
