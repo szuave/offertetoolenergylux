@@ -15,8 +15,7 @@
               "unitPrice": 12,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd en tektsveld voorzien voor  carport, struiken, rommel, te smalle doorgang,…"
+              }
             },
             {
               "id": "stelling-valbeveiliging-achtergevel",
@@ -25,8 +24,7 @@
               "unitPrice": 12,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd en tektsveld voorzien voor  carport, struiken, rommel, te smalle doorgang,…"
+              }
             },
             {
               "id": "stelling-valbeveiliging-zijkant-links",
@@ -35,8 +33,7 @@
               "unitPrice": 12,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd en tektsveld voorzien voor  carport, struiken, rommel, te smalle doorgang,…"
+              }
             },
             {
               "id": "stelling-valbeveiliging-zijkant-rechts",
@@ -45,8 +42,7 @@
               "unitPrice": 12,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd en tektsveld voorzien voor  carport, struiken, rommel, te smalle doorgang,…"
+              }
             },
             {
               "id": "afvoeren-werfpuin",
@@ -552,7 +548,7 @@
             {
               "id": "buitenbekleding-bakgoot",
               "label": "Buitenbekleding bakgoot",
-              "unit": "m2",
+              "unit": "lm",
               "unitPrice": 140,
               "filter": {
                 "kind": "optional",
@@ -592,7 +588,7 @@
             {
               "id": "panlatten-op-panafstand-hechten-op-het-onderdak",
               "label": "Panlatten op panafstand hechten op het onderdak",
-              "unit": "lm",
+              "unit": "m2",
               "unitPrice": 25,
               "filter": {
                 "kind": "always"
@@ -704,7 +700,8 @@
               "unit": "lm",
               "unitPrice": 169,
               "filter": {
-                "kind": "always"
+                "kind": "optional",
+                "flagId": "oversteken"
               }
             },
             {
@@ -731,7 +728,7 @@
               "filter": {
                 "kind": "always"
               },
-              "hint": "altijd voorstellen als dakpan of leien wordt gekozen."
+              "hint": "Hoogkwalitatief Klasse A+++ onderdak zodat jouw dak Extra duurzaam beschermd is tegen waterinfiltratie"
             },
             {
               "id": "dakpan",
@@ -746,12 +743,13 @@
             {
               "id": "nokpan",
               "label": "Nokpan",
-              "unit": "stuk",
+              "unit": "lm",
               "unitPrice": 65,
               "filter": {
                 "kind": "optional",
                 "flagId": "dakpan-toebehoren"
-              }
+              },
+              "hint": "geventileerde ondernok"
             },
             {
               "id": "begin-en-eindvorst",
@@ -895,7 +893,7 @@
             },
             {
               "id": "monteren-zonnepanelen",
-              "label": "Monteren zonnepanelen",
+              "label": "Monteren bestaande zonnepanelen",
               "unit": "stuk",
               "unitPrice": 55,
               "filter": {
@@ -956,12 +954,11 @@
               "unitPrice": 49,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "altijd voorstellen maar wel de keuze. Laten voo r blanco of laten voorgaan door vraag ja of nee."
+              }
             },
             {
               "id": "gootstukken",
-              "label": "Gootstukken",
+              "label": "Nieuw - gootstuk Velux",
               "unit": "stuk",
               "unitPrice": 95,
               "filter": {
@@ -1026,8 +1023,7 @@
               "unitPrice": 385,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd voorstellen ja of neen en aantal"
+              }
             },
             {
               "id": "dakdoorvoer-aangeleverd-door-klant",
@@ -1071,7 +1067,7 @@
             },
             {
               "id": "plaatsen-bestaande-hanggoot",
-              "label": "Plaatsen BESTAANDE hanggoot",
+              "label": "Plaatsen bestaande hanggoot",
               "unit": "lm",
               "unitPrice": 55,
               "filter": {
@@ -1198,7 +1194,7 @@
             {
               "id": "aluminium-profiel-op-maat-voor-de-raampartijen-g",
               "label": "Aluminium profiel op maat voor de raampartijen - gevelisolatie voorbij raam",
-              "unit": "m2",
+              "unit": "lm",
               "unitPrice": 1,
               "filter": {
                 "kind": "optional",
@@ -1285,7 +1281,6 @@
               "filter": {
                 "kind": "always"
               },
-              "hint": "met een minimum van 1500 euro",
               "minimumPrice": 1500
             },
             {
@@ -1509,7 +1504,7 @@
             {
               "id": "loodafwerking-schouw",
               "label": "Loodafwerking schouw",
-              "unit": "lm",
+              "unit": "stuk",
               "unitPrice": 385,
               "filter": {
                 "kind": "optional",

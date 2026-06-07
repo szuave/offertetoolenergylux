@@ -70,35 +70,66 @@ const ESTHETISCHE_AFWERKING_FIELDS: readonly DetailField[] = [
 ]
 
 /**
- * Yasid (mail v2): "Bakgoten, oversteken dienen naast lopende meter, merk,
- * kleur ook dimensies te vermelden". De combo's lopen volgens dezelfde regel
- * voor beide: eerste breedte (a=30, b=40, c=50, d=60) en de tweede breedte
- * is gelijk of groter.
+ * Daryl (4 juni): "dimensie combo moet dimensie hoogte-diepte zijn".
+ * Eerste maat = hoogte (was breedte in v2). Tweede maat = diepte. Combo's
+ * blijven dezelfde getallen, alleen de interpretatie.
  */
-const DIMENSIE_COMBO_PER_BREEDTE: Readonly<Record<string, readonly string[]>> = {
+const DIMENSIE_COMBO_PER_HOOGTE: Readonly<Record<string, readonly string[]>> = {
   '30 cm': ['30-30', '30-40', '30-50', '30-60'],
   '40 cm': ['40-40', '40-50', '40-60'],
   '50 cm': ['50-50', '50-60'],
   '60 cm': ['60-60'],
 }
 
-const OVERSTEKEN_FIELDS: readonly DetailField[] = [
+/** Voor nieuwe-oversteken-timmeren: hoogte + combo + vrije diepte in cm. */
+const OVERSTEKEN_NIEUW_FIELDS: readonly DetailField[] = [
   {
     kind: 'select',
-    key: 'dakrand-breedte',
-    label: 'Dakrand-breedte',
+    key: 'oversteek-hoogte',
+    label: 'Oversteek-hoogte',
     options: ['30 cm', '40 cm', '50 cm', '60 cm'],
   },
   {
     kind: 'conditional-select',
-    key: 'oversteek-combo',
-    label: 'Dimensie-combo',
-    dependsOn: 'dakrand-breedte',
-    optionsByValue: DIMENSIE_COMBO_PER_BREEDTE,
+    key: 'dimensie-hoogte-diepte',
+    label: 'Dimensie hoogte-diepte',
+    dependsOn: 'oversteek-hoogte',
+    optionsByValue: DIMENSIE_COMBO_PER_HOOGTE,
+  },
+  {
+    kind: 'text',
+    key: 'diepte-cm',
+    label: 'Diepte (cm)',
+    placeholder: 'bv. 35',
   },
 ]
 
-const BAKGOTEN_FIELDS: readonly DetailField[] = [
+/** Voor esthetische-afwerking-oversteken: merk + ral + hoogte + combo (geen diepte cm). */
+const ESTHETISCHE_OVERSTEKEN_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'select',
+    key: 'merk',
+    label: 'Merk',
+    options: ['Rockpanel', 'Trespa', 'Volkern', 'Padouk'],
+  },
+  { kind: 'ral', key: 'ral', label: 'RAL-kleur' },
+  {
+    kind: 'select',
+    key: 'oversteek-hoogte',
+    label: 'Oversteek-hoogte',
+    options: ['30 cm', '40 cm', '50 cm', '60 cm'],
+  },
+  {
+    kind: 'conditional-select',
+    key: 'dimensie-hoogte-diepte',
+    label: 'Dimensie hoogte-diepte',
+    dependsOn: 'oversteek-hoogte',
+    optionsByValue: DIMENSIE_COMBO_PER_HOOGTE,
+  },
+]
+
+/** Voor buitenbekleding / zinken binnenbekleding / EPDM dichting bakgoot. */
+const BAKGOTEN_BEKLEDING_FIELDS: readonly DetailField[] = [
   {
     kind: 'select',
     key: 'merk',
@@ -108,16 +139,33 @@ const BAKGOTEN_FIELDS: readonly DetailField[] = [
   { kind: 'ral', key: 'ral', label: 'RAL-kleur' },
   {
     kind: 'select',
-    key: 'bakgoot-breedte',
-    label: 'Bakgoot-breedte',
+    key: 'bakgoot-hoogte',
+    label: 'Bakgoot-hoogte',
     options: ['30 cm', '40 cm', '50 cm', '60 cm'],
   },
   {
     kind: 'conditional-select',
-    key: 'bakgoot-combo',
-    label: 'Dimensie-combo',
-    dependsOn: 'bakgoot-breedte',
-    optionsByValue: DIMENSIE_COMBO_PER_BREEDTE,
+    key: 'dimensie-hoogte-diepte',
+    label: 'Dimensie hoogte-diepte',
+    dependsOn: 'bakgoot-hoogte',
+    optionsByValue: DIMENSIE_COMBO_PER_HOOGTE,
+  },
+]
+
+/** Voor nieuwe-bakgoot-timmeren: geen merk/RAL — Daryl wil die weg. */
+const BAKGOTEN_NIEUW_FIELDS: readonly DetailField[] = [
+  {
+    kind: 'select',
+    key: 'bakgoot-hoogte',
+    label: 'Bakgoot-hoogte',
+    options: ['30 cm', '40 cm', '50 cm', '60 cm'],
+  },
+  {
+    kind: 'conditional-select',
+    key: 'dimensie-hoogte-diepte',
+    label: 'Dimensie hoogte-diepte',
+    dependsOn: 'bakgoot-hoogte',
+    optionsByValue: DIMENSIE_COMBO_PER_HOOGTE,
   },
 ]
 
@@ -168,32 +216,29 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
   'esthetische-afwerking-hanggoot': ESTHETISCHE_AFWERKING_FIELDS,
   'esthetische-afwerking-zijkant-dakkapel': ESTHETISCHE_AFWERKING_FIELDS,
   'esthetische-afwerking-voorzijde-dakkapel': ESTHETISCHE_AFWERKING_FIELDS,
-  'esthetische-afwerking-oversteken': [
-    ...ESTHETISCHE_AFWERKING_FIELDS,
-    ...OVERSTEKEN_FIELDS,
-  ],
+  // Daryl 4 juni: esthetische afwerking oversteken = merk + ral + oversteek-
+  // hoogte + dimensie hoogte-diepte (dakrand-breedte weg, plaat-dim → oversteek-hoogte).
+  'esthetische-afwerking-oversteken': ESTHETISCHE_OVERSTEKEN_FIELDS,
 
-  // Oversteken — afbraak-items hebben enkel dimensies nodig.
-  'verwijderen-oversteken': OVERSTEKEN_FIELDS,
-  'strippen-oversteken': OVERSTEKEN_FIELDS,
-  // Nieuwe oversteken: Yasid mail v2 vereist "merk, kleur EN dimensies".
-  'nieuwe-oversteken-timmeren-toekomstige-gevelisol': [
-    ...ESTHETISCHE_AFWERKING_FIELDS,
-    ...OVERSTEKEN_FIELDS,
-  ],
-  'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding': [
-    ...ESTHETISCHE_AFWERKING_FIELDS,
-    ...OVERSTEKEN_FIELDS,
-  ],
+  // Daryl 4 juni: afbraak-oversteken hebben geen sub-opties nodig.
+  'verwijderen-oversteken': [],
+  'strippen-oversteken': [],
+  // Daryl 4 juni: nieuwe oversteken — geen merk/ral/plaat-dim, wel
+  // oversteek-hoogte + combo + diepte in cm.
+  'nieuwe-oversteken-timmeren-toekomstige-gevelisol': OVERSTEKEN_NIEUW_FIELDS,
+  'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding': OVERSTEKEN_NIEUW_FIELDS,
 
-  // Bakgoten — merk + RAL + breedte + combo (mail v2).
-  'verwijderen-bakgoten': BAKGOTEN_FIELDS,
-  'strippen-bakgoten': BAKGOTEN_FIELDS,
-  'strippen-binnenbekleding-bakgoot': BAKGOTEN_FIELDS,
-  'buitenbekleding-bakgoot': BAKGOTEN_FIELDS,
-  'nieuwe-bakgoot-timmeren': BAKGOTEN_FIELDS,
-  'zinken-binnenbekleding-bakgoot': BAKGOTEN_FIELDS,
-  'epdm-dichting-bakgoot': BAKGOTEN_FIELDS,
+  // Daryl 4 juni: "Strippen bakgoten — Merk / ral / breedte / combo
+  // moeten hier niet staan". Afbraak-items hebben geen sub-opties.
+  'verwijderen-bakgoten': [],
+  'strippen-bakgoten': [],
+  'strippen-binnenbekleding-bakgoot': [],
+  // Bekleding-items: merk + ral + bakgoot-hoogte + dimensie hoogte-diepte.
+  'buitenbekleding-bakgoot': BAKGOTEN_BEKLEDING_FIELDS,
+  'zinken-binnenbekleding-bakgoot': BAKGOTEN_BEKLEDING_FIELDS,
+  'epdm-dichting-bakgoot': BAKGOTEN_BEKLEDING_FIELDS,
+  // Daryl 4 juni: nieuwe bakgoot — geen merk/ral, wel hoogte + combo.
+  'nieuwe-bakgoot-timmeren': BAKGOTEN_NIEUW_FIELDS,
 
   // Gevelwerken — RAL-kleurcode is verplicht.
   'gevelafwerking-crepi-siliconenharspleister': RAL_ONLY_FIELDS,

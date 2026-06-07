@@ -9,7 +9,7 @@ export function DetailStep() {
   return (
     <div className="space-y-8">
       <section className="space-y-4">
-        <SectionHeading title="Werken" />
+        <SectionHeading title="Renovatie-project" />
         <RoofAreaField />
         <ConfiguratorPanel />
       </section>

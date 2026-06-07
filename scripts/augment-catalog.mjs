@@ -143,7 +143,83 @@ for (const cat of catalog.categories) {
   }
 }
 
+/* ---------- Daryl 4 juni: bug-fix "Nieuwe oversteek timmeren - basis"
+   miste een filter en verscheen altijd. Plaats achter oversteken-flag. */
+for (const cat of catalog.categories) {
+  for (const sub of cat.subcategories) {
+    for (const it of sub.items) {
+      if (it.id === 'nieuwe-oversteek-timmeren-basis-nieuwe-bekleding') {
+        it.filter = { kind: 'optional', flagId: 'oversteken' }
+      }
+    }
+  }
+}
+
+/* ---------- Daryl 4 juni: item-overrides ---------- */
+const OVERRIDES = {
+  // Stelling-items: Daryl wil dat de hint over "Altijd en tektsveld voorzien"
+  // weg gaat. Het tekstveld zelf blijft (via item-details).
+  'stelling-valbeveiliging-voorgevel': { hint: null },
+  'stelling-valbeveiliging-achtergevel': { hint: null },
+  'stelling-valbeveiliging-zijkant-links': { hint: null },
+  'stelling-valbeveiliging-zijkant-rechts': { hint: null },
+
+  // Onderdak: hint vervangen door de marketing-zin.
+  onderdak: {
+    hint: 'Hoogkwalitatief Klasse A+++ onderdak zodat jouw dak Extra duurzaam beschermd is tegen waterinfiltratie',
+  },
+
+  // Nokpan: stuk → lm + zinnetje "geventileerde ondernok".
+  nokpan: { unit: 'lm', hint: 'geventileerde ondernok' },
+
+  // Monteren zonnepanelen: label aanpassen.
+  'monteren-zonnepanelen': { label: 'Monteren bestaande zonnepanelen' },
+
+  // Gootstukken: label aanpassen.
+  gootstukken: { label: 'Nieuw - gootstuk Velux' },
+
+  // Plaatsen BESTAANDE hanggoot: "bestaande" niet in hoofdletters.
+  'plaatsen-bestaande-hanggoot': { label: 'Plaatsen bestaande hanggoot' },
+
+  // Verholen goten: hint weg (kwam in PDF).
+  'verholen-goten': { hint: null },
+
+  // Verluchtingspaddestoel: hint weg.
+  verluchtingspaddestoel: { hint: null },
+
+  // Verwijderen kiezelsteen plat dak: hint weg (minimum blijft via minimumPrice).
+  'verwijderen-en-afvoeren-kiezelsteen-op-plat-dak': { hint: null },
+
+  // Aluminium profiel raampartijen: m² → lm.
+  'aluminium-profiel-op-maat-voor-de-raampartijen-g': { unit: 'lm' },
+
+  // Loodafwerking schouw (plat dak): lm → stuk.
+  'loodafwerking-schouw': { unit: 'stuk' },
+
+  // Panlatten op panafstand: lm → m².
+  'panlatten-op-panafstand-hechten-op-het-onderdak': { unit: 'm2' },
+
+  // Buitenbekleding bakgoot: m² → lm.
+  'buitenbekleding-bakgoot': { unit: 'lm' },
+}
+
+let overridden = 0
+for (const cat of catalog.categories) {
+  for (const sub of cat.subcategories) {
+    for (const it of sub.items) {
+      const o = OVERRIDES[it.id]
+      if (!o) continue
+      if (o.label !== undefined) it.label = o.label
+      if (o.unit !== undefined) it.unit = o.unit
+      if (o.hint === null) delete it.hint
+      else if (o.hint !== undefined) it.hint = o.hint
+      overridden++
+    }
+  }
+}
+
 fs.writeFileSync(path, JSON.stringify(catalog, null, 2) + '\n', 'utf8')
 console.log(`✓ ${retagged} items omgetagd naar plat-dak/gevel filters`)
 console.log(`✓ ${minSet} items hebben een minimum-prijs`)
+console.log(`✓ ${overridden} items met Daryl-overrides (label/unit/hint)`)
 console.log(`✓ ${allFlags.length} flags toegevoegd: ${allFlags.map((f) => f.id).join(', ')}`)
