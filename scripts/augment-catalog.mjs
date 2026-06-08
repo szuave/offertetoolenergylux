@@ -159,7 +159,10 @@ for (const cat of catalog.categories) {
    2 APARTE ja/nee toggles (geen multiplechoice meer). Beide kunnen
    tegelijk aan staan. Aantal/lijntotaal wordt auto-berekend via
    resolveSpecialLine in de calculator (containerCount × €650 voor
-   werfpuin, removed-m² × €8 min €800 voor toxisch). */
+   werfpuin, removed-m² × €8 min €800 voor toxisch).
+
+   Plus: Daryl wil ze ACHTERAAN de werfinstallatie/afbraak-rubriek
+   plaatsen, niet bovenaan na de stellingen. */
 for (const cat of catalog.categories) {
   for (const sub of cat.subcategories) {
     for (const it of sub.items) {
@@ -176,6 +179,18 @@ for (const cat of catalog.categories) {
 catalog.multipleChoiceGroups = catalog.multipleChoiceGroups.filter(
   (g) => g.id !== 'afvoeren-afval',
 )
+
+// Verplaats afvoeren-werfpuin + toxisch naar einde van werfinstallatie/afbraak.
+for (const cat of catalog.categories) {
+  if (cat.id !== 'hellend-dak') continue
+  for (const sub of cat.subcategories) {
+    if (sub.id !== 'werfinstallatie-afbraak') continue
+    const afvoerIds = ['afvoeren-werfpuin', 'afvoeren-werfpuin-toxisch-afval']
+    const afvoerItems = sub.items.filter((it) => afvoerIds.includes(it.id))
+    sub.items = sub.items.filter((it) => !afvoerIds.includes(it.id))
+    sub.items.push(...afvoerItems)
+  }
+}
 
 /* ---------- Daryl 4 juni: items die ALTIJD zichtbaar moeten zijn bij
    plat dak (filter weg → always). */

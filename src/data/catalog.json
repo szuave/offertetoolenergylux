@@ -45,25 +45,6 @@
               }
             },
             {
-              "id": "afvoeren-werfpuin",
-              "label": "Afvoeren werfpuin",
-              "unit": "jaNee",
-              "unitPrice": 490,
-              "filter": {
-                "kind": "always"
-              }
-            },
-            {
-              "id": "afvoeren-werfpuin-toxisch-afval",
-              "label": "Afvoeren werfpuin + toxisch afval",
-              "unit": "jaNee",
-              "unitPrice": 649,
-              "filter": {
-                "kind": "always"
-              },
-              "minimumPrice": 800
-            },
-            {
               "id": "verwijderen-dakpannen",
               "label": "Verwijderen dakpannen",
               "unit": "m2",
@@ -363,6 +344,25 @@
                 "flagId": "schouw"
               },
               "priceNote": "Op regie"
+            },
+            {
+              "id": "afvoeren-werfpuin",
+              "label": "Afvoeren werfpuin",
+              "unit": "jaNee",
+              "unitPrice": 490,
+              "filter": {
+                "kind": "always"
+              }
+            },
+            {
+              "id": "afvoeren-werfpuin-toxisch-afval",
+              "label": "Afvoeren werfpuin + toxisch afval",
+              "unit": "jaNee",
+              "unitPrice": 649,
+              "filter": {
+                "kind": "always"
+              },
+              "minimumPrice": 800
             }
           ]
         },
