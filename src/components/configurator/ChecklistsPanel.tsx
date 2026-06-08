@@ -13,9 +13,19 @@ const EMPTY_ANSWERS: Readonly<Record<string, ChecklistItemAnswer>> = Object.free
 
 /**
  * Daryl 4 juni: 4 prijschecklists die op verschillende plaatsen in de
- * wizard verschijnen. Voor MVP renderen we ze hier samen in stap 3.
+ * wizard verschijnen.
+ *  - "werf-belemmering" wordt inline gerenderd ONDER de werfinstallatie/
+ *    afbraak-rubriek (via ConfiguratorPanel).
+ *  - "gevel-ventilatie" idem onder de gevelwerken-rubriek.
+ *  - "zonnepanelen-supplementen" idem onder de zonnepaneel-items.
+ *  - "eind-checklist" staat onderaan stap 3 (algemene werf-checklist).
+ *
+ * Prop `includeIds`: render alleen die checklist-id's.
+ * Prop `excludeIds`: render alle BEHALVE die id's.
  */
-export function ChecklistsPanel() {
+type Props = { includeIds?: readonly string[]; excludeIds?: readonly string[] }
+
+export function ChecklistsPanel({ includeIds, excludeIds }: Props = {}) {
   const { categoryScope, quantities } = useQuoteStore(
     useShallow((s) => ({
       categoryScope: s.categoryScope,
@@ -24,6 +34,8 @@ export function ChecklistsPanel() {
   )
 
   const visible = CHECKLISTS.filter((c) => {
+    if (includeIds && !includeIds.includes(c.id)) return false
+    if (excludeIds && excludeIds.includes(c.id)) return false
     if (c.appliesWhen.always) return true
     if (c.appliesWhen.categoryId) return categoryScope[c.appliesWhen.categoryId] === true
     if (c.appliesWhen.itemHasQty) return (quantities[c.appliesWhen.itemHasQty] ?? 0) > 0
@@ -59,29 +71,79 @@ function ChecklistCard({ checklist }: { checklist: ChecklistDef }) {
         <div className="space-y-2">
           {checklist.items.map((item) => {
             const ans = answers[item.id] ?? {}
-            const checked = ans.checked === true
+            const isYes = item.requiresYesNo
+              ? ans.answer === 'ja'
+              : ans.checked === true
+            const isNo = item.requiresYesNo && ans.answer === 'nee'
+            const showInput = isYes
             return (
               <div
                 key={item.id}
                 className={cn(
                   'rounded-lg border p-3 transition-colors',
-                  checked
+                  isYes
                     ? 'border-brand-primary bg-brand-primary/5'
-                    : 'border-rule bg-surface',
+                    : isNo
+                      ? 'border-rule bg-surface-muted/40'
+                      : 'border-rule bg-surface',
                 )}
               >
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={(e) =>
-                      setAnswer(checklist.id, item.id, { checked: e.target.checked })
-                    }
-                    className="mt-0.5 h-4 w-4 accent-brand-primary cursor-pointer"
-                  />
-                  <span className="text-sm text-ink leading-tight">{item.label}</span>
-                </label>
-                {checked && item.input && (
+                {item.requiresYesNo ? (
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="text-sm text-ink leading-tight flex-1">
+                      {item.label}
+                    </span>
+                    <div className="flex gap-2 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAnswer(checklist.id, item.id, {
+                            answer: 'ja',
+                            checked: true,
+                          })
+                        }
+                        className={cn(
+                          'h-8 px-3 rounded-md text-xs font-semibold transition-colors',
+                          isYes
+                            ? 'bg-brand-primary text-white'
+                            : 'bg-surface border border-rule text-ink hover:border-brand-primary',
+                        )}
+                      >
+                        Ja
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAnswer(checklist.id, item.id, {
+                            answer: 'nee',
+                            checked: false,
+                          })
+                        }
+                        className={cn(
+                          'h-8 px-3 rounded-md text-xs font-semibold transition-colors',
+                          isNo
+                            ? 'bg-ink text-white'
+                            : 'bg-surface border border-rule text-ink hover:border-ink',
+                        )}
+                      >
+                        Nee
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isYes}
+                      onChange={(e) =>
+                        setAnswer(checklist.id, item.id, { checked: e.target.checked })
+                      }
+                      className="mt-0.5 h-4 w-4 accent-brand-primary cursor-pointer"
+                    />
+                    <span className="text-sm text-ink leading-tight">{item.label}</span>
+                  </label>
+                )}
+                {showInput && item.input && (
                   <div className="mt-2 pl-7">
                     {item.input.kind === 'aantal' ? (
                       <div className="flex items-center gap-2">

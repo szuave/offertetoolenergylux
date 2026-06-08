@@ -15,8 +15,8 @@ export function DetailStep() {
       </section>
 
       <section className="space-y-4">
-        <SectionHeading title="Werf-checklist" />
-        <ChecklistsPanel />
+        <SectionHeading title="Werf-omstandigheden" />
+        <ChecklistsPanel includeIds={['eind-checklist']} />
       </section>
 
       <section className="space-y-4">

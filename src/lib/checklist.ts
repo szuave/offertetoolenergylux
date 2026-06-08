@@ -1,5 +1,6 @@
 import { pricingConfig } from '@/data/pricing'
 import { countMissingDetails, getDetailFields } from '@/data/item-details'
+import { CHECKLISTS } from '@/data/checklists'
 import { isNonEmpty, isValidBelgianPostalCode, isValidEmail } from '@/lib/validation'
 import type { QuoteState, WizardStep } from '@/types/quote'
 
@@ -176,6 +177,30 @@ export function buildChecklist(state: QuoteState): ChecklistItem[] {
       scope: 'pricing',
       step: 'works',
     })
+  }
+
+  // Daryl 4 juni: gevel-ventilatie checklist — alle items moeten met Ja
+  // of Nee beantwoord zijn voor de offerte geëxporteerd kan worden.
+  if (state.categoryScope?.['gevelwerken'] === true) {
+    const gevelChecklist = CHECKLISTS.find((c) => c.id === 'gevel-ventilatie')
+    const gevelAnswers = state.checklistAnswers?.['gevel-ventilatie'] ?? {}
+    if (gevelChecklist) {
+      const unanswered = gevelChecklist.items.filter(
+        (it) => it.requiresYesNo && !gevelAnswers[it.id]?.answer,
+      )
+      if (unanswered.length > 0) {
+        items.push({
+          id: 'gevel-ventilatie-incomplete',
+          severity: 'error',
+          message:
+            unanswered.length === 1
+              ? 'Gevel-checklist: 1 vraag nog niet beantwoord met Ja/Nee'
+              : `Gevel-checklist: ${unanswered.length} vragen nog niet beantwoord met Ja/Nee`,
+          scope: 'configurator',
+          step: 'works',
+        })
+      }
+    }
   }
 
   return items

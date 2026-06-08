@@ -12,10 +12,15 @@ import {
   ITEMS_ALLEEN_BIJ_DAKPAN,
   ITEMS_ALLEEN_BIJ_DAKPAN_OF_LEIEN,
 } from '@/lib/calculator'
-import { isGroupAlwaysVisible, isItemAlwaysVisible } from '@/data/always-visible'
+import {
+  isGroupAlwaysVisible,
+  isItemAlwaysVisible,
+  STELLING_ITEM_IDS,
+} from '@/data/always-visible'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { Card, CardBody } from '@/components/ui/Card'
 import { AlwaysItemsList } from '@/components/configurator/AlwaysItemsList'
+import { ChecklistsPanel } from '@/components/configurator/ChecklistsPanel'
 import { MultipleChoiceSection } from '@/components/configurator/MultipleChoiceSection'
 import { SearchResults } from '@/components/configurator/SearchResults'
 import { DakbekledingSelector } from '@/components/configurator/DakbekledingSelector'
@@ -168,6 +173,7 @@ export function ConfiguratorPanel() {
             flags={flags}
             quantities={quantities}
             cover={cover}
+            categoryScope={categoryScope}
           />
         ))}
     </div>
@@ -179,15 +185,28 @@ function CategoryConfigurator({
   flags,
   quantities,
   cover,
+  categoryScope,
 }: {
   category: CategoryDef
   flags: FlagMap
   quantities: Record<string, number>
   cover: { variantId: string | null; areaM2: number }
+  categoryScope: Record<string, boolean>
 }) {
   const showCoverSelector = category.id === 'hellend-dak'
   const dakpanGekozen = isDakpanChosen({ cover })
   const dakpanOfLeienGekozen = isDakpanOfLeienChosen({ cover })
+  // Daryl 4 juni: stelling-items uit hellend-dak/werfinstallatie-afbraak
+  // worden ook bij plat-dak/werfinstallatie getoond zodra hellend-dak NIET
+  // in scope is — anders staan ze er al via hun eigen tab.
+  const showStellingInPlatDak =
+    category.id === 'plat-dak' && categoryScope['hellend-dak'] !== true
+  const stellingItemsFromHellend: LineItemDef[] = showStellingInPlatDak
+    ? (pricingConfig.categories
+        .find((c) => c.id === 'hellend-dak')
+        ?.subcategories.find((s) => s.id === 'werfinstallatie-afbraak')
+        ?.items.filter((it) => STELLING_ITEM_IDS.includes(it.id)) ?? [])
+    : []
 
   // Per subcategorie filteren we wat zichtbaar is op basis van de filteropties
   // uit stap 2 — items in Excel-volgorde, basis-items en flag-items door elkaar
@@ -212,6 +231,12 @@ function CategoryConfigurator({
 
       const visibleItems: LineItemDef[] = []
       const multipleChoiceItems = new Map<string, LineItemDef[]>()
+
+      // Daryl 4 juni: bij plat-dak/werfinstallatie zonder hellend-dak in
+      // scope, voeg de stelling-items uit hellend-dak vooraan toe.
+      if (sub.id === 'werfinstallatie' && showStellingInPlatDak) {
+        visibleItems.push(...stellingItemsFromHellend)
+      }
 
       for (const item of sub.items) {
         // Daryl 4 juni: bepaalde items moeten ALTIJD zichtbaar zijn binnen
@@ -299,6 +324,17 @@ function CategoryConfigurator({
               // keuze i.p.v. filters.
               const isDakdichtPlat =
                 category.id === 'plat-dak' && sub.id === 'dakdichtingswerken'
+              // Daryl 4 juni: welke checklist hoort onder welke rubriek?
+              const inlineChecklists: string[] = []
+              if (category.id === 'hellend-dak' && sub.id === 'werfinstallatie-afbraak') {
+                inlineChecklists.push('werf-belemmering')
+              }
+              if (category.id === 'gevelwerken') {
+                inlineChecklists.push('gevel-ventilatie')
+              }
+              if (isDakdichtHellend) {
+                inlineChecklists.push('zonnepanelen-supplementen')
+              }
               return (
                 <section key={sub.id} className="space-y-6">
                   <h3 className="font-display text-base font-bold text-ink border-b border-rule pb-2">
@@ -325,6 +361,10 @@ function CategoryConfigurator({
                         items={multipleChoiceItems.get(group.id) ?? []}
                       />
                     ))}
+
+                  {inlineChecklists.length > 0 && (
+                    <ChecklistsPanel includeIds={inlineChecklists} />
+                  )}
                 </section>
               )
             })}

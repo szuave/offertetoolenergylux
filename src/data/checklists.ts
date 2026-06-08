@@ -32,6 +32,12 @@ export type ChecklistItem = {
   /** Sub-input naast de ja/nee: 'aantal' (text input), 'tekst' (vrije text), of geen. */
   input?: { kind: 'aantal'; unit: 'm2' | 'lm' | 'meter'; label: string } | { kind: 'tekst'; label: string; placeholder?: string }
   rule?: ChecklistItemRule
+  /**
+   * Daryl 4 juni: voor de gevel-ventilatie checklist moet de verkoper voor
+   * elk item expliciet "Ja" of "Nee" kiezen — anders blokkeert de PDF-export.
+   * Een leeg antwoord is dus NIET hetzelfde als "nee".
+   */
+  requiresYesNo?: boolean
 }
 
 export type ChecklistDef = {
@@ -75,26 +81,29 @@ const CHECKLIST_GEVEL_VENTILATIE: ChecklistDef = {
   id: 'gevel-ventilatie',
   label: 'Gevelwerken — ventilatie & afwatering',
   description:
-    'Alle vragen moeten beantwoord worden (ja/nee). Sommige genereren een prijssupplement.',
+    'Alle vragen MOETEN beantwoord zijn met Ja of Nee voor je de offerte kan exporteren.',
   appliesWhen: { categoryId: 'gevelwerken' },
   items: [
-    { id: 'barst-gevel', label: 'Barst(en) in de gevel' },
+    { id: 'barst-gevel', label: 'Barst(en) in de gevel', requiresYesNo: true },
     {
       id: 'muur-recht',
       label: 'Muur dient recht gemaakt te worden',
       input: { kind: 'aantal', unit: 'm2', label: 'm²' },
       rule: { kind: 'perAmount', pricePerUnit: 32 },
+      requiresYesNo: true,
     },
     {
       id: 'dakverbreding-zink',
       label: 'Dakverbreding zink op maat',
       input: { kind: 'aantal', unit: 'lm', label: 'lm' },
       rule: { kind: 'perAmount', pricePerUnit: 73 },
+      requiresYesNo: true,
     },
     {
       id: 'afwatering-ok',
       label: 'Afwatering naar goot na gevelisolatie OK',
       rule: { kind: 'fixed', amount: 431 },
+      requiresYesNo: true,
     },
   ],
 }

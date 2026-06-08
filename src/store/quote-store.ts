@@ -124,7 +124,7 @@ type QuoteActions = {
   setChecklistAnswer: (
     checklistId: string,
     itemId: string,
-    answer: { checked?: boolean; amount?: number; text?: string },
+    answer: { checked?: boolean; amount?: number; text?: string; answer?: 'ja' | 'nee' },
   ) => void
   setDiscount: (partial: Partial<DiscountConfig>) => void
   setVatRate: (rate: number) => void
@@ -221,10 +221,12 @@ export const useQuoteStore = create<QuoteStore>()(
           const prev = checklist[itemId] ?? {}
           const next = { ...prev, ...answer }
           // Verwijder een lege answer-entry om de state schoon te houden.
+          // 'answer' (ja/nee voor required items) telt ook als ingevuld.
           const isEmpty =
             (next.checked === undefined || next.checked === false) &&
             (next.amount === undefined || next.amount === 0) &&
-            (next.text === undefined || next.text === '')
+            (next.text === undefined || next.text === '') &&
+            next.answer === undefined
           const nextChecklist = { ...checklist }
           if (isEmpty) delete nextChecklist[itemId]
           else nextChecklist[itemId] = next

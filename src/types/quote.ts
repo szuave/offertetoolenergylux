@@ -113,11 +113,13 @@ export type WizardStep = 'filter' | 'customer' | 'works'
  */
 export type SupplementMap = Record<string, boolean>
 
-/** Per checklist-id → per item-id → antwoord (checked + optionele input). */
+/** Per checklist-id → per item-id → antwoord. */
 export type ChecklistItemAnswer = {
   checked?: boolean
   amount?: number
   text?: string
+  /** Expliciete ja/nee — voor items die `requiresYesNo` zijn (gevel-checklist). */
+  answer?: 'ja' | 'nee'
 }
 export type ChecklistAnswers = Record<string, Record<string, ChecklistItemAnswer>>
 

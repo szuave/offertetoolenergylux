@@ -1084,7 +1084,8 @@
               "filter": {
                 "kind": "optional",
                 "flagId": "hanggoten"
-              }
+              },
+              "hint": "Dakdoorvoer aangeleverd en gekeurd door klant — geplaatst door Energylux"
             },
             {
               "id": "leveren-en-plaatsen-zinken-hanggoot",
@@ -1641,8 +1642,7 @@
               "unit": "lm",
               "unitPrice": 57,
               "filter": {
-                "kind": "optional",
-                "flagId": "plat-dak-lood-zink"
+                "kind": "always"
               }
             },
             {

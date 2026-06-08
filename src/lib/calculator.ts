@@ -294,17 +294,22 @@ function applyChecklists(
 
     // EIND-checklist: +20% bij minstens 1 aanvink op het hele items-subtotal.
     if (checklist.groupRule?.kind === 'percentageOfSubtotal') {
-      const anyChecked = checklist.items.some((it) => checklistAnswers[it.id]?.checked === true)
+      const anyChecked = checklist.items.some((it) => {
+        const a = checklistAnswers[it.id]
+        return a?.checked === true || a?.answer === 'ja'
+      })
       if (anyChecked) {
         eindAmount = round2((itemsSubtotal * checklist.groupRule.percentage) / 100)
       }
       continue // EIND-checklist heeft geen per-item rules
     }
 
-    // Per-item regels
+    // Per-item regels — een rule triggert bij `checked: true` OF
+    // expliciet `answer: 'ja'` (gevel-ventilatie items).
     for (const item of checklist.items) {
       const answer = checklistAnswers[item.id]
-      if (!answer?.checked) continue
+      const triggered = answer?.checked === true || answer?.answer === 'ja'
+      if (!triggered) continue
       if (!item.rule) continue
 
       let amount = 0

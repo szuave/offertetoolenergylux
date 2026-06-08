@@ -6,14 +6,23 @@
  *          ER SOWIESO TE ZIJN!"
  */
 
+/**
+ * Stelling-items die ook bij plat dak verschijnen wanneer hellend dak
+ * NIET in scope is (Daryl: "STELLING DUS OOK ALTIJD WANT ALS ER GEEN
+ * HELLEND DAK DAN MOETEN WE WEL DE OPTIE KRIJGEN").
+ */
+export const STELLING_ITEM_IDS: readonly string[] = [
+  'stelling-valbeveiliging-voorgevel',
+  'stelling-valbeveiliging-achtergevel',
+  'stelling-valbeveiliging-zijkant-links',
+  'stelling-valbeveiliging-zijkant-rechts',
+]
+
 /** Item-IDs die altijd zichtbaar zijn binnen één scope (= categorie-id). */
 export const ALWAYS_VISIBLE_ITEMS: Readonly<Record<string, ReadonlySet<string>>> = {
   'hellend-dak': new Set([
     // Werfinstallatie / Afbraak
-    'stelling-valbeveiliging-voorgevel',
-    'stelling-valbeveiliging-achtergevel',
-    'stelling-valbeveiliging-zijkant-links',
-    'stelling-valbeveiliging-zijkant-rechts',
+    ...STELLING_ITEM_IDS,
     'afvoeren-werfpuin',
     'afvoeren-werfpuin-toxisch-afval',
     // Ambachtelijk Timmerwerk
@@ -25,6 +34,9 @@ export const ALWAYS_VISIBLE_ITEMS: Readonly<Record<string, ReadonlySet<string>>>
     'gevelpan',
     'noordbomen',
   ]),
+  // Daryl 4 juni: stelling-items moeten ook bij plat dak verschijnen
+  // (afgehandeld via cross-category render in ConfiguratorPanel).
+  'plat-dak': new Set([...STELLING_ITEM_IDS]),
 }
 
 /** MultipleChoice group-IDs die altijd zichtbaar zijn binnen één scope. */

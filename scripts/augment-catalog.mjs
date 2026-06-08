@@ -200,6 +200,9 @@ const PLAT_DAK_ALTIJD = new Set([
   'verwijderen-en-afvoeren-kiezelsteen-op-plat-dak',
   'leveren-en-plaatsen-sls-hout-ophoging-dakrand',
   'esthetische-afwerking-dakrand',
+  // Daryl 4 juni: "ALTIJD LATEN VERSCHIJNEN ONDER RUBRIEK BIJ LOOD EN
+  // ZINKWERKEN: Leveren en plaatsen afvoerbuis voor platdak"
+  'leveren-en-plaatsen-afvoerbuis',
 ])
 for (const cat of catalog.categories) {
   if (cat.id !== 'plat-dak') continue
@@ -272,6 +275,11 @@ const OVERRIDES = {
 
   // Buitenbekleding bakgoot: m² → lm.
   'buitenbekleding-bakgoot': { unit: 'lm' },
+
+  // Daryl 4 juni: Dakdoorvoer — zinnetje toevoegen.
+  'dakdoorvoer': {
+    hint: 'Dakdoorvoer aangeleverd en gekeurd door klant — geplaatst door Energylux',
+  },
 }
 
 let overridden = 0
