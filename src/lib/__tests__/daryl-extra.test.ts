@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { calculateTotals, isItemActive } from '@/lib/calculator'
-import { buildChecklist } from '@/lib/checklist'
 import { getItemDef, pricingConfig } from '@/data/pricing'
 import { STELLING_ITEM_IDS } from '@/data/always-visible'
 import { CHECKLISTS } from '@/data/checklists'

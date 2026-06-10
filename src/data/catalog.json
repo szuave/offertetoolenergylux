@@ -530,8 +530,7 @@
               "unitPrice": 70,
               "filter": {
                 "kind": "always"
-              },
-              "hint": "Altijd voorstellen  ja of nee"
+              }
             },
             {
               "id": "esthetische-afwerking-hanggoot",
@@ -1210,8 +1209,7 @@
               "filter": {
                 "kind": "optional",
                 "flagId": "gevel-ventilatie"
-              },
-              "hint": "Checklist ventilatieroosters, waterkraan in muur aanwezig, moet verlengd worden door sanitaire man, electriciteitsbak tegen de gevel, electriciteitskabel in muur, veel hoekjes en kantjes en niet eenvoudige gevels = 20 euro per m2 erbij als deze optie wordt aangevinkt"
+              }
             },
             {
               "id": "waterkraan-in-muur-aanwezig-moet-verlengd-worden",

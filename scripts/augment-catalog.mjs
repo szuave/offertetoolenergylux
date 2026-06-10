@@ -280,6 +280,15 @@ const OVERRIDES = {
   'dakdoorvoer': {
     hint: 'Dakdoorvoer aangeleverd en gekeurd door klant — geplaatst door Energylux',
   },
+
+  // Daryl 4 juni: Ventilatieroosters had nog de lange "Checklist..." tekst
+  // uit Excel als hint — die hint hoort weg want de gevel-ventilatie
+  // CHECKLIST onder de rubriek bevat al die logica.
+  'ventilatieroosters': { hint: null },
+
+  // Daryl 4 juni: "Altijd voorstellen ja of nee" hint moet weg
+  // (verschijnt anders in PDF). De ja/nee toggle zit al als sub-optie.
+  'esthetische-afwerking-hellende-dakrand-zijkant-m': { hint: null },
 }
 
 let overridden = 0
