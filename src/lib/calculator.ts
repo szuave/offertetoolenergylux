@@ -2,7 +2,7 @@ import { pricingConfig } from '@/data/pricing'
 import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { CHECKLISTS } from '@/data/checklists'
-import { veluxUnitPrice, veluxKeuzeIsCompleet } from '@/data/velux'
+import { veluxConfigsTotalAantal, veluxConfigsTotalPrice } from '@/data/velux'
 import type {
   AppliedSupplement,
   CategoryDef,
@@ -203,17 +203,16 @@ function resolveSpecialLine(
     const raw = m2 * TOXISCH_PER_M2
     return { quantity: m2, lineTotal: round2(Math.max(raw, TOXISCH_MINIMUM)) }
   }
-  // Yasid 8 juni: Veluxen nieuw — prijs = aantal × veluxUnitPrice(keuze)
-  // op basis van de gekozen maat/basis/gootstuk/accessoires.
+  // Yasid 11 juni: Veluxen nieuw — meerdere configs ondersteund.
+  // Quantity = som van alle config.aantal, lijntotaal = som van
+  // aantal × unit-prijs per config (null-prijs onderdelen tellen 0).
   if (item.id === 'veluxen-nieuw') {
-    const qty = state.quantities[item.id] ?? 0
-    if (qty <= 0) return null
-    if (!veluxKeuzeIsCompleet(state.veluxKeuze)) {
-      // Geen Velux gekozen → toon item maar met prijs 0 (verkoper moet kiezen)
-      return { quantity: qty, lineTotal: 0 }
+    const aantal = veluxConfigsTotalAantal(state.veluxConfigs)
+    if (aantal <= 0) return null
+    return {
+      quantity: aantal,
+      lineTotal: round2(veluxConfigsTotalPrice(state.veluxConfigs)),
     }
-    const unit = veluxUnitPrice(state.veluxKeuze)
-    return { quantity: qty, lineTotal: round2(qty * unit) }
   }
 
   // Yasid Excel rij 156: koepel klantprijs = leveranciersprijs * 1.20.

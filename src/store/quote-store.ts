@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { pricingConfig } from '@/data/pricing'
 import { addDaysIso, toIsoDate } from '@/lib/format'
+import { emptyVeluxConfig, type VeluxConfig } from '@/data/velux'
 import type {
   CoverChoice,
   Customer,
@@ -97,15 +98,7 @@ function emptyQuote(): QuoteState {
     flags: {},
     categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
-    veluxKeuze: {
-      maat: null,
-      basisCode: null,
-      gootstukCode: null,
-      verduisterCode: null,
-      zonneGordijnCode: null,
-      buitenZonCode: null,
-      rolluikCode: null,
-    },
+    veluxConfigs: [],
     details: {},
     supplements: {},
     checklistAnswers: {},
@@ -128,7 +121,9 @@ type QuoteActions = {
   toggleFlag: (flagId: string, value: boolean) => void
   toggleCategoryScope: (categoryId: string, value: boolean) => void
   setCover: (partial: Partial<CoverChoice>) => void
-  setVeluxKeuze: (partial: Partial<QuoteState['veluxKeuze']>) => void
+  addVeluxConfig: () => void
+  updateVeluxConfig: (id: string, partial: Partial<VeluxConfig>) => void
+  removeVeluxConfig: (id: string) => void
   setItemDetail: (itemId: string, key: string, value: string) => void
   toggleSupplement: (id: string, value: boolean) => void
   setChecklistAnswer: (
@@ -209,8 +204,16 @@ export const useQuoteStore = create<QuoteStore>()(
       setCover: (partial) =>
         set((state) => ({ cover: { ...state.cover, ...partial } })),
 
-      setVeluxKeuze: (partial) =>
-        set((state) => ({ veluxKeuze: { ...state.veluxKeuze, ...partial } })),
+      addVeluxConfig: () =>
+        set((state) => ({ veluxConfigs: [...state.veluxConfigs, emptyVeluxConfig()] })),
+
+      updateVeluxConfig: (id, partial) =>
+        set((state) => ({
+          veluxConfigs: state.veluxConfigs.map((c) => (c.id === id ? { ...c, ...partial } : c)),
+        })),
+
+      removeVeluxConfig: (id) =>
+        set((state) => ({ veluxConfigs: state.veluxConfigs.filter((c) => c.id !== id) })),
 
       setItemDetail: (itemId, key, value) =>
         set((state) => {
@@ -287,7 +290,17 @@ export const useQuoteStore = create<QuoteStore>()(
     {
       name: STORAGE_KEY,
       storage: createJSONStorage(() => localStorage),
-      version: 1,
+      // v2 (Yasid 11 juni): veluxKeuze (single) -> veluxConfigs (array).
+      version: 2,
+      migrate: (persisted: unknown, version: number) => {
+        const s = (persisted as Record<string, unknown>) ?? {}
+        if (version < 2) {
+          // Oude single-keuze niet meer migreren — verkoper moet 1× opnieuw kiezen.
+          delete s.veluxKeuze
+          s.veluxConfigs = []
+        }
+        return s
+      },
       partialize: (state) => ({
         meta: state.meta,
         customer: state.customer,
@@ -296,7 +309,7 @@ export const useQuoteStore = create<QuoteStore>()(
         flags: state.flags,
         categoryScope: state.categoryScope,
         cover: state.cover,
-        veluxKeuze: state.veluxKeuze,
+        veluxConfigs: state.veluxConfigs,
         details: state.details,
         supplements: state.supplements,
         checklistAnswers: state.checklistAnswers,
@@ -327,7 +340,7 @@ export const selectQuoteState = (s: QuoteStore): QuoteState => ({
   flags: s.flags,
   categoryScope: s.categoryScope,
   cover: s.cover,
-  veluxKeuze: s.veluxKeuze,
+  veluxConfigs: s.veluxConfigs ?? [],
   details: s.details,
   supplements: s.supplements,
   checklistAnswers: s.checklistAnswers,

@@ -10,7 +10,7 @@ import {
 } from '@/config/company'
 import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
 import { getVariantPhoto } from '@/data/dakbekleding-photos'
-import { veluxKeuzeIsCompleet, veluxKeuzeSummary, veluxUnitPrice } from '@/data/velux'
+import { veluxConfigSummary, veluxConfigUnitPrice } from '@/data/velux'
 import { formatDate, formatEuro, formatNumber, formatUnit } from '@/lib/format'
 import type { QuoteState, Totals } from '@/types/quote'
 
@@ -439,14 +439,18 @@ function OffertePages({ quote, totals }: Props) {
                     <Text>{line.def.label}</Text>
                     {line.def.hint ? <Text style={s.cellHint}>{line.def.hint}</Text> : null}
                     {detailText ? <Text style={s.cellHint}>{detailText}</Text> : null}
-                    {/* Yasid 8 juni: voor "Veluxen nieuw" toon de gekozen
-                        velux-config (maat + basis + accessoires). */}
-                    {line.def.id === 'veluxen-nieuw' && veluxKeuzeIsCompleet(quote.veluxKeuze) ? (
-                      <Text style={s.cellHint}>
-                        {veluxKeuzeSummary(quote.veluxKeuze)} ·{' '}
-                        {formatEuro(veluxUnitPrice(quote.veluxKeuze))} / stuk
-                      </Text>
-                    ) : null}
+                    {/* Yasid 11 juni: voor "Veluxen nieuw" toon één regel per
+                        Velux-configuratie (verkoper kan meerdere types kiezen). */}
+                    {line.def.id === 'veluxen-nieuw'
+                      ? quote.veluxConfigs
+                          .filter((cfg) => cfg.maat && cfg.basisCode && cfg.aantal > 0)
+                          .map((cfg) => (
+                            <Text key={cfg.id} style={s.cellHint}>
+                              {cfg.aantal}× {veluxConfigSummary(cfg)} ·{' '}
+                              {formatEuro(veluxConfigUnitPrice(cfg))} / stuk
+                            </Text>
+                          ))
+                      : null}
                   </View>
                   <Text style={s.cellQty}>{formatNumber(line.quantity)}</Text>
                   <Text style={s.cellUnit}>{formatUnit(line.def.unit)}</Text>

@@ -11,7 +11,7 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
     customer: { firstName: 'T', lastName: 'T', email: 't@x.be', phone: '0470000000', street: 'S 1', postalCode: '3000', city: 'L', projectAddress: '' },
     quantities: {}, groupSelections: {}, flags: {}, categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
-    veluxKeuze: { maat: null, basisCode: null, gootstukCode: null, verduisterCode: null, zonneGordijnCode: null, buitenZonCode: null, rolluikCode: null }, details: {}, supplements: {}, checklistAnswers: {},
+    veluxConfigs: [], details: {}, supplements: {}, checklistAnswers: {},
     discount: { enabled: false, percentage: 5, conditionDays: 7 }, vatRate: 0.06, notes: '',
     ...overrides,
   }

@@ -1,26 +1,37 @@
 /**
  * Velux-data: maten, basistypes, gootstukken en accessoires uit Yasid's
  * "Velux artikelen-2.xlsx" (8 juni). Gegenereerd door parse-velux.mjs.
+ *
+ * Yasid 11 juni: ALLE modellen uit de Excel worden opgenomen, ook die
+ * waar de prijs nog ontbreekt — dan staat `prijs: null` en toont de UI
+ * "(Prijs volgt)" achter het model. Verkoper kan dat model toch zien.
  */
 import raw from '@/data/velux-data.json'
+
+// Korte id-generator (8 chars) — voldoende voor React keys binnen één
+// offerte. Geen nanoid-dependency: vermijd extra bundle weight.
+function shortId(): string {
+  return Math.random().toString(36).slice(2, 10)
+}
 
 export type VeluxBasis = {
   /** "Velux" of "Integra" (Integra = elektrisch). */
   type: string
   /** Productcode, bv. "GGL 2066". */
   code: string
-  prijs: number
+  /** null = prijs ontbreekt in de Excel — verkoper ziet "(Prijs volgt)". */
+  prijs: number | null
 }
 
 export type VeluxAccessoire = {
   code: string
-  prijs: number
+  prijs: number | null
 }
 
 export type VeluxKleurAccessoire = {
   code: string
   kleur: string
-  prijs: number
+  prijs: number | null
 }
 
 export type VeluxMaat = {
@@ -44,10 +55,13 @@ export function findMaat(code: string): VeluxMaat | undefined {
 }
 
 /**
- * Gebruikerskeuze per Velux-set. Verkoper kiest maat + basis-model en
- * optioneel een gootstuk en accessoires. Prijs wordt per item opgeteld.
+ * Eén Velux-configuratie. Yasid 11 juni: verkoper moet meerdere Velux-
+ * types in dezelfde offerte kunnen plaatsen (bv. 3× MK04 + 1× UK04),
+ * dus de QuoteState bevat een ARRAY van VeluxConfig.
  */
-export type VeluxKeuze = {
+export type VeluxConfig = {
+  id: string
+  aantal: number
   maat: string | null
   basisCode: string | null
   gootstukCode: string | null
@@ -57,49 +71,89 @@ export type VeluxKeuze = {
   rolluikCode: string | null
 }
 
-export const EMPTY_VELUX_KEUZE: VeluxKeuze = {
-  maat: null,
-  basisCode: null,
-  gootstukCode: null,
-  verduisterCode: null,
-  zonneGordijnCode: null,
-  buitenZonCode: null,
-  rolluikCode: null,
+export function emptyVeluxConfig(): VeluxConfig {
+  return {
+    id: shortId(),
+    aantal: 1,
+    maat: null,
+    basisCode: null,
+    gootstukCode: null,
+    verduisterCode: null,
+    zonneGordijnCode: null,
+    buitenZonCode: null,
+    rolluikCode: null,
+  }
 }
 
-export function veluxUnitPrice(keuze: VeluxKeuze): number {
-  const maat = keuze.maat ? findMaat(keuze.maat) : null
+/**
+ * Prijs per stuk voor één configuratie. Null-prijs onderdelen (Yasid moet
+ * nog leveren) tellen voor 0 — de UI flagt dit zichtbaar zodat verkoper
+ * weet dat de offerte onvolledig is.
+ */
+export function veluxConfigUnitPrice(config: VeluxConfig): number {
+  const maat = config.maat ? findMaat(config.maat) : null
   if (!maat) return 0
   let total = 0
-  const basis = maat.basis.find((b) => b.code === keuze.basisCode)
-  if (basis) total += basis.prijs
-  const gs = maat.gootstuk.find((g) => g.code === keuze.gootstukCode)
-  if (gs) total += gs.prijs
-  const vd = maat.verduister.find((x) => x.code === keuze.verduisterCode)
-  if (vd) total += vd.prijs
-  const zg = maat.zonneGordijn.find((x) => x.code === keuze.zonneGordijnCode)
-  if (zg) total += zg.prijs
-  const bz = maat.buitenZon.find((x) => x.code === keuze.buitenZonCode)
-  if (bz) total += bz.prijs
-  const rl = maat.rolluik.find((x) => x.code === keuze.rolluikCode)
-  if (rl) total += rl.prijs
+  const basis = maat.basis.find((b) => b.code === config.basisCode)
+  if (basis?.prijs) total += basis.prijs
+  const gs = maat.gootstuk.find((g) => g.code === config.gootstukCode)
+  if (gs?.prijs) total += gs.prijs
+  const vd = maat.verduister.find((x) => x.code === config.verduisterCode)
+  if (vd?.prijs) total += vd.prijs
+  const zg = maat.zonneGordijn.find((x) => x.code === config.zonneGordijnCode)
+  if (zg?.prijs) total += zg.prijs
+  const bz = maat.buitenZon.find((x) => x.code === config.buitenZonCode)
+  if (bz?.prijs) total += bz.prijs
+  const rl = maat.rolluik.find((x) => x.code === config.rolluikCode)
+  if (rl?.prijs) total += rl.prijs
   return Math.round(total * 100) / 100
 }
 
-export function veluxKeuzeIsCompleet(keuze: VeluxKeuze): boolean {
-  return keuze.maat !== null && keuze.basisCode !== null
+export function veluxConfigIsCompleet(config: VeluxConfig): boolean {
+  return config.maat !== null && config.basisCode !== null && config.aantal > 0
 }
 
-export function veluxKeuzeSummary(keuze: VeluxKeuze): string {
-  if (!keuze.maat || !keuze.basisCode) return 'Geen Velux gekozen'
-  const maat = findMaat(keuze.maat)
+/** Heeft deze config een gekozen onderdeel waarvan de prijs null is? */
+export function veluxConfigHasMissingPrice(config: VeluxConfig): boolean {
+  const maat = config.maat ? findMaat(config.maat) : null
+  if (!maat) return false
+  const basis = maat.basis.find((b) => b.code === config.basisCode)
+  if (basis && basis.prijs === null) return true
+  const gs = maat.gootstuk.find((g) => g.code === config.gootstukCode)
+  if (gs && gs.prijs === null) return true
+  const vd = maat.verduister.find((x) => x.code === config.verduisterCode)
+  if (vd && vd.prijs === null) return true
+  const zg = maat.zonneGordijn.find((x) => x.code === config.zonneGordijnCode)
+  if (zg && zg.prijs === null) return true
+  const bz = maat.buitenZon.find((x) => x.code === config.buitenZonCode)
+  if (bz && bz.prijs === null) return true
+  const rl = maat.rolluik.find((x) => x.code === config.rolluikCode)
+  if (rl && rl.prijs === null) return true
+  return false
+}
+
+export function veluxConfigSummary(config: VeluxConfig): string {
+  if (!config.maat || !config.basisCode) return 'Geen Velux gekozen'
+  const maat = findMaat(config.maat)
   if (!maat) return 'Onbekende maat'
-  const basis = maat.basis.find((b) => b.code === keuze.basisCode)
-  const parts = [`${maat.code} — ${basis?.code ?? ''}`]
-  if (keuze.gootstukCode) parts.push(`Gootstuk ${keuze.gootstukCode}`)
-  if (keuze.verduisterCode) parts.push(`Verduistering ${keuze.verduisterCode}`)
-  if (keuze.zonneGordijnCode) parts.push(`Zonnegordijn ${keuze.zonneGordijnCode}`)
-  if (keuze.buitenZonCode) parts.push(`Buitenzon ${keuze.buitenZonCode}`)
-  if (keuze.rolluikCode) parts.push(`Rolluik ${keuze.rolluikCode}`)
+  const basis = maat.basis.find((b) => b.code === config.basisCode)
+  const parts = [`${maat.code} — ${basis?.type ?? ''} ${basis?.code ?? ''}`.trim()]
+  if (config.gootstukCode) parts.push(`Gootstuk ${config.gootstukCode}`)
+  if (config.verduisterCode) parts.push(`Verduistering ${config.verduisterCode}`)
+  if (config.zonneGordijnCode) parts.push(`Zonnegordijn ${config.zonneGordijnCode}`)
+  if (config.buitenZonCode) parts.push(`Buitenzon ${config.buitenZonCode}`)
+  if (config.rolluikCode) parts.push(`Rolluik ${config.rolluikCode}`)
   return parts.join(' · ')
+}
+
+/** Totaal aantal Veluxen over alle configs. */
+export function veluxConfigsTotalAantal(configs: readonly VeluxConfig[]): number {
+  return configs.reduce((s, c) => s + (c.aantal || 0), 0)
+}
+
+/** Som over alle configs: aantal × unit-prijs. Null-prijs telt als 0. */
+export function veluxConfigsTotalPrice(configs: readonly VeluxConfig[]): number {
+  let total = 0
+  for (const c of configs) total += c.aantal * veluxConfigUnitPrice(c)
+  return Math.round(total * 100) / 100
 }

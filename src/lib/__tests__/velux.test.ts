@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import { calculateTotals } from '@/lib/calculator'
-import { veluxMaten, veluxUnitPrice, findMaat } from '@/data/velux'
+import {
+  veluxMaten,
+  veluxConfigUnitPrice,
+  veluxConfigsTotalPrice,
+  veluxConfigHasMissingPrice,
+  findMaat,
+  type VeluxConfig,
+} from '@/data/velux'
 import type { QuoteState } from '@/types/quote'
 
 function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
@@ -9,10 +16,25 @@ function baseState(overrides: Partial<QuoteState> = {}): QuoteState {
     customer: { firstName: 'T', lastName: 'T', email: 't@x.be', phone: '0470000000', street: 'S 1', postalCode: '3000', city: 'L', projectAddress: '' },
     quantities: {}, groupSelections: {}, flags: {}, categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
-    veluxKeuze: { maat: null, basisCode: null, gootstukCode: null, verduisterCode: null, zonneGordijnCode: null, buitenZonCode: null, rolluikCode: null },
+    veluxConfigs: [],
     details: {}, supplements: {}, checklistAnswers: {},
     discount: { enabled: false, percentage: 5, conditionDays: 7 },
     vatRate: 0.06, notes: '',
+    ...overrides,
+  }
+}
+
+function mkConfig(overrides: Partial<VeluxConfig> = {}): VeluxConfig {
+  return {
+    id: 'cfg-' + Math.random().toString(36).slice(2, 8),
+    aantal: 1,
+    maat: null,
+    basisCode: null,
+    gootstukCode: null,
+    verduisterCode: null,
+    zonneGordijnCode: null,
+    buitenZonCode: null,
+    rolluikCode: null,
     ...overrides,
   }
 }
@@ -35,67 +57,86 @@ describe('Velux — data integriteit', () => {
     const gg2066 = m.basis.find((b) => b.code === 'GGL 2066')
     expect(gg2066?.prijs).toBe(689.33)
   })
+
+  it('Yasid 11 juni: CK02 GGL 3066 bestaat (model in Excel, prijs nog null)', () => {
+    const m = findMaat('CK02')!
+    const gg3066 = m.basis.find((b) => b.code === 'GGL 3066')
+    expect(gg3066).toBeDefined()
+    expect(gg3066!.prijs).toBeNull()
+  })
+
+  it('Yasid 11 juni: CK04 Integra GGL 206630 bestaat (prijs nog null)', () => {
+    const m = findMaat('CK04')!
+    const integra = m.basis.find((b) => b.code === 'GGL 206630')
+    expect(integra).toBeDefined()
+    expect(integra!.type).toBe('Integra')
+    expect(integra!.prijs).toBeNull()
+  })
 })
 
 describe('Velux — unit price berekening', () => {
   it('basis-only = basisprijs', () => {
-    const price = veluxUnitPrice({
-      maat: 'MK06', basisCode: 'GGL 2066',
-      gootstukCode: null, verduisterCode: null,
-      zonneGordijnCode: null, buitenZonCode: null, rolluikCode: null,
-    })
-    expect(price).toBe(689.33)
+    const p = veluxConfigUnitPrice(mkConfig({ maat: 'MK06', basisCode: 'GGL 2066' }))
+    expect(p).toBe(689.33)
   })
 
   it('basis + gootstuk + verduistering opgeteld', () => {
-    // MK06 GGL 2066: €689.33
-    // MK06 EDW 2000 gootstuk: €139.43
-    // MK06 DKL 0705 verduistering Donkergrijs: €105.30
-    const price = veluxUnitPrice({
-      maat: 'MK06', basisCode: 'GGL 2066',
-      gootstukCode: 'EDW 2000', verduisterCode: 'DKL 0705',
-      zonneGordijnCode: null, buitenZonCode: null, rolluikCode: null,
-    })
-    expect(price).toBe(934.06) // 689.33 + 139.43 + 105.30
+    // MK06 GGL 2066: €689.33 · EDW 2000: €139.43 · DKL 0705: €105.30
+    const p = veluxConfigUnitPrice(
+      mkConfig({
+        maat: 'MK06',
+        basisCode: 'GGL 2066',
+        gootstukCode: 'EDW 2000',
+        verduisterCode: 'DKL 0705',
+      }),
+    )
+    expect(p).toBe(934.06)
   })
 
-  it('lege keuze = €0', () => {
-    expect(veluxUnitPrice({
-      maat: null, basisCode: null, gootstukCode: null,
-      verduisterCode: null, zonneGordijnCode: null,
-      buitenZonCode: null, rolluikCode: null,
-    })).toBe(0)
+  it('lege config = €0', () => {
+    expect(veluxConfigUnitPrice(mkConfig())).toBe(0)
+  })
+
+  it('null-prijs onderdeel telt als 0 (en hasMissingPrice = true)', () => {
+    // CK02 GGL 3066 heeft prijs null
+    const cfg = mkConfig({ maat: 'CK02', basisCode: 'GGL 3066' })
+    expect(veluxConfigUnitPrice(cfg)).toBe(0)
+    expect(veluxConfigHasMissingPrice(cfg)).toBe(true)
   })
 })
 
-describe('Velux — calculator integratie (line in offerte)', () => {
-  it('Veluxen nieuw met qty=3 en MK06+GGL 2066 = 3 × €689.33 = €2067.99', () => {
-    const state = baseState({
-      categoryScope: { 'hellend-dak': true },
-      quantities: { 'veluxen-nieuw': 3 },
-      flags: { veluxen: true },
-      veluxKeuze: {
-        maat: 'MK06', basisCode: 'GGL 2066',
-        gootstukCode: null, verduisterCode: null,
-        zonneGordijnCode: null, buitenZonCode: null, rolluikCode: null,
-      },
-    })
-    const t = calculateTotals(state)
-    const velux = t.resolvedItems.find((r) => r.def.id === 'veluxen-nieuw')
-    expect(velux?.lineTotal).toBe(2067.99)
-    expect(velux?.quantity).toBe(3)
+describe('Velux — multi-config calculator (Yasid 11 juni)', () => {
+  it('3× MK04 GGL 2066 (€634.73) + 1× UK04 GGL 2070 (€611.33) = €2515.52', () => {
+    const configs: VeluxConfig[] = [
+      mkConfig({ aantal: 3, maat: 'MK04', basisCode: 'GGL 2066' }),
+      mkConfig({ aantal: 1, maat: 'UK04', basisCode: 'GGL 2070' }),
+    ]
+    const totaal = veluxConfigsTotalPrice(configs)
+    expect(totaal).toBe(2515.52) // 3 × 634.73 + 1 × 611.33
   })
 
-  it('Zonder velux-keuze maar qty=3: lijntotaal = 0 (verkoper moet kiezen)', () => {
+  it('Calculator lijntotaal = som over alle configs', () => {
     const state = baseState({
       categoryScope: { 'hellend-dak': true },
-      quantities: { 'veluxen-nieuw': 3 },
       flags: { veluxen: true },
+      veluxConfigs: [
+        mkConfig({ aantal: 3, maat: 'MK06', basisCode: 'GGL 2066' }),
+        mkConfig({ aantal: 1, maat: 'CK02', basisCode: 'GGL 2062' }),
+      ],
     })
     const t = calculateTotals(state)
     const velux = t.resolvedItems.find((r) => r.def.id === 'veluxen-nieuw')
-    expect(velux?.lineTotal).toBe(0)
-    // De qty wordt wél getoond zodat verkoper het ziet
-    expect(velux?.quantity).toBe(3)
+    // 3 × €689.33 + 1 × €642.53 = €2710.52
+    expect(velux?.lineTotal).toBe(2710.52)
+    expect(velux?.quantity).toBe(4)
+  })
+
+  it('Lege configs lijst: veluxen-nieuw verschijnt niet in offerte', () => {
+    const state = baseState({
+      categoryScope: { 'hellend-dak': true },
+      flags: { veluxen: true },
+    })
+    const t = calculateTotals(state)
+    expect(t.resolvedItems.find((r) => r.def.id === 'veluxen-nieuw')).toBeUndefined()
   })
 })

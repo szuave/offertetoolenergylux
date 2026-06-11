@@ -93,16 +93,12 @@ export type CoverChoice = {
   areaM2: number
 }
 
-/** Gekozen Velux-configuratie (Yasid 8 juni — velux-prijslijst). */
-export type VeluxKeuzeState = {
-  maat: string | null
-  basisCode: string | null
-  gootstukCode: string | null
-  verduisterCode: string | null
-  zonneGordijnCode: string | null
-  buitenZonCode: string | null
-  rolluikCode: string | null
-}
+/**
+ * Lijst van Velux-configuraties (Yasid 11 juni — meerdere types per offerte).
+ * Eén entry = "X stuks van maat Y met basis Z + optionele accessoires".
+ * Volledig type-model staat in `@/data/velux` (VeluxConfig).
+ */
+export type VeluxConfigsState = import('@/data/velux').VeluxConfig[]
 
 /**
  * Vrije sub-opties per lijnitem (RAL-kleur, merk, dimensies, …) die op de PDF
@@ -143,8 +139,11 @@ export type QuoteState = {
   /** Welke categorieën van toepassing zijn (uit de filteropties-intake). */
   categoryScope: ScopeMap
   cover: CoverChoice
-  /** Gekozen Velux-configuratie (gebruikt wanneer "Veluxen nieuw" qty > 0). */
-  veluxKeuze: VeluxKeuzeState
+  /**
+   * Eén of meerdere Velux-configuraties. Aantal "Veluxen nieuw" = som van
+   * config.aantal over alle configs. Bedrag = som van aantal × unit-prijs.
+   */
+  veluxConfigs: VeluxConfigsState
   /** Vrije sub-opties per item (merk, RAL, dimensie). */
   details: DetailsMap
   /** Werf-supplementen — DEPRECATED, vervangen door checklistAnswers. */

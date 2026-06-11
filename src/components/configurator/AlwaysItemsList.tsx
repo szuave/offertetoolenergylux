@@ -5,9 +5,9 @@ import { formatEuro, formatUnit } from '@/lib/format'
 import type { LineItemDef } from '@/types/quote'
 import { calculateLineTotal, containerCount } from '@/lib/calculator'
 import { ItemDetailsForm } from '@/components/configurator/ItemDetailsForm'
-import { VeluxSelector } from '@/components/configurator/VeluxSelector'
+import { VeluxConfigsManager } from '@/components/configurator/VeluxConfigsManager'
 import { countMissingDetails, getDetailFields } from '@/data/item-details'
-import { veluxUnitPrice, veluxKeuzeIsCompleet } from '@/data/velux'
+import { veluxConfigsTotalAantal, veluxConfigsTotalPrice } from '@/data/velux'
 
 type Props = {
   items: LineItemDef[]
@@ -23,7 +23,7 @@ const AUTO_PRICE_ITEMS = new Set([
 export function AlwaysItemsList({ items, insertAfter }: Props) {
   const state = useQuoteStore(useShallow(selectQuoteState))
   const setQuantity = useQuoteStore((s) => s.setQuantity)
-  const { quantities, details } = state
+  const { quantities, details, veluxConfigs } = state
 
   if (items.length === 0) return null
 
@@ -60,19 +60,23 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
     return null
   }
 
+  // Velux-totalen: aantal = som van alle configs, lijntotaal = som van
+  // aantal × unit-prijs per config. Voor "veluxen-nieuw" werkt de qty-input
+  // niet — het aantal komt uit de Velux-configurator.
+  const veluxTotalAantal = veluxConfigsTotalAantal(veluxConfigs)
+  const veluxTotalPrice = veluxConfigsTotalPrice(veluxConfigs)
+
   return (
     <ul className="divide-y divide-rule/60">
       {items.map((item) => {
-        const qty = quantities[item.id] ?? 0
+        const isVelux = item.id === 'veluxen-nieuw'
+        const qty = isVelux ? veluxTotalAantal : quantities[item.id] ?? 0
         const isAuto = AUTO_PRICE_ITEMS.has(item.id)
         const auto = isAuto && qty > 0 ? autoTotal(item.id) : null
-        const isVelux = item.id === 'veluxen-nieuw'
-        const veluxReady = isVelux && veluxKeuzeIsCompleet(state.veluxKeuze)
-        const veluxUnit = isVelux ? veluxUnitPrice(state.veluxKeuze) : 0
         const lineTotal = auto
           ? auto.value
           : isVelux
-            ? qty * veluxUnit
+            ? veluxTotalPrice
             : calculateLineTotal(item, qty)
         const hasDetails = getDetailFields(item.id) !== null
         const missing = hasDetails && qty > 0
@@ -97,27 +101,34 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
                   {isAuto
                     ? (auto ? auto.hint : 'Auto-berekend zodra dakbekleding-keuze')
                     : isVelux
-                      ? (veluxReady
-                          ? `${formatEuro(veluxUnit)} / stuk (uit Velux-configuratie)`
-                          : 'Configureer hieronder per Velux')
+                      ? (veluxConfigs.length === 0
+                          ? 'Voeg hieronder één of meerdere Veluxen toe'
+                          : `${veluxConfigs.length} configuratie${veluxConfigs.length === 1 ? '' : 's'} · ${veluxTotalAantal} stuk${veluxTotalAantal === 1 ? '' : 's'}`)
                       : item.unitPrice !== null
                         ? `${formatEuro(item.unitPrice)} / ${formatUnit(item.unit)}`
                         : (item.priceNote ?? 'Prijs volgt')}
                 </div>
               </div>
               <div className="flex items-center gap-4 shrink-0">
-                <QuantityInput
-                  value={qty}
-                  onChange={(next) => setQuantity(item.id, next)}
-                  unit={item.unit}
-                />
+                {isVelux ? (
+                  // Aantal komt uit de Velux-configurator, niet uit qty-input.
+                  <div className="inline-flex h-10 items-center px-3 rounded-lg bg-ink-50 text-sm text-ink-700 tabular-nums min-w-[80px] justify-center">
+                    {veluxTotalAantal} stuks
+                  </div>
+                ) : (
+                  <QuantityInput
+                    value={qty}
+                    onChange={(next) => setQuantity(item.id, next)}
+                    unit={item.unit}
+                  />
+                )}
                 <div className="text-right min-w-[80px]">
                   <div className="text-sm font-semibold text-ink tabular-nums">
                     {qty > 0 && (
                       isAuto
                         ? auto && auto.value > 0
                         : isVelux
-                          ? veluxReady
+                          ? veluxTotalPrice > 0
                           : item.unitPrice !== null
                     )
                       ? formatEuro(lineTotal)
@@ -127,9 +138,8 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
               </div>
             </div>
             {hasDetails && qty > 0 && <ItemDetailsForm itemId={item.id} />}
-            {/* Yasid 8 juni: Velux-selector verschijnt onder "Veluxen nieuw"
-                zodra verkoper er een aantal voor invult. */}
-            {item.id === 'veluxen-nieuw' && qty > 0 && <VeluxSelector />}
+            {/* Yasid 11 juni: multi-Velux lijst onder "Veluxen nieuw". */}
+            {isVelux && <VeluxConfigsManager />}
             {insertAfter && insertAfter.itemId === item.id && (
               <div className="mt-3">{insertAfter.node}</div>
             )}

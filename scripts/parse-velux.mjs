@@ -63,19 +63,23 @@ for (let i = 1; i < rows.length; i++) {
   }
   if (!current) continue
 
+  // Yasid 11 juni: ALLE modellen opnemen, ook die zonder prijs. Verkoper
+  // moet het bestaan van het model zien, maar krijgt "(Prijs volgt)" zodat
+  // duidelijk is dat Yasid de prijs nog moet leveren.
+
   // Basis (kol B-D): label B + code C + prijs D
   // UK10-fix: Yasid heeft daar de Type-cel leeg gelaten, val terug op 'Velux'.
   const basisLabel = str(r[1])
   const basisCode = str(r[2])
   const basisPrijs = num(r[3])
-  if (basisCode && basisPrijs !== null && basisPrijs > 0) {
+  if (basisCode) {
     current.basis.push({ type: basisLabel || 'Velux', code: basisCode, prijs: basisPrijs })
   }
 
   // Gootstuk (kol E-F): code E + prijs F
   const gsCode = str(r[4])
   const gsPrijs = num(r[5])
-  if (gsCode && gsPrijs !== null && gsPrijs > 0) {
+  if (gsCode) {
     current.gootstuk.push({ code: gsCode, prijs: gsPrijs })
   }
 
@@ -83,7 +87,7 @@ for (let i = 1; i < rows.length; i++) {
   const vdCode = str(r[6])
   const vdKleur = str(r[7])
   const vdPrijs = num(r[8])
-  if (vdCode && vdPrijs !== null && vdPrijs > 0) {
+  if (vdCode) {
     current.verduister.push({ code: vdCode, kleur: vdKleur, prijs: vdPrijs })
   }
 
@@ -91,7 +95,7 @@ for (let i = 1; i < rows.length; i++) {
   const zgCode = str(r[9])
   const zgKleur = str(r[10])
   const zgPrijs = num(r[11])
-  if (zgCode && zgPrijs !== null && zgPrijs > 0) {
+  if (zgCode) {
     current.zonneGordijn.push({ code: zgCode, kleur: zgKleur, prijs: zgPrijs })
   }
 
@@ -99,7 +103,7 @@ for (let i = 1; i < rows.length; i++) {
   const bzCode = str(r[12])
   const bzKleur = str(r[13])
   const bzPrijs = num(r[14])
-  if (bzCode && bzPrijs !== null && bzPrijs > 0) {
+  if (bzCode) {
     current.buitenZon.push({ code: bzCode, kleur: bzKleur, prijs: bzPrijs })
   }
 
@@ -107,7 +111,7 @@ for (let i = 1; i < rows.length; i++) {
   const rlCode = str(r[15])
   const rlKleur = str(r[16])
   const rlPrijs = num(r[17])
-  if (rlCode && rlPrijs !== null && rlPrijs > 0) {
+  if (rlCode) {
     current.rolluik.push({ code: rlCode, kleur: rlKleur, prijs: rlPrijs })
   }
 }
