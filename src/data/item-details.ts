@@ -313,8 +313,8 @@ export const ITEM_DETAILS: Readonly<Record<string, readonly DetailField[]>> = {
     },
   ],
 
-  // Daryl 4 juni: "Estetische afwerking schouw: tekstveld voorzien".
-  'estetische-afwerking-schouw': [
+  // Daryl 4 juni: "Esthetische afwerking schouw: tekstveld voorzien".
+  'esthetische-afwerking-schouw': [
     {
       kind: 'text',
       key: 'beschrijving',

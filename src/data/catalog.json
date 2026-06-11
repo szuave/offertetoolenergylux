@@ -19,7 +19,7 @@
             },
             {
               "id": "stelling-valbeveiliging-achtergevel",
-              "label": "Stelling / valbeveiliging  - Achtergevel",
+              "label": "Stelling / valbeveiliging - Achtergevel",
               "unit": "m2",
               "unitPrice": 12,
               "filter": {
@@ -96,7 +96,7 @@
             },
             {
               "id": "verwijderen-sidings-buur-om-isolatie-hellenddak",
-              "label": "Verwijderen sidings buur om isolatie hellenddak  vakkundig  te realiseren",
+              "label": "Verwijderen sidings buur om isolatie hellenddak vakkundig te realiseren",
               "unit": "lm",
               "unitPrice": 35,
               "filter": {
@@ -419,7 +419,7 @@
             },
             {
               "id": "verwijderen-sidings-buur-om-isolatie-plat-dak-en",
-              "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig  te realiseren",
+              "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig te realiseren",
               "unit": "lm",
               "unitPrice": 35,
               "filter": {
@@ -675,7 +675,7 @@
             },
             {
               "id": "nieuwe-bakgoot-timmeren",
-              "label": "Nieuwe bakgoot  timmeren",
+              "label": "Nieuwe bakgoot timmeren",
               "unit": "lm",
               "unitPrice": 279,
               "filter": {
@@ -889,8 +889,8 @@
               }
             },
             {
-              "id": "estetische-afwerking-schouw",
-              "label": "Estetische afwerking schouw",
+              "id": "esthetische-afwerking-schouw",
+              "label": "Esthetische afwerking schouw",
               "unit": "m2",
               "unitPrice": 1,
               "filter": {
@@ -1123,7 +1123,7 @@
             },
             {
               "id": "gevelisolatie-eps",
-              "label": "Gevelisolatie  EPS",
+              "label": "Gevelisolatie EPS",
               "unit": "m2",
               "unitPrice": 140,
               "filter": {
@@ -1305,7 +1305,7 @@
             },
             {
               "id": "verwijderen-sidings-buur-om-isolatie-plat-dak-en-2",
-              "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig  te realiseren",
+              "label": "Verwijderen sidings buur om isolatie plat dak en dakdichting vakkundig te realiseren",
               "unit": "lm",
               "unitPrice": 35,
               "filter": {
@@ -1532,7 +1532,7 @@
             },
             {
               "id": "leveren-nieuwe-koepel",
-              "label": "Leveren  nieuwe koepel",
+              "label": "Leveren nieuwe koepel",
               "unit": "stuk",
               "unitPrice": 1,
               "filter": {
