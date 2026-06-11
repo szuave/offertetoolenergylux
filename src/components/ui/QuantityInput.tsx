@@ -28,6 +28,12 @@ export function QuantityInput({
   className,
   id,
 }: Props) {
+  // Tijdens het typen tonen we de ruwe tekst (`draft`) zodat een half ingetypte
+  // waarde als "3," of "3,50" blijft staan. Bij blur/knoppen synct het veld
+  // terug naar de canonieke waarde uit de store.
+  // Hook BOVEN early-return houden (React rules-of-hooks).
+  const [draft, setDraft] = useState<string | null>(null)
+
   // ja/nee-items renderen als toggle in plaats van numerieke spinner.
   if (unit === 'jaNee') {
     const active = value > 0
@@ -65,11 +71,6 @@ export function QuantityInput({
   }
 
   const effectiveStep = step ?? (unit === 'stuk' ? 1 : 0.5)
-
-  // Tijdens het typen tonen we de ruwe tekst (`draft`) zodat een half ingetypte
-  // waarde als "3," of "3,50" blijft staan. Bij blur/knoppen synct het veld
-  // terug naar de canonieke waarde uit de store.
-  const [draft, setDraft] = useState<string | null>(null)
   const display = draft ?? (value === 0 ? '' : String(value).replace('.', ','))
 
   function commit(next: number) {
