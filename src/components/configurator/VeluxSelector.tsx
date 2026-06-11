@@ -20,13 +20,10 @@ type Props = {
 }
 
 /**
- * Yasid 11 juni: één Velux-configuratie binnen de multi-Velux lijst.
- * Bevat dropdowns (maat → basis → gootstuk + 4 accessoires) plus
- * een aantal-input en een verwijder-knop.
- *
- * "(Prijs volgt)" verschijnt achter modellen waarvoor Yasid nog geen
- * prijs heeft aangeleverd — verkoper ziet het bestaan maar de offerte
- * is voor dat onderdeel onvolledig.
+ * Eén Velux-configuratie binnen de multi-Velux lijst: dropdowns voor
+ * maat / basis / gootstuk / 4 accessoires + aantal + verwijder-knop.
+ * "Geen prijs" verschijnt onder de keuze als een gekozen onderdeel nog
+ * geen prijs in de catalogus heeft.
  */
 export function VeluxSelector({ configId, index }: Props) {
   const { config, updateVeluxConfig, removeVeluxConfig } = useQuoteStore(
@@ -51,7 +48,7 @@ export function VeluxSelector({ configId, index }: Props) {
   }
 
   function priceLabel(prijs: number | null): string {
-    return prijs === null ? '(Prijs volgt)' : formatEuro(prijs)
+    return prijs === null ? '(geen prijs)' : formatEuro(prijs)
   }
 
   return (
@@ -219,9 +216,8 @@ export function VeluxSelector({ configId, index }: Props) {
       </div>
 
       {missingPrice && (
-        <div className="rounded-md border border-warning bg-warning/10 px-3 py-2 text-xs text-warning">
-          ⚠ Een van de gekozen onderdelen heeft nog geen prijs in de catalogus. Yasid moet deze
-          prijs nog aanleveren.
+        <div className="rounded-md border border-rule bg-surface-muted px-3 py-2 text-xs text-ink-mid">
+          Geen prijs
         </div>
       )}
 
