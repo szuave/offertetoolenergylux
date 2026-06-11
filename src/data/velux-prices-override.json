@@ -1,0 +1,20 @@
+{
+  "comment": "Prijzen die Yasid per mail aanleverde, niet in de Velux-Excel. Override wordt door parse-velux.mjs toegepast NA het inlezen van de Excel. opAanvraag=true betekent: geen vaste prijs, verkoper vult zelf in via de UI.",
+  "overrides": [
+    { "maat": "CK01", "cat": "gootstuk", "code": "EW 1000", "prijs": 100 },
+    { "maat": "CK01", "cat": "verduister", "code": "DKL 3009SWL", "prijs": 129 },
+    { "maat": "CK02", "cat": "basis", "code": "GGL 3066", "prijs": 485 },
+    { "maat": "CK04", "cat": "basis", "code": "GGL 206630", "prijs": 914 },
+    { "maat": "CK06", "cat": "basis", "code": "GGL 2062", "opAanvraag": true },
+    { "maat": "CK06", "cat": "gootstuk", "code": "EDJ 2000", "prijs": 159 },
+    { "maat": "MK04", "cat": "basis", "code": "GPL 3066", "prijs": 810 },
+    { "maat": "MK04", "cat": "gootstuk", "code": "EDW 0000", "prijs": 134 },
+    { "maat": "MK08", "cat": "gootstuk", "code": "EDW 0000", "prijs": 141 },
+    { "maat": "PK08", "cat": "gootstuk", "code": "EDW 0000", "prijs": 147 },
+    { "maat": "PK10", "cat": "gootstuk", "code": "EDL 0000", "prijs": 150 },
+    { "maat": "SK08", "cat": "basis", "code": "GGL 3066", "prijs": 872.5 },
+    { "maat": "UK04", "cat": "gootstuk", "code": "EDW 0000", "prijs": 143 },
+    { "maat": "UK08", "cat": "basis", "code": "GGL 2050", "opAanvraag": true },
+    { "maat": "UK10", "cat": "zonneGordijn", "code": "DSL 1085", "prijs": 265 }
+  ]
+}

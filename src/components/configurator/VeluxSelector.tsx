@@ -7,6 +7,7 @@ import {
   findMaat,
   veluxConfigUnitPrice,
   veluxConfigHasMissingPrice,
+  veluxConfigBasisIsOpAanvraag,
   type VeluxConfig,
 } from '@/data/velux'
 import { Field } from '@/components/ui/Field'
@@ -40,6 +41,10 @@ export function VeluxSelector({ configId, index }: Props) {
     () => (config ? veluxConfigHasMissingPrice(config) : false),
     [config],
   )
+  const basisOpAanvraag = useMemo(
+    () => (config ? veluxConfigBasisIsOpAanvraag(config) : false),
+    [config],
+  )
 
   if (!config) return null
 
@@ -47,7 +52,8 @@ export function VeluxSelector({ configId, index }: Props) {
     updateVeluxConfig(configId, partial)
   }
 
-  function priceLabel(prijs: number | null): string {
+  function priceLabel(prijs: number | null, opAanvraag?: boolean): string {
+    if (opAanvraag) return '(op aanvraag)'
     return prijs === null ? '(geen prijs)' : formatEuro(prijs)
   }
 
@@ -73,7 +79,7 @@ export function VeluxSelector({ configId, index }: Props) {
         </button>
       </div>
 
-      {/* Stap-volgorde indicatie: maat moet eerst, daarna basis, daarna accessoires. */}
+      {/* Stap-volgorde indicatie: maat → basis → (eventueel) prijs → accessoires. */}
       <div
         className={cn(
           'flex items-center gap-2 rounded-md px-3 py-2 text-xs',
@@ -81,7 +87,9 @@ export function VeluxSelector({ configId, index }: Props) {
             ? 'border border-brand-primary/40 bg-brand-primary/5 text-brand-primary'
             : !config.basisCode
               ? 'border border-warning/40 bg-warning/5 text-warning'
-              : 'border border-success/40 bg-success/5 text-success',
+              : basisOpAanvraag && (!config.aangepastePrijs || config.aangepastePrijs <= 0)
+                ? 'border border-warning/40 bg-warning/5 text-warning'
+                : 'border border-success/40 bg-success/5 text-success',
         )}
       >
         <span className="font-semibold">
@@ -89,7 +97,9 @@ export function VeluxSelector({ configId, index }: Props) {
             ? 'Stap 1: kies eerst een maat'
             : !config.basisCode
               ? 'Stap 2: kies een basismodel'
-              : 'Configuratie compleet — accessoires zijn optioneel'}
+              : basisOpAanvraag && (!config.aangepastePrijs || config.aangepastePrijs <= 0)
+                ? 'Stap 3: vul de prijs in (op aanvraag bij leverancier)'
+                : 'Configuratie compleet — accessoires zijn optioneel'}
         </span>
       </div>
 
@@ -154,11 +164,35 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.basis.map((b, i) => (
               <option key={`${b.code}-${i}`} value={b.code}>
-                {b.type} {b.code} — {priceLabel(b.prijs)}
+                {b.type} {b.code} — {priceLabel(b.prijs, b.opAanvraag)}
               </option>
             ))}
           </select>
         </Field>
+
+        {basisOpAanvraag && (
+          <Field
+            label="Aangepaste prijs basismodel (€)"
+            htmlFor={`velux-aangepasteprijs-${configId}`}
+            required
+            hint="Dit model is op aanvraag bij de leverancier — vul de offerteprijs hier in."
+          >
+            <input
+              id={`velux-aangepasteprijs-${configId}`}
+              type="number"
+              inputMode="decimal"
+              min={0}
+              step="0.01"
+              placeholder="bv. 650"
+              value={config.aangepastePrijs ?? ''}
+              onChange={(e) => {
+                const v = e.target.value
+                update({ aangepastePrijs: v === '' ? null : Number(v) })
+              }}
+              className="w-full h-10 rounded-md border border-warning ring-2 ring-warning/20 bg-surface px-3 text-sm tabular-nums"
+            />
+          </Field>
+        )}
 
         <Field label="Gootstuk" htmlFor={`velux-gs-${configId}`}>
           <select
@@ -177,7 +211,7 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.gootstuk.map((g, i) => (
               <option key={`${g.code}-${i}`} value={g.code}>
-                {g.code} — {priceLabel(g.prijs)}
+                {g.code} — {priceLabel(g.prijs, g.opAanvraag)}
               </option>
             ))}
           </select>
@@ -200,7 +234,7 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.verduister.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
-                {x.code} {x.kleur} — {priceLabel(x.prijs)}
+                {x.code} {x.kleur} — {priceLabel(x.prijs, x.opAanvraag)}
               </option>
             ))}
           </select>
@@ -223,7 +257,7 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.zonneGordijn.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
-                {x.code} {x.kleur} — {priceLabel(x.prijs)}
+                {x.code} {x.kleur} — {priceLabel(x.prijs, x.opAanvraag)}
               </option>
             ))}
           </select>
@@ -246,7 +280,7 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.buitenZon.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
-                {x.code} {x.kleur} — {priceLabel(x.prijs)}
+                {x.code} {x.kleur} — {priceLabel(x.prijs, x.opAanvraag)}
               </option>
             ))}
           </select>
@@ -269,7 +303,7 @@ export function VeluxSelector({ configId, index }: Props) {
             </option>
             {maat?.rolluik.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
-                {x.code} {x.kleur} — {priceLabel(x.prijs)}
+                {x.code} {x.kleur} — {priceLabel(x.prijs, x.opAanvraag)}
               </option>
             ))}
           </select>

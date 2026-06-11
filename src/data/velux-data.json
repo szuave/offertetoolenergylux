@@ -17,7 +17,7 @@
       "gootstuk": [
         {
           "code": "EW 1000",
-          "prijs": null
+          "prijs": 100
         }
       ],
       "verduister": [
@@ -44,7 +44,7 @@
         {
           "code": "DKL 3009SWL",
           "kleur": "Zwart",
-          "prijs": null
+          "prijs": 129
         }
       ],
       "zonneGordijn": [],
@@ -72,7 +72,7 @@
         {
           "type": "Velux",
           "code": "GGL 3066",
-          "prijs": null
+          "prijs": 485
         },
         {
           "type": "Velux",
@@ -424,7 +424,7 @@
         {
           "type": "Integra",
           "code": "GGL 206630",
-          "prijs": null
+          "prijs": 914
         },
         {
           "type": "Integra",
@@ -682,7 +682,8 @@
         {
           "type": "Velux",
           "code": "GGL 2062",
-          "prijs": null
+          "prijs": null,
+          "opAanvraag": true
         },
         {
           "type": "Velux",
@@ -693,7 +694,7 @@
       "gootstuk": [
         {
           "code": "EDJ 2000",
-          "prijs": null
+          "prijs": 159
         }
       ],
       "verduister": [
@@ -838,7 +839,7 @@
         {
           "type": "Velux",
           "code": "GPL 3066",
-          "prijs": null
+          "prijs": 810
         },
         {
           "type": "Velux",
@@ -884,7 +885,7 @@
       "gootstuk": [
         {
           "code": "EDW 0000",
-          "prijs": null
+          "prijs": 134
         },
         {
           "code": "EDW 2000",
@@ -1576,7 +1577,7 @@
       "gootstuk": [
         {
           "code": "EDW 0000",
-          "prijs": null
+          "prijs": 141
         },
         {
           "code": "EDW 2000",
@@ -1976,7 +1977,7 @@
       "gootstuk": [
         {
           "code": "EDW 0000",
-          "prijs": null
+          "prijs": 147
         },
         {
           "code": "EDLS 2000",
@@ -2108,7 +2109,7 @@
         },
         {
           "code": "EDL 0000",
-          "prijs": null
+          "prijs": 150
         },
         {
           "code": "EDL 2000",
@@ -2733,7 +2734,7 @@
         {
           "type": "Velux",
           "code": "GGL 3066",
-          "prijs": null
+          "prijs": 872.5
         },
         {
           "type": "Velux",
@@ -3087,7 +3088,7 @@
       "gootstuk": [
         {
           "code": "EDW 0000",
-          "prijs": null
+          "prijs": 143
         },
         {
           "code": "EDW 2000",
@@ -3327,7 +3328,8 @@
         {
           "type": "Velux",
           "code": "GGL 2050",
-          "prijs": null
+          "prijs": null,
+          "opAanvraag": true
         },
         {
           "type": "Velux",
@@ -3699,7 +3701,7 @@
         {
           "code": "DSL 1085",
           "kleur": "Beige",
-          "prijs": null
+          "prijs": 265
         }
       ],
       "buitenZon": [],

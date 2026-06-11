@@ -58,19 +58,30 @@ describe('Velux — data integriteit', () => {
     expect(gg2066?.prijs).toBe(689.33)
   })
 
-  it('Yasid 11 juni: CK02 GGL 3066 bestaat (model in Excel, prijs nog null)', () => {
+  it('CK02 GGL 3066 heeft prijs €485 (aangeleverd door Yasid)', () => {
     const m = findMaat('CK02')!
     const gg3066 = m.basis.find((b) => b.code === 'GGL 3066')
-    expect(gg3066).toBeDefined()
-    expect(gg3066!.prijs).toBeNull()
+    expect(gg3066?.prijs).toBe(485)
   })
 
-  it('Yasid 11 juni: CK04 Integra GGL 206630 bestaat (prijs nog null)', () => {
+  it('CK04 Integra GGL 206630 heeft prijs €914', () => {
     const m = findMaat('CK04')!
     const integra = m.basis.find((b) => b.code === 'GGL 206630')
-    expect(integra).toBeDefined()
-    expect(integra!.type).toBe('Integra')
-    expect(integra!.prijs).toBeNull()
+    expect(integra?.type).toBe('Integra')
+    expect(integra?.prijs).toBe(914)
+  })
+
+  it('CK06 GGL 2062 is opAanvraag (verkoper vult prijs zelf in)', () => {
+    const m = findMaat('CK06')!
+    const it = m.basis.find((b) => b.code === 'GGL 2062')
+    expect(it?.prijs).toBeNull()
+    expect(it?.opAanvraag).toBe(true)
+  })
+
+  it('UK08 GGL 2050 is opAanvraag', () => {
+    const m = findMaat('UK08')!
+    const it = m.basis.find((b) => b.code === 'GGL 2050')
+    expect(it?.opAanvraag).toBe(true)
   })
 })
 
@@ -97,11 +108,16 @@ describe('Velux — unit price berekening', () => {
     expect(veluxConfigUnitPrice(mkConfig())).toBe(0)
   })
 
-  it('null-prijs onderdeel telt als 0 (en hasMissingPrice = true)', () => {
-    // CK02 GGL 3066 heeft prijs null
-    const cfg = mkConfig({ maat: 'CK02', basisCode: 'GGL 3066' })
+  it('opAanvraag basis zonder aangepastePrijs telt als 0', () => {
+    // CK06 GGL 2062 is op aanvraag
+    const cfg = mkConfig({ maat: 'CK06', basisCode: 'GGL 2062' })
     expect(veluxConfigUnitPrice(cfg)).toBe(0)
     expect(veluxConfigHasMissingPrice(cfg)).toBe(true)
+  })
+
+  it('opAanvraag basis MET aangepastePrijs gebruikt die prijs', () => {
+    const cfg = mkConfig({ maat: 'CK06', basisCode: 'GGL 2062', aangepastePrijs: 750 })
+    expect(veluxConfigUnitPrice(cfg)).toBe(750)
   })
 })
 

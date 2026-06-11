@@ -116,7 +116,47 @@ for (let i = 1; i < rows.length; i++) {
   }
 }
 
+// Yasid leverde via mail extra prijzen aan voor modellen die in zijn
+// Excel leeg waren. Plus enkele items die op aanvraag zijn (verkoper
+// vult de prijs zelf in via de UI). Pas die override toe.
+const overridePath = path.resolve(__dirname, '../src/data/velux-prices-override.json')
+const overrideRaw = JSON.parse(fs.readFileSync(overridePath, 'utf8'))
+const overrides = overrideRaw.overrides ?? []
+let overridesApplied = 0
+let overridesMissing = []
+for (const ov of overrides) {
+  const m = maten.find((x) => x.code === ov.maat)
+  if (!m) {
+    overridesMissing.push(`${ov.maat} → maat niet gevonden`)
+    continue
+  }
+  const items = m[ov.cat]
+  if (!items) {
+    overridesMissing.push(`${ov.maat}/${ov.cat} → categorie niet gevonden`)
+    continue
+  }
+  const item = items.find((x) => x.code === ov.code)
+  if (!item) {
+    overridesMissing.push(`${ov.maat}/${ov.cat}/${ov.code} → code niet gevonden`)
+    continue
+  }
+  if (typeof ov.prijs === 'number') {
+    item.prijs = ov.prijs
+    delete item.opAanvraag
+  }
+  if (ov.opAanvraag) {
+    item.opAanvraag = true
+    item.prijs = null
+  }
+  overridesApplied++
+}
+
 // Output stats
+if (overridesMissing.length) {
+  console.warn('⚠ Override-items niet gevonden:')
+  for (const x of overridesMissing) console.warn('  ' + x)
+}
+console.log(`Overrides toegepast: ${overridesApplied}/${overrides.length}`)
 console.log(`Velux maten gevonden: ${maten.length}`)
 for (const m of maten) {
   console.log(`  ${m.code}: ${m.basis.length} basis, ${m.gootstuk.length} gootstuk, ${m.verduister.length} verduister, ${m.zonneGordijn.length} zonne-gordijn, ${m.buitenZon.length} buiten-zon, ${m.rolluik.length} rolluik`)

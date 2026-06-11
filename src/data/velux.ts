@@ -19,19 +19,24 @@ export type VeluxBasis = {
   type: string
   /** Productcode, bv. "GGL 2066". */
   code: string
-  /** null = prijs ontbreekt in de Excel — verkoper ziet "(Prijs volgt)". */
+  /** null = prijs ontbreekt. opAanvraag-items hebben prijs null en de
+   *  verkoper vult de prijs zelf in via VeluxConfig.aangepastePrijs. */
   prijs: number | null
+  /** Yasid: "op aanvraag" — verkoper vult de prijs handmatig in. */
+  opAanvraag?: boolean
 }
 
 export type VeluxAccessoire = {
   code: string
   prijs: number | null
+  opAanvraag?: boolean
 }
 
 export type VeluxKleurAccessoire = {
   code: string
   kleur: string
   prijs: number | null
+  opAanvraag?: boolean
 }
 
 export type VeluxMaat = {
@@ -69,6 +74,12 @@ export type VeluxConfig = {
   zonneGordijnCode: string | null
   buitenZonCode: string | null
   rolluikCode: string | null
+  /**
+   * Door verkoper ingevulde basisprijs wanneer het gekozen basismodel
+   * "op aanvraag" is (bv. CK06 GGL 2062, UK08 GGL 2050). Vervangt de
+   * basisprijs in veluxConfigUnitPrice. null = nog niet ingevuld.
+   */
+  aangepastePrijs?: number | null
 }
 
 export function emptyVeluxConfig(): VeluxConfig {
@@ -82,7 +93,16 @@ export function emptyVeluxConfig(): VeluxConfig {
     zonneGordijnCode: null,
     buitenZonCode: null,
     rolluikCode: null,
+    aangepastePrijs: null,
   }
+}
+
+/** Is het gekozen basismodel een "op aanvraag" item? */
+export function veluxConfigBasisIsOpAanvraag(config: VeluxConfig): boolean {
+  const maat = config.maat ? findMaat(config.maat) : null
+  if (!maat) return false
+  const basis = maat.basis.find((b) => b.code === config.basisCode)
+  return basis?.opAanvraag === true
 }
 
 /**
@@ -95,7 +115,16 @@ export function veluxConfigUnitPrice(config: VeluxConfig): number {
   if (!maat) return 0
   let total = 0
   const basis = maat.basis.find((b) => b.code === config.basisCode)
-  if (basis?.prijs) total += basis.prijs
+  if (basis) {
+    // Op-aanvraag: gebruik aangepastePrijs als die ingevuld is, anders 0.
+    if (basis.opAanvraag) {
+      if (typeof config.aangepastePrijs === 'number' && config.aangepastePrijs > 0) {
+        total += config.aangepastePrijs
+      }
+    } else if (basis.prijs) {
+      total += basis.prijs
+    }
+  }
   const gs = maat.gootstuk.find((g) => g.code === config.gootstukCode)
   if (gs?.prijs) total += gs.prijs
   const vd = maat.verduister.find((x) => x.code === config.verduisterCode)
