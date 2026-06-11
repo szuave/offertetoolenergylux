@@ -7,6 +7,7 @@ import { calculateLineTotal, containerCount } from '@/lib/calculator'
 import { ItemDetailsForm } from '@/components/configurator/ItemDetailsForm'
 import { VeluxSelector } from '@/components/configurator/VeluxSelector'
 import { countMissingDetails, getDetailFields } from '@/data/item-details'
+import { veluxUnitPrice, veluxKeuzeIsCompleet } from '@/data/velux'
 
 type Props = {
   items: LineItemDef[]
@@ -65,7 +66,14 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
         const qty = quantities[item.id] ?? 0
         const isAuto = AUTO_PRICE_ITEMS.has(item.id)
         const auto = isAuto && qty > 0 ? autoTotal(item.id) : null
-        const lineTotal = auto ? auto.value : calculateLineTotal(item, qty)
+        const isVelux = item.id === 'veluxen-nieuw'
+        const veluxReady = isVelux && veluxKeuzeIsCompleet(state.veluxKeuze)
+        const veluxUnit = isVelux ? veluxUnitPrice(state.veluxKeuze) : 0
+        const lineTotal = auto
+          ? auto.value
+          : isVelux
+            ? qty * veluxUnit
+            : calculateLineTotal(item, qty)
         const hasDetails = getDetailFields(item.id) !== null
         const missing = hasDetails && qty > 0
           ? countMissingDetails(item.id, details[item.id] ?? {})
@@ -88,9 +96,13 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
                 <div className="text-xs text-ink-muted mt-0.5 tabular-nums">
                   {isAuto
                     ? (auto ? auto.hint : 'Auto-berekend zodra dakbekleding-keuze')
-                    : item.unitPrice !== null
-                      ? `${formatEuro(item.unitPrice)} / ${formatUnit(item.unit)}`
-                      : (item.priceNote ?? 'Prijs volgt')}
+                    : isVelux
+                      ? (veluxReady
+                          ? `${formatEuro(veluxUnit)} / stuk (uit Velux-configuratie)`
+                          : 'Configureer hieronder per Velux')
+                      : item.unitPrice !== null
+                        ? `${formatEuro(item.unitPrice)} / ${formatUnit(item.unit)}`
+                        : (item.priceNote ?? 'Prijs volgt')}
                 </div>
               </div>
               <div className="flex items-center gap-4 shrink-0">
@@ -101,7 +113,13 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
                 />
                 <div className="text-right min-w-[80px]">
                   <div className="text-sm font-semibold text-ink tabular-nums">
-                    {qty > 0 && (isAuto ? auto && auto.value > 0 : item.unitPrice !== null)
+                    {qty > 0 && (
+                      isAuto
+                        ? auto && auto.value > 0
+                        : isVelux
+                          ? veluxReady
+                          : item.unitPrice !== null
+                    )
                       ? formatEuro(lineTotal)
                       : '—'}
                   </div>

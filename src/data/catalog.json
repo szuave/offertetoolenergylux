@@ -208,7 +208,8 @@
               "id": "demonteren-velux",
               "label": "Demonteren Velux",
               "unit": "stuk",
-              "unitPrice": 1,
+              "unitPrice": null,
+              "priceNote": "Prijs volgt",
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
@@ -238,7 +239,8 @@
               "id": "verwijderen-veluxen",
               "label": "Verwijderen veluxen",
               "unit": "stuk",
-              "unitPrice": 1,
+              "unitPrice": null,
+              "priceNote": "Prijs volgt",
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"
@@ -846,30 +848,11 @@
               }
             },
             {
-              "id": "velux-verduisterend-rolgordijn-manueel",
-              "label": "Velux - Verduisterend rolgordijn (manueel)",
-              "unit": "stuk",
-              "unitPrice": 1,
-              "filter": {
-                "kind": "optional",
-                "flagId": "veluxen"
-              }
-            },
-            {
-              "id": "velux-rolluiken-op-zonne-energie",
-              "label": "Velux - Rolluiken op zonne-energie",
-              "unit": "stuk",
-              "unitPrice": 1,
-              "filter": {
-                "kind": "optional",
-                "flagId": "veluxen"
-              }
-            },
-            {
               "id": "veluxen-muggengaas",
               "label": "Veluxen muggengaas",
               "unit": "stuk",
-              "unitPrice": 1,
+              "unitPrice": null,
+              "priceNote": "Prijs volgt",
               "filter": {
                 "kind": "optional",
                 "flagId": "veluxen"

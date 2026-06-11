@@ -203,11 +203,12 @@ describe('Daryl extra — Prijsvermeerderingen op subtotaal BTW excl', () => {
   })
 })
 
-describe('Daryl extra — Wachtkamer items (€1 placeholders)', () => {
-  it('Veluxen muggengaas heeft een item, prijs €1', () => {
+describe('Daryl extra — Wachtkamer items (prijs volgt)', () => {
+  it('Veluxen muggengaas heeft een item zonder prijs (Prijs volgt)', () => {
     const v = getItemDef('veluxen-muggengaas')?.item
     expect(v).toBeDefined()
-    expect(v!.unitPrice).toBe(1)
+    expect(v!.unitPrice).toBeNull()
+    expect(v!.priceNote).toBe('Prijs volgt')
   })
 
   it('Blauwe steen bestaat met €95', () => {
