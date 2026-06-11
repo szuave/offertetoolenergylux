@@ -73,6 +73,26 @@ export function VeluxSelector({ configId, index }: Props) {
         </button>
       </div>
 
+      {/* Stap-volgorde indicatie: maat moet eerst, daarna basis, daarna accessoires. */}
+      <div
+        className={cn(
+          'flex items-center gap-2 rounded-md px-3 py-2 text-xs',
+          !config.maat
+            ? 'border border-brand-primary/40 bg-brand-primary/5 text-brand-primary'
+            : !config.basisCode
+              ? 'border border-warning/40 bg-warning/5 text-warning'
+              : 'border border-success/40 bg-success/5 text-success',
+        )}
+      >
+        <span className="font-semibold">
+          {!config.maat
+            ? 'Stap 1: kies eerst een maat'
+            : !config.basisCode
+              ? 'Stap 2: kies een basismodel'
+              : 'Configuratie compleet — accessoires zijn optioneel'}
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <Field label="Aantal" htmlFor={`velux-aantal-${configId}`} required>
           <QuantityInput
@@ -86,7 +106,12 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Maat" htmlFor={`velux-maat-${configId}`} required>
           <select
             id={`velux-maat-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className={cn(
+              'w-full h-10 rounded-md border bg-surface px-2 text-sm',
+              !config.maat
+                ? 'border-brand-primary ring-2 ring-brand-primary/20'
+                : 'border-rule',
+            )}
             value={config.maat ?? ''}
             onChange={(e) => {
               const next = e.target.value || null
@@ -113,12 +138,20 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Basismodel" htmlFor={`velux-basis-${configId}`} required>
           <select
             id={`velux-basis-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className={cn(
+              'w-full h-10 rounded-md border bg-surface px-2 text-sm',
+              'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60',
+              config.maat && !config.basisCode
+                ? 'border-warning ring-2 ring-warning/20'
+                : 'border-rule',
+            )}
             value={config.basisCode ?? ''}
             disabled={!maat}
             onChange={(e) => update({ basisCode: e.target.value || null })}
           >
-            <option value="">— kies basismodel —</option>
+            <option value="">
+              {!maat ? '— kies eerst een maat —' : '— kies basismodel —'}
+            </option>
             {maat?.basis.map((b, i) => (
               <option key={`${b.code}-${i}`} value={b.code}>
                 {b.type} {b.code} — {priceLabel(b.prijs)}
@@ -130,13 +163,17 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Gootstuk" htmlFor={`velux-gs-${configId}`}>
           <select
             id={`velux-gs-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60"
             value={config.gootstukCode ?? ''}
             disabled={!maat || maat.gootstuk.length === 0}
             onChange={(e) => update({ gootstukCode: e.target.value || null })}
           >
             <option value="">
-              {maat?.gootstuk.length ? '— geen / niet nodig —' : '(geen gootstuk voor deze maat)'}
+              {!maat
+                ? '— kies eerst een maat —'
+                : maat.gootstuk.length === 0
+                  ? '(geen gootstuk voor deze maat)'
+                  : '— geen / niet nodig —'}
             </option>
             {maat?.gootstuk.map((g, i) => (
               <option key={`${g.code}-${i}`} value={g.code}>
@@ -149,12 +186,18 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Manueel verduisteringsscherm" htmlFor={`velux-vd-${configId}`}>
           <select
             id={`velux-vd-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60"
             value={config.verduisterCode ?? ''}
             disabled={!maat || maat.verduister.length === 0}
             onChange={(e) => update({ verduisterCode: e.target.value || null })}
           >
-            <option value="">{maat?.verduister.length ? '— geen —' : '(geen)'}</option>
+            <option value="">
+              {!maat
+                ? '— kies eerst een maat —'
+                : maat.verduister.length === 0
+                  ? '(geen)'
+                  : '— geen —'}
+            </option>
             {maat?.verduister.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
                 {x.code} {x.kleur} — {priceLabel(x.prijs)}
@@ -166,12 +209,18 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Zonne-energie verduisteringsgordijn" htmlFor={`velux-zg-${configId}`}>
           <select
             id={`velux-zg-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60"
             value={config.zonneGordijnCode ?? ''}
             disabled={!maat || maat.zonneGordijn.length === 0}
             onChange={(e) => update({ zonneGordijnCode: e.target.value || null })}
           >
-            <option value="">{maat?.zonneGordijn.length ? '— geen —' : '(geen)'}</option>
+            <option value="">
+              {!maat
+                ? '— kies eerst een maat —'
+                : maat.zonneGordijn.length === 0
+                  ? '(geen)'
+                  : '— geen —'}
+            </option>
             {maat?.zonneGordijn.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
                 {x.code} {x.kleur} — {priceLabel(x.prijs)}
@@ -183,12 +232,18 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Buitenste zonnescherm Integra" htmlFor={`velux-bz-${configId}`}>
           <select
             id={`velux-bz-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60"
             value={config.buitenZonCode ?? ''}
             disabled={!maat || maat.buitenZon.length === 0}
             onChange={(e) => update({ buitenZonCode: e.target.value || null })}
           >
-            <option value="">{maat?.buitenZon.length ? '— geen —' : '(geen)'}</option>
+            <option value="">
+              {!maat
+                ? '— kies eerst een maat —'
+                : maat.buitenZon.length === 0
+                  ? '(geen)'
+                  : '— geen —'}
+            </option>
             {maat?.buitenZon.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
                 {x.code} {x.kleur} — {priceLabel(x.prijs)}
@@ -200,12 +255,18 @@ export function VeluxSelector({ configId, index }: Props) {
         <Field label="Rolluik zonne-energie" htmlFor={`velux-rl-${configId}`}>
           <select
             id={`velux-rl-${configId}`}
-            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm"
+            className="w-full h-10 rounded-md border border-rule bg-surface px-2 text-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-ink-50/60"
             value={config.rolluikCode ?? ''}
             disabled={!maat || maat.rolluik.length === 0}
             onChange={(e) => update({ rolluikCode: e.target.value || null })}
           >
-            <option value="">{maat?.rolluik.length ? '— geen —' : '(geen)'}</option>
+            <option value="">
+              {!maat
+                ? '— kies eerst een maat —'
+                : maat.rolluik.length === 0
+                  ? '(geen)'
+                  : '— geen —'}
+            </option>
             {maat?.rolluik.map((x, i) => (
               <option key={`${x.code}-${i}`} value={x.code}>
                 {x.code} {x.kleur} — {priceLabel(x.prijs)}
