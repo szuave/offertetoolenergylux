@@ -3585,7 +3585,28 @@
     },
     {
       "code": "UK10",
-      "basis": [],
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 835.58
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 835.58
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 1185.6
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 1086.15
+        }
+      ],
       "gootstuk": [
         {
           "code": "EDW 2000",

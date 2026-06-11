@@ -64,11 +64,12 @@ for (let i = 1; i < rows.length; i++) {
   if (!current) continue
 
   // Basis (kol B-D): label B + code C + prijs D
+  // UK10-fix: Yasid heeft daar de Type-cel leeg gelaten, val terug op 'Velux'.
   const basisLabel = str(r[1])
   const basisCode = str(r[2])
   const basisPrijs = num(r[3])
-  if (basisLabel && basisCode && basisPrijs !== null && basisPrijs > 0) {
-    current.basis.push({ type: basisLabel, code: basisCode, prijs: basisPrijs })
+  if (basisCode && basisPrijs !== null && basisPrijs > 0) {
+    current.basis.push({ type: basisLabel || 'Velux', code: basisCode, prijs: basisPrijs })
   }
 
   // Gootstuk (kol E-F): code E + prijs F
