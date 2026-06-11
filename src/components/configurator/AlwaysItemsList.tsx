@@ -5,6 +5,7 @@ import { formatEuro, formatUnit } from '@/lib/format'
 import type { LineItemDef } from '@/types/quote'
 import { calculateLineTotal, containerCount } from '@/lib/calculator'
 import { ItemDetailsForm } from '@/components/configurator/ItemDetailsForm'
+import { VeluxSelector } from '@/components/configurator/VeluxSelector'
 import { countMissingDetails, getDetailFields } from '@/data/item-details'
 
 type Props = {
@@ -108,6 +109,9 @@ export function AlwaysItemsList({ items, insertAfter }: Props) {
               </div>
             </div>
             {hasDetails && qty > 0 && <ItemDetailsForm itemId={item.id} />}
+            {/* Yasid 8 juni: Velux-selector verschijnt onder "Veluxen nieuw"
+                zodra verkoper er een aantal voor invult. */}
+            {item.id === 'veluxen-nieuw' && qty > 0 && <VeluxSelector />}
             {insertAfter && insertAfter.itemId === item.id && (
               <div className="mt-3">{insertAfter.node}</div>
             )}

@@ -2,6 +2,7 @@ import { pricingConfig } from '@/data/pricing'
 import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
 import { itemFlagOverride, subcategoryFlag } from '@/data/filter-mappings'
 import { CHECKLISTS } from '@/data/checklists'
+import { veluxUnitPrice, veluxKeuzeIsCompleet } from '@/data/velux'
 import type {
   AppliedSupplement,
   CategoryDef,
@@ -202,6 +203,19 @@ function resolveSpecialLine(
     const raw = m2 * TOXISCH_PER_M2
     return { quantity: m2, lineTotal: round2(Math.max(raw, TOXISCH_MINIMUM)) }
   }
+  // Yasid 8 juni: Veluxen nieuw — prijs = aantal × veluxUnitPrice(keuze)
+  // op basis van de gekozen maat/basis/gootstuk/accessoires.
+  if (item.id === 'veluxen-nieuw') {
+    const qty = state.quantities[item.id] ?? 0
+    if (qty <= 0) return null
+    if (!veluxKeuzeIsCompleet(state.veluxKeuze)) {
+      // Geen Velux gekozen → toon item maar met prijs 0 (verkoper moet kiezen)
+      return { quantity: qty, lineTotal: 0 }
+    }
+    const unit = veluxUnitPrice(state.veluxKeuze)
+    return { quantity: qty, lineTotal: round2(qty * unit) }
+  }
+
   // Yasid Excel rij 156: koepel klantprijs = leveranciersprijs * 1.20.
   // Verkoper vult leveranciersprijs in via item-details, qty is aantal koepels.
   if (item.id === 'leveren-nieuwe-koepel') {

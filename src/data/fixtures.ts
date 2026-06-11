@@ -48,6 +48,11 @@ export const demoQuote: QuoteState = {
   },
   categoryScope: { 'hellend-dak': true },
   cover: { variantId: null, areaM2: 0 },
+  veluxKeuze: {
+    maat: null, basisCode: null, gootstukCode: null,
+    verduisterCode: null, zonneGordijnCode: null,
+    buitenZonCode: null, rolluikCode: null,
+  },
   details: {},
   supplements: {},
   checklistAnswers: {},

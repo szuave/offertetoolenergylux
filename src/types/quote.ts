@@ -93,6 +93,17 @@ export type CoverChoice = {
   areaM2: number
 }
 
+/** Gekozen Velux-configuratie (Yasid 8 juni — velux-prijslijst). */
+export type VeluxKeuzeState = {
+  maat: string | null
+  basisCode: string | null
+  gootstukCode: string | null
+  verduisterCode: string | null
+  zonneGordijnCode: string | null
+  buitenZonCode: string | null
+  rolluikCode: string | null
+}
+
 /**
  * Vrije sub-opties per lijnitem (RAL-kleur, merk, dimensies, …) die op de PDF
  * onder de lijn verschijnen. Bv. voor "Esthetische afwerking dakrand": merk
@@ -132,6 +143,8 @@ export type QuoteState = {
   /** Welke categorieën van toepassing zijn (uit de filteropties-intake). */
   categoryScope: ScopeMap
   cover: CoverChoice
+  /** Gekozen Velux-configuratie (gebruikt wanneer "Veluxen nieuw" qty > 0). */
+  veluxKeuze: VeluxKeuzeState
   /** Vrije sub-opties per item (merk, RAL, dimensie). */
   details: DetailsMap
   /** Werf-supplementen — DEPRECATED, vervangen door checklistAnswers. */

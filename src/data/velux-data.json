@@ -1,0 +1,3617 @@
+{
+  "maten": [
+    {
+      "code": "CK01",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 516.75
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 364.65
+        }
+      ],
+      "gootstuk": [],
+      "verduister": [
+        {
+          "code": "DKL 0705SWL",
+          "kleur": "Donkergrijs",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1025SWL",
+          "kleur": "Wit",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1085SWL",
+          "kleur": "Beige",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1100SWL",
+          "kleur": "Donkerblauw",
+          "prijs": 79.95
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "CK02",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 642.53
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 523.58
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 368.55
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 368.55
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 681.53
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 479.7
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 955.5
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 800.48
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1113.45
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 911.63
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 116.03
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 77.03
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 110.18
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705S",
+          "kleur": "Donkergrijs",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1025S",
+          "kleur": "Wit",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1085S",
+          "kleur": "Beige",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 1100S",
+          "kleur": "Donkerblauw",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 79.95
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 108.55
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 108.55
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 204.75
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 237.25
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 237.25
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 285.68
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 614.25
+        }
+      ]
+    },
+    {
+      "code": "CK04",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 684.45
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 558.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 392.93
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 491.4
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 558.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 392.93
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3570H",
+          "prijs": 491.4
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 801.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 635.7
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 635.7
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 726.38
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 510.9
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 753.68
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 969.15
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 824.85
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1158.3
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 942.83
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 118.95
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 112.13
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 86.78
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 86.78
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 86.78
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 86.78
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 86.78
+        },
+        {
+          "code": "DKL 4555",
+          "kleur": "",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 114.08
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 114.08
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 211.58
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 243.43
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 243.43
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 302.25
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 651.3
+        }
+      ]
+    },
+    {
+      "code": "CK06",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 546
+        }
+      ],
+      "gootstuk": [],
+      "verduister": [
+        {
+          "code": "DKL 1085SWL",
+          "kleur": "Beige",
+          "prijs": 94.58
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": [
+        {
+          "code": "SSL 0000",
+          "kleur": "Grijs",
+          "prijs": 672.75
+        }
+      ]
+    },
+    {
+      "code": "FK06",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 456.3
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 570.38
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3570H",
+          "prijs": 570.38
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2070",
+          "prijs": 866.78
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2066",
+          "prijs": 1231.43
+        },
+        {
+          "type": "Integra",
+          "code": "GGLS FFK06 2066",
+          "prijs": 1298.7
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 132.6
+        },
+        {
+          "code": "EDWS 2000",
+          "prijs": 244.73
+        },
+        {
+          "code": "EDLS 2000",
+          "prijs": 244.73
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705SWL",
+          "kleur": "Donkergrijs",
+          "prijs": 101.4
+        },
+        {
+          "code": "DKL 1025SWL",
+          "kleur": "Wit",
+          "prijs": 101.4
+        },
+        {
+          "code": "DKL 1085SWL",
+          "kleur": "Beige",
+          "prijs": 101.4
+        },
+        {
+          "code": "DKL 1100SWL",
+          "kleur": "Donkerblauw",
+          "prijs": 101.4
+        },
+        {
+          "code": "DKL 3009SWL",
+          "kleur": "Zwart",
+          "prijs": 101.4
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "MK04",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 777.08
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 634.73
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 446.55
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3062",
+          "prijs": 777.08
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 634.73
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 446.55
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 877.5
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 689.33
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 689.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 824.85
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 581.1
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1067.63
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 823.88
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1066.65
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 878.48
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1013.03
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 132.6
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 125.78
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 97.5
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 97.5
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 97.5
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 97.5
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 97.5
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 117.98
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 117.98
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 222.3
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 242.78
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 242.78
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 322.73
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 695.18
+        }
+      ]
+    },
+    {
+      "code": "MK06",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 845.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 689.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 485.55
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 607.43
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 689.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 485.55
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2070",
+          "prijs": 922.35
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2066",
+          "prijs": 1310.4
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 896.03
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 630.83
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 932.1
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 728.33
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 728.33
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 873.6
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1138.8
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1121.25
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 705.75
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1062.75
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 139.43
+        },
+        {
+          "code": "EDWS 2000",
+          "prijs": 258.38
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 92.63
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 132.6
+        },
+        {
+          "code": "EDLS 2000",
+          "prijs": 258.38
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 105.3
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 105.3
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 105.3
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 105.3
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 105.3
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4570",
+          "kleur": "Geel",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 126.75
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 230.1
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 262.6
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 262.6
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 339.3
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 731.25
+        }
+      ]
+    },
+    {
+      "code": "MK08",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 903.83
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 738.08
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 519.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 649.35
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 738.08
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 519.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3570H",
+          "prijs": 649.35
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2070",
+          "prijs": 986.7
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2066",
+          "prijs": 1402.05
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 980.85
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 762.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2570H",
+          "prijs": 892.13
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 762.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3570H",
+          "prijs": 892.13
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 959.4
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 675.68
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 918.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1202.18
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1170
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 951.6
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1391.33
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1107.6
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 148.2
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 985.08
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 140.4
+        },
+        {
+          "code": "EDWS 2000",
+          "prijs": 273
+        },
+        {
+          "code": "EDLS 2000",
+          "prijs": 273
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 113.1
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 113.1
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 113.1
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 113.1
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 113.1
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 143
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 143
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 237.9
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 260.33
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 260.33
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 356.85
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 768.3
+        }
+      ]
+    },
+    {
+      "code": "MK10",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 1025.7
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDL 2000",
+          "prijs": 155.03
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 126.75
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "PK04",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 509.93
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 941.85
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 149.18
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 111.15
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 111.15
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 111.15
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 111.15
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "PK06",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 568.43
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2070",
+          "prijs": 969.15
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2066",
+          "prijs": 1375.73
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 1000",
+          "prijs": 150.15
+        },
+        {
+          "code": "EDWS 2000",
+          "prijs": 268.13
+        },
+        {
+          "code": "EDLS 2000",
+          "prijs": 268.13
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 116.03
+        },
+        {
+          "code": "DKL 1025SWl",
+          "kleur": "Wit",
+          "prijs": 116.03
+        },
+        {
+          "code": "DKL 1085SWL",
+          "kleur": "Donkerbeige",
+          "prijs": 116.03
+        },
+        {
+          "code": "DKL 3009SWL",
+          "kleur": "Zwart",
+          "prijs": 116.03
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "PK08",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 607.43
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2070",
+          "prijs": 1052.03
+        },
+        {
+          "type": "Velux",
+          "code": "GGLS 2066",
+          "prijs": 1493.7
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDLS 2000",
+          "prijs": 280.8
+        },
+        {
+          "code": "EDW 2000",
+          "prijs": 165.75
+        },
+        {
+          "code": "EDWS 2000",
+          "prijs": 280.8
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 126.75
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 126.75
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "PK10",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 1140.75
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 931.13
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 655.2
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 931.13
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 655.2
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 1209.98
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 852.15
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0069",
+          "prijs": 1107.6
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 1173.9
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 897.98
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 897.98
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 1094.93
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1452.75
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1363.05
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 1087.13
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1284.08
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 171.6
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 162.83
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 133.58
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 162.18
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 162.18
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 258.38
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 290.88
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 290.88
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 407.55
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 877.5
+        }
+      ]
+    },
+    {
+      "code": "SK01",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 568.43
+        }
+      ],
+      "gootstuk": [],
+      "verduister": [
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 120.9
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 120.9
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 120.9
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 120.9
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    },
+    {
+      "code": "SK06",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 1039.35
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 848.25
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 597.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 848.25
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 597.68
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 1102.73
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 776.1
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0069",
+          "prijs": 1009.13
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 1091.03
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 840.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 840.45
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3066",
+          "prijs": 1091.03
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1345.5
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 1018.88
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0069",
+          "prijs": 1251.9
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1280.18
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 1029.6
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 307030",
+          "prijs": 1029.6
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1534.65
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1208.03
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 163.8
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 109.2
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 156
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 2055",
+          "kleur": "Blauw",
+          "prijs": 131.63
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4572",
+          "kleur": "Rood",
+          "prijs": 157.95
+        },
+        {
+          "code": "DKL 4571",
+          "kleur": "Blauwgrijs",
+          "prijs": 157.95
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 1085",
+          "kleur": "Beige",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 256.75
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 289.25
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 289.25
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 393.9
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 848.25
+        }
+      ]
+    },
+    {
+      "code": "SK08",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2062",
+          "prijs": 1157.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 944.78
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 664.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 664.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 1227.53
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 864.83
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 1187.55
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 907.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 907.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3066",
+          "prijs": 1187.55
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 1107.6
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1470.3
+        },
+        {
+          "type": "Integra",
+          "code": "GGL207030",
+          "prijs": 1096.88
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 174.53
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 165.75
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 136.5
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 136.5
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 136.5
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 136.5
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 136.5
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 165.1
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 165.1
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 261.3
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 293.8
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 293.8
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 421.2
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 848.25
+        }
+      ]
+    },
+    {
+      "code": "UK04",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 868.73
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 611.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2570H",
+          "prijs": 764.4
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 868.73
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 611.33
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 1129.05
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 795.6
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 1111.5
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 854.1
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 854.1
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1300.65
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 1043.25
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1560.98
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1227.53
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 169.65
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 113.1
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 160.88
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 134.55
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 134.55
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 134.55
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 134.55
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 134.55
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 4572",
+          "kleur": "Rood",
+          "prijs": 161.85
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 259.35
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 286.65
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 286.65
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 390.98
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 841.43
+        }
+      ]
+    },
+    {
+      "code": "UK08",
+      "basis": [
+        {
+          "type": "Velux",
+          "code": "GGL 2066",
+          "prijs": 1054.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 2070",
+          "prijs": 742.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3066",
+          "prijs": 1054.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGL 3070",
+          "prijs": 742.95
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0066",
+          "prijs": 1371.83
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0070",
+          "prijs": 966.23
+        },
+        {
+          "type": "Velux",
+          "code": "GGU 0069",
+          "prijs": 1255.8
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2066",
+          "prijs": 1297.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 2070",
+          "prijs": 985.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3070",
+          "prijs": 985.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPL 3066",
+          "prijs": 1297.73
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0070",
+          "prijs": 1209
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0069",
+          "prijs": 1498.58
+        },
+        {
+          "type": "Velux",
+          "code": "GPU 0066",
+          "prijs": 1614.6
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 206630",
+          "prijs": 1486.88
+        },
+        {
+          "type": "Integra",
+          "code": "GGL 207030",
+          "prijs": 1174.88
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 006630",
+          "prijs": 1803.75
+        },
+        {
+          "type": "Integra",
+          "code": "GGU 007030",
+          "prijs": 1398.15
+        }
+      ],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 188.18
+        },
+        {
+          "code": "EDL 0000",
+          "prijs": 124.8
+        },
+        {
+          "code": "EDL 2000",
+          "prijs": 178.43
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 155.03
+        },
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 155.03
+        },
+        {
+          "code": "DKL 1085",
+          "kleur": "Beige",
+          "prijs": 155.03
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 155.03
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 155.03
+        },
+        {
+          "code": "DKL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4559",
+          "kleur": "Donkerbruin",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4564",
+          "kleur": "Oranje",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4653",
+          "kleur": "Kids nachthemel",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4654",
+          "kleur": "Kids auto's",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4655",
+          "kleur": "Kids wegenkaart",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4659",
+          "kleur": "Kids roze",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4660",
+          "kleur": "Kids wolkjes",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4661",
+          "kleur": "Kids sterren",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4665",
+          "kleur": "Kids maan/wolk/ster",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4666",
+          "kleur": "Kids luchtballonnen",
+          "prijs": 186.23
+        },
+        {
+          "code": "DKL 4667",
+          "kleur": "Kids vliegers",
+          "prijs": 186.23
+        }
+      ],
+      "zonneGordijn": [
+        {
+          "code": "DSL 0705",
+          "kleur": "Donkergrijs",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 1025",
+          "kleur": "Wit",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 1705",
+          "kleur": "Lichtgrijs",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 2055",
+          "kleur": "Blauw",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 3009",
+          "kleur": "Zwart",
+          "prijs": 279.83
+        },
+        {
+          "code": "DSL 4555",
+          "kleur": "Lichtblauw",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4556",
+          "kleur": "Donkerbeige",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4558",
+          "kleur": "Beige patroon",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4560",
+          "kleur": "Donkerrood",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4561",
+          "kleur": "Donkerpaars",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4562",
+          "kleur": "Donker patroon",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4563",
+          "kleur": "Oker",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4564",
+          "kleur": "Oranje",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4565",
+          "kleur": "Lichtroze",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4567",
+          "kleur": "Donkerkaki",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4568",
+          "kleur": "Oranje patroon",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4569",
+          "kleur": "Limoengroen",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4570",
+          "kleur": "geel",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4571",
+          "kleur": "blauwgrijs",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4572",
+          "kleur": "rood",
+          "prijs": 311.03
+        },
+        {
+          "code": "DSL 4573",
+          "kleur": "zwart wit patroon",
+          "prijs": 311.03
+        }
+      ],
+      "buitenZon": [
+        {
+          "code": "MSL 5060",
+          "kleur": "Donker",
+          "prijs": 455.33
+        }
+      ],
+      "rolluik": [
+        {
+          "code": "SSL 0000S",
+          "kleur": "Grijs",
+          "prijs": 980.85
+        }
+      ]
+    },
+    {
+      "code": "UK10",
+      "basis": [],
+      "gootstuk": [
+        {
+          "code": "EDW 2000",
+          "prijs": 209.63
+        }
+      ],
+      "verduister": [
+        {
+          "code": "DKL 1025",
+          "kleur": "Wit",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 1100",
+          "kleur": "Donkerblauw",
+          "prijs": 161.85
+        },
+        {
+          "code": "DKL 3009",
+          "kleur": "Zwart",
+          "prijs": 161.85
+        }
+      ],
+      "zonneGordijn": [],
+      "buitenZon": [],
+      "rolluik": []
+    }
+  ]
+}

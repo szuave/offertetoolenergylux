@@ -97,6 +97,15 @@ function emptyQuote(): QuoteState {
     flags: {},
     categoryScope: {},
     cover: { variantId: null, areaM2: 0 },
+    veluxKeuze: {
+      maat: null,
+      basisCode: null,
+      gootstukCode: null,
+      verduisterCode: null,
+      zonneGordijnCode: null,
+      buitenZonCode: null,
+      rolluikCode: null,
+    },
     details: {},
     supplements: {},
     checklistAnswers: {},
@@ -119,6 +128,7 @@ type QuoteActions = {
   toggleFlag: (flagId: string, value: boolean) => void
   toggleCategoryScope: (categoryId: string, value: boolean) => void
   setCover: (partial: Partial<CoverChoice>) => void
+  setVeluxKeuze: (partial: Partial<QuoteState['veluxKeuze']>) => void
   setItemDetail: (itemId: string, key: string, value: string) => void
   toggleSupplement: (id: string, value: boolean) => void
   setChecklistAnswer: (
@@ -198,6 +208,9 @@ export const useQuoteStore = create<QuoteStore>()(
 
       setCover: (partial) =>
         set((state) => ({ cover: { ...state.cover, ...partial } })),
+
+      setVeluxKeuze: (partial) =>
+        set((state) => ({ veluxKeuze: { ...state.veluxKeuze, ...partial } })),
 
       setItemDetail: (itemId, key, value) =>
         set((state) => {
@@ -283,6 +296,7 @@ export const useQuoteStore = create<QuoteStore>()(
         flags: state.flags,
         categoryScope: state.categoryScope,
         cover: state.cover,
+        veluxKeuze: state.veluxKeuze,
         details: state.details,
         supplements: state.supplements,
         checklistAnswers: state.checklistAnswers,
@@ -313,6 +327,7 @@ export const selectQuoteState = (s: QuoteStore): QuoteState => ({
   flags: s.flags,
   categoryScope: s.categoryScope,
   cover: s.cover,
+  veluxKeuze: s.veluxKeuze,
   details: s.details,
   supplements: s.supplements,
   checklistAnswers: s.checklistAnswers,

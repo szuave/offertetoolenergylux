@@ -8,6 +8,9 @@ import {
   agreementPoints,
   termArticles,
 } from '@/config/company'
+import { findVariant, CATEGORY_LABEL } from '@/data/dakbekleding'
+import { getVariantPhoto } from '@/data/dakbekleding-photos'
+import { veluxKeuzeIsCompleet, veluxKeuzeSummary, veluxUnitPrice } from '@/data/velux'
 import { formatDate, formatEuro, formatNumber, formatUnit } from '@/lib/format'
 import type { QuoteState, Totals } from '@/types/quote'
 
@@ -69,6 +72,47 @@ const s = StyleSheet.create({
   coverKicker: { color: '#ffffff', fontSize: 10, letterSpacing: 3, textTransform: 'uppercase', opacity: 0.85 },
   coverName: { color: '#ffffff', fontSize: 22, fontFamily: 'Helvetica-Bold', marginTop: 6 },
   coverMeta: { color: '#ffffff', fontSize: 10, opacity: 0.85, marginTop: 4 },
+
+  /* ---- Gekozen dakbekleding (Yasid: basisvraag — foto in PDF) ---- */
+  coverPickWrap: { marginTop: 18, marginBottom: 6 },
+  coverPickRow: {
+    flexDirection: 'row',
+    gap: 16,
+    padding: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: c.rule,
+    backgroundColor: '#fafaf7',
+    alignItems: 'center',
+  },
+  coverPickImage: {
+    width: 180,
+    height: 135,
+    borderRadius: 6,
+    objectFit: 'contain',
+    backgroundColor: '#ffffff',
+  },
+  coverPickInfo: { flex: 1, flexDirection: 'column', gap: 4 },
+  coverPickKicker: {
+    fontSize: 8,
+    color: c.inkSoft,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+  },
+  coverPickBrand: { fontSize: 16, fontFamily: 'Helvetica-Bold', color: c.ink },
+  coverPickDetail: { fontSize: 11, color: c.inkSoft, marginTop: 2 },
+  coverPickPrice: { fontSize: 11, fontFamily: 'Helvetica-Bold', color: c.primary, marginTop: 6 },
+  coverPickNoPhoto: {
+    width: 180,
+    height: 135,
+    borderRadius: 6,
+    backgroundColor: '#ffffff',
+    borderWidth: 1,
+    borderColor: c.rule,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  coverPickNoPhotoText: { fontSize: 8, color: c.inkSoft, letterSpacing: 1 },
 
   /* ---- Generic section heading ---- */
   h1: { fontSize: 18, fontFamily: 'Helvetica-Bold', color: c.ink, marginBottom: 4 },
@@ -331,6 +375,42 @@ function OffertePages({ quote, totals }: Props) {
         ))}
       </View>
 
+      {/* Yasid 8 juni: gekozen dakpan moet als foto in de PDF (basisvraag). */}
+      {(() => {
+        const variant = quote.cover.variantId ? findVariant(quote.cover.variantId) : null
+        if (!variant) return null
+        const photo = getVariantPhoto(variant.id)
+        return (
+          <View style={s.coverPickWrap} wrap={false}>
+            <View style={s.sectionBar}>
+              <Text style={s.sectionBarTitle}>Gekozen dakbekleding</Text>
+            </View>
+            <View style={s.coverPickRow}>
+              {photo ? (
+                <Image src={photo} style={s.coverPickImage} />
+              ) : (
+                <View style={s.coverPickNoPhoto}>
+                  <Text style={s.coverPickNoPhotoText}>FOTO VOLGT</Text>
+                </View>
+              )}
+              <View style={s.coverPickInfo}>
+                <Text style={s.coverPickKicker}>{CATEGORY_LABEL[variant.category]}</Text>
+                <Text style={s.coverPickBrand}>{variant.brand}</Text>
+                <Text style={s.coverPickDetail}>
+                  {variant.type} · {variant.color}
+                </Text>
+                {variant.unitPrice !== null && quote.cover.areaM2 > 0 ? (
+                  <Text style={s.coverPickPrice}>
+                    {formatEuro(variant.unitPrice)} / m² · {quote.cover.areaM2} m² ={' '}
+                    {formatEuro(variant.unitPrice * quote.cover.areaM2)}
+                  </Text>
+                ) : null}
+              </View>
+            </View>
+          </View>
+        )
+      })()}
+
       {/* Gedetailleerde werken */}
       <View style={[s.sectionBar, { marginTop: 22 }]}>
         <Text style={s.sectionBarTitle}>Uw gedetailleerde offerte</Text>
@@ -359,6 +439,14 @@ function OffertePages({ quote, totals }: Props) {
                     <Text>{line.def.label}</Text>
                     {line.def.hint ? <Text style={s.cellHint}>{line.def.hint}</Text> : null}
                     {detailText ? <Text style={s.cellHint}>{detailText}</Text> : null}
+                    {/* Yasid 8 juni: voor "Veluxen nieuw" toon de gekozen
+                        velux-config (maat + basis + accessoires). */}
+                    {line.def.id === 'veluxen-nieuw' && veluxKeuzeIsCompleet(quote.veluxKeuze) ? (
+                      <Text style={s.cellHint}>
+                        {veluxKeuzeSummary(quote.veluxKeuze)} ·{' '}
+                        {formatEuro(veluxUnitPrice(quote.veluxKeuze))} / stuk
+                      </Text>
+                    ) : null}
                   </View>
                   <Text style={s.cellQty}>{formatNumber(line.quantity)}</Text>
                   <Text style={s.cellUnit}>{formatUnit(line.def.unit)}</Text>
